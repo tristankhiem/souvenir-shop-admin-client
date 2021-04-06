@@ -1,0 +1,67 @@
+<!-- Content Header (Page header) -->
+<section class="content-header">
+  <div class="container-fluid">
+    <div class="row mb-2">
+      <div class="col-sm-6">
+        <h1 class="m-0 font-weight-bold text-gray-dark">QUẢN LÝ MÀU SẮC HÀNG HOÁ</h1>
+      </div>
+      <div class="col-sm-6">
+        <ol class="breadcrumb float-sm-right">
+          <li class="breadcrumb-item"><a routerLink="/">Trang chủ</a></li>
+          <li class="breadcrumb-item active">Quản lý màu sắc hàng hoá</li>
+        </ol>
+      </div>
+    </div>
+    <!-- /.row -->
+  </div>
+  <!-- /.container-fluid -->
+</section>
+<!-- /.content-header -->
+
+<!-- Main content -->
+<section class="content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-12">
+        <div class="card">
+          <div class="card-body">
+            <app-data-table #dataTableSize [dataTable]="search" (changeEvent)="onChangeDataEvent($event)">
+              <div class="block-buttons-right float-sm-right text-center">
+                <button class="btn btn-success" (click)="addColorComponent.show()">
+                  <i class="fas fa-plus mr-1"></i>
+                  Thêm nhóm
+                </button>
+              </div>
+              <thead>
+              <tr>
+                <th>Tên nhóm</th>
+                <th></th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr *ngFor="let e of search.result">
+                <td>{{e.name}}</td>
+                <td>
+                  <app-dropdown-menu>
+                    <a class="dropdown-item text-cyan" (click)="updateColorComponent.show(e, $event)">
+                      <i class="far fa-edit"></i>
+                      Sửa
+                    </a>
+                    <a class="dropdown-item text-red" href="#" (click)="openDeleteModal(e, $event)">
+                      <i class="far fa-trash-alt mr-1"></i>
+                      Xóa
+                    </a>
+                  </app-dropdown-menu>
+                </td>
+              </tr>
+              </tbody>
+            </app-data-table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<app-add-color #addColorComponent (saveCompleted)="onChangeDataEvent()"></app-add-color>
+<app-update-color #updateColorComponent (saveCompleted)="onChangeDataEvent()"></app-update-color>

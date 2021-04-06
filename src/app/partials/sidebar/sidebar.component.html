@@ -1,0 +1,94 @@
+<!-- Main Sidebar Container -->
+<aside class="main-sidebar elevation-4">
+  <!-- Brand Logo -->
+  <a routerLink="/" class="brand-link">
+    <img
+      src="assets/img/souvernir-icon.png"
+      alt="Belle Palace Logo"
+      class="brand-image img-circle elevation-3"/>
+    <span class="brand-text font-italic font-weight-bolder text-white">Pun's House</span>
+  </a>
+
+  <!-- Sidebar -->
+  <div class="sidebar sidebar-dark-pink">
+    <!-- Sidebar Menu -->
+    <nav>
+      <ul
+        class="nav nav-pills nav-sidebar flex-column"
+        data-widget="treeview"
+        role="menu"
+        data-accordion="false">
+        <!-- Add icons to the links using the .nav-icon class
+             with font-awesome or any other icon font library -->
+        <li class="nav-item">
+          <a routerLink="/trang-chu"
+             class="nav-link"
+             [class.active]="isActive()">
+            <i class="nav-icon fas fa-home"></i>
+            <p>Trang chủ</p>
+          </a>
+        </li>
+
+        <li class="nav-header" *ngIf="zoneGroups.length > 0">Thông tin quy hoạch</li>
+        <li class="nav-item">
+          <a [routerLinkActive]="['active']"
+             routerLink="tra-cuu-thong-tin"
+             class="nav-link">
+            <i class="nav-icon fas fa-landmark"></i>
+            <p>Tra cứu thông tin</p>
+          </a>
+        </li>
+        <li *ngFor="let item of zoneGroups" class="nav-item">
+          <a [routerLinkActive]="['active']"
+             routerLink="{{item.routerLink}}"
+             class="nav-link">
+            <i class="nav-icon fas {{item.icon}}"></i>
+            <p>{{item.name}}</p>
+          </a>
+        </li>
+
+        <li class="nav-header" *ngIf="employeeGroups.length > 0">Thông tin cán bộ</li>
+        <li *ngFor="let item of employeeGroups" class="nav-item">
+          <a [routerLinkActive]="['active']"
+            routerLink="{{item.routerLink}}"
+            class="nav-link">
+            <i class="nav-icon fas {{item.icon}}"></i>
+            <p>{{item.name}}</p>
+          </a>
+        </li>
+
+        <li class="nav-header" *ngIf="customerGroups.length > 0">Thông tin khách hàng</li>
+        <li *ngFor="let item of customerGroups" class="nav-item">
+          <a [routerLinkActive]="['active']"
+             routerLink="{{item.routerLink}}"
+             class="nav-link">
+            <i class="nav-icon fas {{item.icon}}"></i>
+            <p>{{item.name}}</p>
+          </a>
+        </li>
+
+        <li class="nav-header" *ngIf="violateGroups.length > 0">Xử phạt vi phạm hành chính</li>
+        <li *ngFor="let item of violateGroups" class="nav-item">
+          <a [routerLinkActive]="['active']"
+             routerLink="{{item.routerLink}}"
+             class="nav-link">
+            <i class="nav-icon fas {{item.icon}}"></i>
+            <p>{{item.name}}</p>
+          </a>
+        </li>
+
+        <li class="nav-header" *ngIf="productGroups.length > 0">Quản lý hàng hoá</li>
+        <li *ngFor="let item of productGroups" class="nav-item">
+          <a [routerLinkActive]="['active']"
+             routerLink="{{item.routerLink}}"
+             class="nav-link">
+            <i class="nav-icon fas {{item.icon}}"></i>
+            <p>{{item.name}}</p>
+          </a>
+        </li>
+      </ul>
+    </nav>
+    <!-- /.sidebar-menu -->
+  </div>
+  <!-- /.sidebar -->
+</aside>

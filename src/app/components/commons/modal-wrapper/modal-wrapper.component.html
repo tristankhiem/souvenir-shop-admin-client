@@ -1,0 +1,17 @@
+<div class="modal fade" id="{{id}}">
+  <div class="modal-dialog {{size}}">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">{{title}}</h4>
+        <button (click)="hide()" type="button" class="close" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <ng-content></ng-content>
+      <ng-content select=".modal-footer"></ng-content>
+    </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->

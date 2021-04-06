@@ -1,0 +1,82 @@
+<!-- Content Header (Page header) -->
+<section class="content-header">
+  <div class="container-fluid">
+    <div class="row mb-2">
+      <div class="col-12 col-lg-5 mb-2">
+        <h1 class="m-0 font-weight-bold text-gray-dark">QUẢN LÝ QUY HOẠCH</h1>
+      </div>
+      <div class="col-12 col-lg-7">
+        <ol class="breadcrumb float-lg-right">
+          <li class="breadcrumb-item"><a routerLink="/">Trang chủ</a></li>
+          <li class="breadcrumb-item"><a routerLink="/quan-ly-quy-hoach">Quản lý quy hoạch</a></li>
+          <li class="breadcrumb-item active">{{zoningTypes[zoningTypeIndexSelected].name}}</li>
+        </ol>
+      </div>
+    </div>
+    <!-- /.row -->
+  </div>
+  <!-- /.container-fluid -->
+</section>
+<!-- /.content-header -->
+
+<!-- Main content -->
+<section class="content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-12">
+        <div class="card">
+          <div class="card-body">
+            <app-data-table #dataTableZoningBase [dataTable]="search" (changeEvent)="onChangeDataEvent($event)">
+              <div class="row block-buttons-right justify-content-center justify-content-md-end text-center">
+                <div class="col-12 col-sm-9 col-md-6 col-xl-5 mb-1">
+                  <select name="usageTypeSelect" id="usageTypeSelect" (change)="onChangeDataTypeEvent($event)" class="form-control">
+                    <option *ngFor="let type of zoningTypes" [value]="type.nameSlug"
+                            [selected]="type.id === zoningTypes[zoningTypeIndexSelected].id">{{type.name}}</option>
+                  </select>
+                </div>
+                <div class="col-5 col-sm-3 col-md-3 col-lg-3 col-xl-2">
+                  <button class="btn btn-success btn-block" (click)="addZoningBaseComponent.show(zoningTypes[zoningTypeIndexSelected].id)">
+                    <i class="fas fa-plus mr-1 d-none d-lg-inline"></i>
+                    <span>Tạo mới</span>
+                  </button>
+                </div>
+              </div>
+              <thead>
+              <tr>
+                <th>Mã số</th>
+                <th>Mô tả</th>
+                <th>Diện tích</th>
+                <th>Phường/Xã</th>
+                <th></th>
+              </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let e of search.result">
+                  <td>{{e.id}}</td>
+                  <td>{{e.description}}</td>
+                  <td>{{e.area}} m<sup>2</sup></td>
+                  <td>{{e.ward.name}}</td>
+                  <td>
+                    <app-dropdown-menu>
+                      <a class="dropdown-item text-cyan" href="#" (click)="updateZoningBaseComponent.show(e.id, $event)">
+                        <i class="far fa-edit"></i>
+                        Sửa
+                      </a>
+                      <a class="dropdown-item text-red" href="#" (click)="openDeleteModal(e.id, $event)">
+                        <i class="far fa-trash-alt mr-1"></i>
+                        Xóa
+                      </a>
+                    </app-dropdown-menu>
+                  </td>
+                </tr>
+              </tbody>
+            </app-data-table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<app-add-zoning-base #addZoningBaseComponent (saveCompleted)="onChangeDataEvent()"></app-add-zoning-base>
+<app-update-zoning-base #updateZoningBaseComponent (saveCompleted)="onChangeDataEvent()"></app-update-zoning-base>

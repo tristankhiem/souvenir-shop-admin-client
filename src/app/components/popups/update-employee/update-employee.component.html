@@ -1,0 +1,131 @@
+<app-modal-wrapper #updateEmployeeModalWrapper title="Cập nhật thông tin cán bộ" (hideEvent)="onHideEvent()">
+  <form #updateEmployeeForm="ngForm" novalidate (submit)="onSave()">
+    <div class="modal-body">
+      <div class="row">
+        <div class="col-7">
+          <div class="row">
+            <div class="col-sm-6 form-group">
+              <label for="employeeGroupSelectUpdate">Nhóm cán bộ</label>
+              <select name="employeeGroupSelectUpdate" id="employeeGroupSelectUpdate" class="custom-select" #employeeGroupSelectUpdate="ngModel"
+                      [ngModel]="updatingEmployee.employeeGroup.id" (ngModelChange)="onChangeGroup($event)" required
+                      [class]="{'is-invalid': employeeGroupSelectUpdate.touched && employeeGroupSelectUpdate.value === 0}">
+                <option value="0" disabled>Chọn nhóm cán bộ</option>
+                <option *ngFor="let group of employeeGroups" [value]="group.id">
+                  {{group.name}}
+                </option>
+              </select>
+              <ng-template [ngIf]="employeeGroupSelectUpdate.touched">
+                <div *ngIf="employeeGroupSelectUpdate.value === 0" class="invalid-feedback d-block">
+                  Vui lòng chọn nhóm
+                </div>
+              </ng-template>
+            </div>
+            <div class="col-sm-6 form-group">
+              <label for="roleSelectUpdate">Chức vụ</label>
+              <select name="roleSelectUpdate" id="roleSelectUpdate" class="custom-select" #roleSelectUpdate="ngModel"
+                      [(ngModel)]="updatingEmployee.role.id" [disabled]="updatingEmployee.employeeGroup.id === 0" required
+                      [class]="{'is-invalid': roleSelectUpdate.touched && roleSelectUpdate.value === 0}">
+                <option value="0" disabled>Chọn chức vụ</option>
+                <ng-template ngFor let-role [ngForOf]="roles">
+                  <option *ngIf="+role.employeeGroup.id === +updatingEmployee.employeeGroup.id" [value]="role.id">
+                    {{role.name}}
+                  </option>
+                </ng-template>
+              </select>
+              <ng-template [ngIf]="roleSelectUpdate.touched">
+                <div *ngIf="roleSelectUpdate.value === 0" class="invalid-feedback d-block">
+                  Vui lòng chọn chức vụ
+                </div>
+              </ng-template>
+            </div>
+            <div class="col-sm-6 form-group">
+              <label for="fullNameInputUpdate">Họ tên</label>
+              <input type="text" class="form-control" name="fullNameInputUpdate" id="fullNameInputUpdate" #fullNameInputUpdate="ngModel"
+                     [(ngModel)]="updatingEmployee.fullName" placeholder="Họ tên"
+                     [class]="{'is-invalid': fullNameInputUpdate.touched && fullNameInputUpdate.errors}" required/>
+              <ng-template [ngIf]="fullNameInputUpdate.touched && fullNameInputUpdate.invalid">
+                <div *ngIf="fullNameInputUpdate.errors?.required" class="invalid-feedback d-block">
+                  Vui lòng nhập họ tên đầy đủ
+                </div>
+              </ng-template>
+            </div>
+            <div class="col-sm-6 form-group">
+              <label for="phoneInputUpdate">Số liên lạc</label>
+              <input type="text" class="form-control" name="phoneInputUpdate" id="phoneInputUpdate" #phoneInputUpdate="ngModel"
+                     minlength="10" [pattern]="phonePattern" [(ngModel)]="updatingEmployee.phone" placeholder="Số liên lạc"
+                     [class]="{'is-invalid': phoneInputUpdate.touched && phoneInputUpdate.errors}" required/>
+              <ng-template [ngIf]="phoneInputUpdate.touched && phoneInputUpdate.invalid">
+                <div *ngIf="phoneInputUpdate.errors?.required" class="invalid-feedback d-block">
+                  Vui lòng nhập số liên lạc
+                </div>
+                <div *ngIf="phoneInputUpdate.errors?.minlength || phoneInputUpdate.errors?.pattern" class="invalid-feedback d-block">
+                  Số liên lạc không hợp lệ
+                </div>
+              </ng-template>
+            </div>
+            <div class="col-sm-6 form-group">
+              <label for="cardIdInputUpdate">Chứng minh thư</label>
+              <input type="text" class="form-control" name="cardIdInputUpdate" id="cardIdInputUpdate" #cardIdInputUpdate="ngModel"
+                     minlength="9" [pattern]="cardIdPattern" [(ngModel)]="updatingEmployee.cardId" placeholder="Chứng minh thư"
+                     [class]="{'is-invalid': cardIdInputUpdate.touched && cardIdInputUpdate.errors}" required/>
+              <ng-template [ngIf]="cardIdInputUpdate.touched && cardIdInputUpdate.invalid">
+                <div *ngIf="cardIdInputUpdate.errors?.required" class="invalid-feedback d-block">
+                  Vui lòng nhập CMT/CCCD
+                </div>
+                <div *ngIf="cardIdInputUpdate.errors?.minlength || cardIdInputUpdate.errors?.pattern" class="invalid-feedback d-block">
+                  CMT/CCCD không hợp lệ
+                </div>
+              </ng-template>
+            </div>
+            <div class="col-sm-6 form-group">
+              <label>Ngày sinh</label>
+              <app-date-picker [(startDate)]="updatingEmployee.birthDate" parentEl="{{updateEmployeeModalWrapper.id}}" ></app-date-picker>
+            </div>
+            <div class="col-sm-12 form-group">
+              <label for="emailInputUpdate">Email</label>
+              <input type="email" class="form-control" name="emailInputUpdate" id="emailInputUpdate" [value]="updatingEmployee.email" disabled/>
+            </div>
+          </div>
+        </div>
+        <div class="col-12 col-md-5">
+          <div class="d-flex justify-content-between">
+            <label>Nơi công tác</label>
+            <div *ngIf="!isWardGroup && updatingEmployee.employeeGroup.id !== 0" class="form-group mb-0 pr-3">
+              <input id="allCheckedWardPermissionUpdate" (change)="onCheckAllWardPermission()" class="mr-1" type="checkbox"
+                     [checked]="wards.length === updatingEmployee.wardPermissions.length">
+              <label for="allCheckedWardPermissionUpdate" style="cursor: pointer;">Chọn tất cả</label>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-body table-responsive p-0" style="height: 17rem">
+              <table class="table text-nowrap">
+                <tbody>
+                <tr *ngFor="let ward of wards">
+                  <td>{{ward.name}}</td>
+                  <td>
+                    <input type="checkbox" (change)="onCheckWardPermission(ward)"
+                           [checked]="isWardPermissionChecked(ward)">
+                  </td>
+                </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div *ngIf="isInvalidWardPermission()" class="invalid-feedback text-center d-block">
+            Vui lòng chọn nơi công tác
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer justify-content-between">
+      <button (click)="hide()" type="button" class="btn btn-default">
+        <i class="fas fa-times mr-1"></i>
+        Đóng
+      </button>
+      <button type="submit" class="btn btn-primary" [disabled]="!isValid()">
+        <i class="far fa-save mr-1"></i>
+        Lưu
+      </button>
+    </div>
+  </form>
+</app-modal-wrapper>

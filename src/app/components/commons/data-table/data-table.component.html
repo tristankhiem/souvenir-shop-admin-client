@@ -1,0 +1,59 @@
+<div class="dataTables_wrapper dt-bootstrap4 no-footer">
+  <div *ngIf="showEntries" class="row align-items-center">
+    <div class="col-12 col-md-3 mb-2">
+      <div class="dataTables_length">
+        <label class="mb-0">
+          Hiển thị
+          <select (change)="selectEntries()" [(ngModel)]="dataTable.recordOfPage"
+                  class="custom-select custom-select-sm form-control form-control-sm">
+            <option value="10">10</option>
+            <option value="25">25</option>
+            <option value="50">50</option>
+            <option value="100">100</option>
+          </select>
+          dòng
+        </label>
+      </div>
+    </div>
+    <div class="col-12 col-md-9">
+      <ng-content select=".block-buttons-right"></ng-content>
+    </div>
+  </div>
+  <div class="row mt-1" style="overflow: auto">
+    <div class="col px-0">
+      <table class="table table-striped dataTable no-footer" role="grid">
+        <ng-content select="thead"></ng-content>
+        <ng-content *ngIf="!isNoRecord()" select="tbody"></ng-content>
+        <tbody *ngIf="isNoRecord()" class="text-center">
+          Dữ liệu không tồn tại
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div *ngIf="!isNoRecord()" class="row">
+    <div class="col-sm-12 col-md-5">
+      <div *ngIf="showDetail && dataTable.currentPage > 0" class="dataTables_info" role="status" aria-live="polite">Hiển thị trang {{dataTable.currentPage + 1}}
+        trong tổng {{totalPage}} trang
+      </div>
+    </div>
+    <div class="col-sm-12 col-md-7">
+      <div *ngIf="showPaging" class="dataTables_paginate paging_simple_numbers">
+        <ul class="pagination">
+          <li *ngIf="showFirstLast()" class="paginate_button page-item {{disableFirstPaging()}}">
+            <a (click)="selectPage(0)" class="page-link">First</a>
+          </li>
+          <li *ngIf="showFirstLast()" class="paginate_button page-item {{disableFirstPaging()}}">
+            <a (click)="selectPage(dataTable.currentPage - 1)" class="page-link">Previous</a>
+          </li>
+          <li *ngFor="let num of pageRange" class="paginate_button page-item {{activePage(num-1)}}">
+            <a (click)="selectPage(num-1)" class="page-link">{{num}}</a>
+          </li>
+          <li *ngIf="showFirstLast()" class="paginate_button page-item next {{disableLastPaging()}}">
+            <a (click)="selectPage(dataTable.currentPage + 1)" class="page-link">Next</a></li>
+          <li *ngIf="showFirstLast()" class="paginate_button page-item {{disableLastPaging()}}">
+            <a (click)="selectPage(totalPage)" class="page-link">Last</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>

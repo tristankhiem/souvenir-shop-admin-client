@@ -1,0 +1,42 @@
+<app-modal-wrapper #infoCustomerModalWrapper title="Thông tin khách hàng">
+  <form>
+    <div class="modal-body">
+      <div class="row">
+        <div class="col-sm-6 form-group">
+          <label>Họ tên</label>
+          <input type="text" class="form-control" name="info-customer-fullname" [(ngModel)]="customer.fullName" disabled/>
+        </div>
+        <div class="col-sm-6 form-group">
+          <label>Email</label>
+          <input type="text" class="form-control" name="info-customer-email" [(ngModel)]="customer.email" disabled/>
+        </div>
+        <div class="col-sm-4 form-group">
+          <label>Số liên lạc</label>
+          <input type="text" class="form-control" name="info-customer-phone" [(ngModel)]="customer.phone" disabled/>
+        </div>
+        <div class="col-sm-4 form-group">
+          <label>CCCD/CMT</label>
+          <input type="text" class="form-control" name="info-customer-cardId" [(ngModel)]="customer.cardId" disabled/>
+        </div>
+        <div class="col-sm-4 form-group">
+          <label>Ngày sinh</label>
+          <app-date-picker [startDate]="customer.birthDate" [disabled]="true"></app-date-picker>
+        </div>
+        <div class="col-8 form-group">
+          <label>Địa chỉ</label>
+          <input type="text" class="form-control" name="info-customer-address" [(ngModel)]="customer.address" disabled/>
+        </div>
+        <div class="col-4 form-group">
+          <label>Loại tài khoản</label>
+          <input type="text" class="form-control" name="info-customer-group" [(ngModel)]="customer.customerGroup.name" disabled/>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer justify-content-between">
+      <button (click)="infoCustomerModalWrapper.hide()" type="button" class="btn btn-default">
+        <i class="fas fa-times mr-1"></i>
+        Đóng
+      </button>
+    </div>
+  </form>
+</app-modal-wrapper>

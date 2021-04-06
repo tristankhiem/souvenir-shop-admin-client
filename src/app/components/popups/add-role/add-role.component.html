@@ -1,0 +1,71 @@
+<app-modal-wrapper #addRoleModalWrapper title="Thêm chức vụ" (hideEvent)="onHideEvent()">
+  <form #addRoleForm="ngForm" novalidate (submit)="onSave()" >
+    <div class="modal-body">
+      <div class="row">
+        <div class="col-sm-6 form-group">
+          <label for="roleInput">Chức vụ</label>
+          <input type="text" class="form-control" name="roleInput" id="roleInput" #roleInput="ngModel"
+                 [(ngModel)]="roleFull.name" placeholder="Chức vụ"
+                 [class]="{'is-invalid': roleInput.touched && roleInput.errors}" required/>
+          <ng-template [ngIf]="roleInput.touched && roleInput.invalid">
+            <div *ngIf="roleInput.errors?.required" class="invalid-feedback d-block">
+              Vui lòng nhập chức vụ
+            </div>
+          </ng-template>
+        </div>
+        <div class="col-sm-6 form-group">
+          <label for="employeeGroupSelectAdd">Nhóm cán bộ</label>
+          <select name="employeeGroupSelectAdd" id="employeeGroupSelectAdd" class="custom-select" #employeeGroupSelectAdd="ngModel"
+                  [(ngModel)]="roleFull.employeeGroup.id"  required (change)="filterPermission()"
+                  [class]="{'is-invalid': employeeGroupSelectAdd.touched && employeeGroupSelectAdd.value === 0}">
+            <option value="0" disabled>Chọn nhóm cán bộ</option>
+            <option *ngFor="let group of employeeGroups" [value]="group.id">
+              {{group.name}}
+            </option>
+          </select>
+          <ng-template [ngIf]="employeeGroupSelectAdd.touched">
+            <div *ngIf="employeeGroupSelectAdd.value === 0" class="invalid-feedback d-block">
+              Vui lòng chọn nhóm
+            </div>
+          </ng-template>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-12 form-group">
+          <div class="card">
+            <div class="card-body table-responsive p-0" style="height: 200px;">
+              <table class="table table-head-fixed text-nowrap">
+                <thead>
+                <tr>
+                  <th>Quyền</th>
+                  <th>Mô tả</th>
+                  <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr *ngFor="let item of filteredPermissionList">
+                    <td>{{item.name}}</td>
+                    <td>{{item.description}}</td>
+                    <td>
+                      <input type="checkbox" (input)="onCheck(item)" [value]="item">
+                    </td>
+                </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer justify-content-between">
+      <button (click)="hide()" type="button" class="btn btn-default">
+        <i class="fas fa-times mr-1"></i>
+        Đóng
+      </button>
+      <button type="submit" class="btn btn-primary" [disabled]="!isValid()">
+        <i class="far fa-save mr-1"></i>
+        Lưu
+      </button>
+    </div>
+  </form>
+</app-modal-wrapper>

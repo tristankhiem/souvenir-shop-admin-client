@@ -1,0 +1,55 @@
+<app-modal-wrapper #updateCustomerGroupModalWrapper title="Chỉnh sửa nhóm khách hàng" (hideEvent)="onHideEvent()">
+  <form #updateCustomerGroupForm="ngForm" novalidate (submit)="onSave()" >
+    <div class="modal-body">
+      <div class="row">
+        <div class="col-sm-12 form-group">
+          <label for="groupNameUpdate">Tên</label>
+          <input type="text" class="form-control" name="groupNameUpdate" id="groupNameUpdate" #groupNameUpdate="ngModel"
+                 [(ngModel)]="customerGroupFull.name" placeholder="Tên nhóm"
+                 [class]="{'is-invalid': groupNameUpdate.touched && groupNameUpdate.errors}" required/>
+          <ng-template [ngIf]="groupNameUpdate.touched && groupNameUpdate.invalid">
+            <div *ngIf="groupNameUpdate.errors?.required" class="invalid-feedback d-block">
+              Vui lòng nhập tên nhóm
+            </div>
+          </ng-template>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-12 form-group">
+          <div class="card">
+            <div class="card-body table-responsive p-0" style="height: 200px;">
+              <table class="table table-head-fixed text-nowrap">
+                <thead>
+                <tr>
+                  <th>Quyền</th>
+                  <th>Mô tả</th>
+                  <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr *ngFor="let item of permissionList, let i = index" >
+                  <td>{{item.name}}</td>
+                  <td>{{item.description}}</td>
+                  <td>
+                    <input type="checkbox" (input)="onCheck(item)" [value]="item" [checked]="isCheckedPermission[i]">
+                  </td>
+                </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer justify-content-between">
+      <button (click)="hide()" type="button" class="btn btn-default">
+        <i class="fas fa-times mr-1"></i>
+        Đóng
+      </button>
+      <button type="submit" class="btn btn-primary" [disabled]="!isValid()">
+        <i class="far fa-save mr-1"></i>
+        Lưu
+      </button>
+    </div>
+  </form>
+</app-modal-wrapper>

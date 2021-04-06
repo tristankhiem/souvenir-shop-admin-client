@@ -1,0 +1,77 @@
+<!-- Content Header (Page header) -->
+<section class="content-header">
+  <div class="container-fluid">
+    <div class="row mb-2">
+      <div class="col-sm-6">
+        <h1 class="m-0 font-weight-bold text-gray-dark">QUẢN LÝ CÁN BỘ</h1>
+      </div>
+      <div class="col-sm-6">
+        <ol class="breadcrumb float-sm-right">
+          <li class="breadcrumb-item"><a routerLink="/">Trang chủ</a></li>
+          <li class="breadcrumb-item active">Quản lý cán bộ</li>
+        </ol>
+      </div>
+    </div>
+    <!-- /.row -->
+  </div>
+  <!-- /.container-fluid -->
+</section>
+<!-- /.content-header -->
+
+<!-- Main content -->
+<section class="content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-12">
+        <div class="card">
+          <div class="card-body">
+            <app-data-table #dataTableEmployee [dataTable]="search" (changeEvent)="onChangeDataEvent($event)">
+              <div class="block-buttons-right float-sm-right text-center">
+                <button (click)="addEmployeeComponent.show()" class="btn btn-success">
+                  <i class="fas fa-plus mr-1"></i>
+                  Thêm cán bộ
+                </button>
+              </div>
+              <thead>
+                <tr>
+                  <th>Họ tên</th>
+                  <th>Email</th>
+                  <th>SDT</th>
+                  <th>Ngày sinh</th>
+                  <th>Trực thuộc</th>
+                  <th>Chức vụ</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let e of search.result">
+                  <td>{{e.fullName}}</td>
+                  <td>{{e.email}}</td>
+                  <td>{{e.phone}}</td>
+                  <td>{{e.birthDate | date:'dd/MM/yyyy'}}</td>
+                  <td>{{e.wardPermissions.length === 1 ? 'P. ' + e.wardPermissions[0].ward.name : 'Q. Tân Phú'}}</td>
+                  <td>{{e.role ? e.role.name : ''}}</td>
+                  <td>
+                    <app-dropdown-menu>
+                      <a class="dropdown-item text-cyan" href="#" (click)="updateEmployeeComponent.show(e, $event)">
+                        <i class="far fa-edit"></i>
+                        Sửa
+                      </a>
+                      <a class="dropdown-item text-red" href="#" (click)="openDeleteModal(e, $event)">
+                        <i class="far fa-trash-alt mr-1"></i>
+                        Xóa
+                      </a>
+                    </app-dropdown-menu>
+                  </td>
+                </tr>
+              </tbody>
+            </app-data-table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<app-add-employee #addEmployeeComponent (saveCompleted)="onChangeDataEvent()"></app-add-employee>
+<app-update-employee #updateEmployeeComponent (saveCompleted)="onChangeDataEvent()"></app-update-employee>

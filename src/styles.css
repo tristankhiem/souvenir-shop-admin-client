@@ -1,0 +1,110 @@
+/* You can add global styles to this file, and also import other style files */
+/* Setting */
+html,
+body {
+  font-family: 'Roboto', sans-serif;
+  position: relative;
+  font-weight: 400;
+}
+
+/* Chrome, Safari, Edge, Opera */
+input.adi-none-appearance::-webkit-outer-spin-button,
+input.adi-none-appearance::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input.adi-none-appearance[type=number] {
+  -moz-appearance: textfield;
+}
+
+/* Utilities */
+.page-item.active .page-link {
+  background-color: #6c757d;
+  border-color: #6c757d;
+}
+
+.invalid-feedback.d-block {
+  padding-left: 0.25rem;
+}
+
+/* Background brand */
+.adi-background,
+.adi-background-guest {
+  background: url('assets/img/background.jpg') no-repeat center center;
+  background-size: cover;
+}
+
+.adi-background-guest {
+  min-height: 100vh !important;
+  height: 100%;
+  position: relative;
+}
+
+
+/* Data table */
+.table {
+  border: 1px solid #dee2e6;
+  white-space: nowrap;
+}
+
+.table td {
+  line-height: 1.7rem;
+}
+
+/* Dropdown menu */
+.dropdown .dropdown-toggle {
+  padding-left: .5rem;
+  padding-right: .5rem;
+  line-height: 1;
+}
+
+.dropdown-toggle::after {
+  display: none;
+}
+
+.dropdown-menu {
+  padding: 0;
+}
+
+.dropdown-menu > * {
+  line-height: 1.7rem;
+  border-bottom: 1px solid #dee2e6;
+}
+
+.dropdown-menu > *:last-child {
+  border: 0;
+}
+
+/* Wrapper coordinate list */
+.adi-coordinate-list-wrapper {
+  width: 100%;
+  max-height: 480px;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+/* Table  */
+.table .btn {
+  padding: 1px 6px;
+}
+
+@media screen and (max-width: 1199px) {
+  html,
+  body {
+    font-size: 0.9rem;
+  }
+}
+
+.main-sidebar, .navbar, .sidebar {
+  background-color: pink !important
+}
+
+.nav-header {
+  color: black !important
+}
+
+.content-wrapper {
+  background: white;
+}

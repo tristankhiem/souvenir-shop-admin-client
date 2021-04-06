@@ -1,0 +1,71 @@
+<app-modal-wrapper #addViolateDocumentModalWrapper title="Các biên bản xử phạt">
+  <form>
+    <div class="modal-body">
+      <div class="row mx-0">
+        <div class="row flex-column col-lg-6 mx-0">
+          <fieldset class="border p-4 mb-2">
+            <legend class="font-italic font-weight-bolder" style="width: fit-content">Lần 1: Quyết định xử phạt vi phạm
+              hành chính
+            </legend>
+            <button (click)="onNewDocument()" class="col btn btn-secondary mb-2"
+                    *ngIf="!violate.constructionViolateDocuments?.length">
+              Tạo biên bản xử phạt lần 1
+            </button>
+            <ng-container *ngIf="violate.constructionViolateDocuments?.length > 0">
+              <button (click)="onExportTTHCFile($event)" class="col btn btn-secondary mb-2">
+                Tờ trình
+              </button>
+              <button (click)="onExportQDHCFile($event)" class="col btn btn-secondary mb-2">
+                Dự thảo Quyết Định
+              </button>
+              <button (click)="onExportBBHCFile($event)" class="col btn btn-secondary">
+                Biên bản phúc tra
+              </button>
+            </ng-container>
+          </fieldset>
+          <fieldset class="border p-4">
+            <legend class="font-italic font-weight-bolder" style="width: fit-content">Lần 2: CCTH - Quyết định xử phạt
+              vi phạm hành chính
+            </legend>
+            <button (click)="onNewDocument()" class="col btn btn-secondary mb-2"
+                    *ngIf="violate.constructionViolateDocuments?.length < 2"
+                    [disabled]="!isClickableSecondBtn()">
+              Tạo biên bản xử phạt lần 2
+            </button>
+            <ng-container *ngIf="violate.constructionViolateDocuments?.length > 1">
+              <button (click)="onExportTTCCFile($event)" class="col btn btn-secondary mb-2">
+                Tờ trình cưỡng chế
+              </button>
+              <button (click)="onExportQDCCFile($event)" class="col btn btn-secondary mb-2">
+                Dự thảo Quyết Định
+              </button>
+              <button (click)="onExportBBCCFile($event)" class="col btn btn-secondary">
+                Biên bản phúc tra
+              </button>
+            </ng-container>
+          </fieldset>
+        </div>
+        <div class="row col-lg-6 mx-0">
+          <fieldset class="border p-4">
+            <legend class="font-italic font-weight-bolder" style="width: fit-content">Các biên bản mẫu</legend>
+            <button class="col btn btn-secondary mb-2">
+              Biên bản mẫu 1
+            </button>
+            <button class="col btn btn-secondary mb-2">
+              Biên bản mẫu 2
+            </button>
+            <button class="col btn btn-secondary">
+              Biên bản dùng chung
+            </button>
+          </fieldset>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer justify-content-between">
+      <button (click)="addViolateDocumentModalWrapper.hide()" type="button" class="btn btn-default">
+        <i class="fas fa-times mr-1"></i>
+        Đóng
+      </button>
+    </div>
+  </form>
+</app-modal-wrapper>

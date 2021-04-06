@@ -1,0 +1,20 @@
+<li class="dropdown user user-menu">
+  <!-- Menu Toggle Button -->
+  <a class="nav-link" data-toggle="dropdown" href="#">
+    <i class="far fa-user"></i>
+  </a>
+  <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
+    <span class="dropdown-item dropdown-header">{{fullName}}</span>
+    <div class="dropdown-divider"></div>
+    <a href="#" class="dropdown-item dropdown-footer">
+      <div class="pull-right">
+        <a (click)="changePassword($event)" class="btn btn-block btn-default btn-sm">Thay đổi mật khẩu</a>
+      </div>
+    </a>
+    <a href="#" class="dropdown-item dropdown-footer">
+      <div class="pull-right">
+        <a (click)="logout()" href="#" class="btn btn-block btn-default btn-sm">Đăng xuất</a>
+      </div>
+    </a>
+  </div>
+</li>

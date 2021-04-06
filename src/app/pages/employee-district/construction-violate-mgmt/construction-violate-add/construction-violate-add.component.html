@@ -1,0 +1,380 @@
+<!-- Content Header (Page header) -->
+<section class="content-header">
+  <div class="container-fluid">
+    <div class="row mb-2">
+      <div class="col-lg-8 mb-2">
+        <h1 class="m-0 font-weight-bold text-gray-dark">TẠO BIÊN BẢN XỬ PHẠT VI PHẠM XÂY DỰNG</h1>
+      </div>
+      <div class="col-lg-4">
+        <ol class="breadcrumb float-lg-right">
+          <li class="breadcrumb-item"><a routerLink="/">Trang chủ</a></li>
+          <li class="breadcrumb-item active">Tạo biên bản</li>
+        </ol>
+      </div>
+    </div>
+    <!-- /.row -->
+  </div>
+  <!-- /.container-fluid -->
+</section>
+<!-- /.content-header -->
+
+<!-- Main content -->
+<section class="content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-12">
+        <div class="card">
+          <div class="card-body">
+            <form #addConstructionViolateForm="ngForm" id="addConstructionViolateForm" novalidate (submit)="onSave()">
+              <!--    Investor's Information    -->
+              <fieldset class="border p-4">
+                <legend class="font-italic font-weight-bolder" style="width: fit-content">Thông tin Chủ đầu tư</legend>
+                <div class="row">
+                  <div class="col-6 col-md-4 form-group">
+                    <label for="investorNameInputAdd">Họ tên</label>
+                    <input type="text" class="form-control" name="investorNameInputAdd" id="investorNameInputAdd"
+                           #investorNameInputAdd="ngModel"
+                           [(ngModel)]="newConstructionViolate.investorName" placeholder="Họ tên"
+                           [class]="{'is-invalid': investorNameInputAdd.touched && investorNameInputAdd.errors}"
+                           required/>
+                    <ng-template [ngIf]="investorNameInputAdd.touched && investorNameInputAdd.invalid">
+                      <div *ngIf="investorNameInputAdd.errors?.required" class="invalid-feedback d-block">
+                        Vui lòng nhập họ tên chủ đầu tư
+                      </div>
+                    </ng-template>
+                  </div>
+                  <div class="col-6 col-md-3 form-group">
+                    <label>Ngày sinh</label>
+                    <app-date-picker [(startDate)]="newConstructionViolate.investorBirthDate"
+                                     [parentEl]="'addConstructionViolateForm'"></app-date-picker>
+                  </div>
+                  <div class="col-md-5 form-group">
+                    <label for="permanentAddressInputAdd">Địa chỉ thường trú</label>
+                    <input type="text" class="form-control" name="permanentAddressInputAdd"
+                           id="permanentAddressInputAdd" #permanentAddressInputAdd="ngModel"
+                           [(ngModel)]="newConstructionViolate.permanentAddress" placeholder="Địa chỉ thường trú"
+                           [class]="{'is-invalid': permanentAddressInputAdd.touched && permanentAddressInputAdd.errors}"
+                           required/>
+                    <ng-template [ngIf]="permanentAddressInputAdd.touched && permanentAddressInputAdd.invalid">
+                      <div *ngIf="permanentAddressInputAdd.errors?.required" class="invalid-feedback d-block">
+                        Vui lòng nhập địa chỉ thường trú
+                      </div>
+                    </ng-template>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-6 col-md-4 form-group">
+                    <label for="investorCardIdInputAdd">Chứng minh thư</label>
+                    <input type="text" class="form-control" name="investorCardIdInputAdd" id="investorCardIdInputAdd"
+                           #investorCardIdInputAdd="ngModel"
+                           minlength="9" [pattern]="cardIdPattern" [(ngModel)]="newConstructionViolate.investorCardId"
+                           placeholder="Chứng minh thư"
+                           [class]="{'is-invalid': investorCardIdInputAdd.touched && investorCardIdInputAdd.errors}"
+                           required/>
+                    <ng-template [ngIf]="investorCardIdInputAdd.touched && investorCardIdInputAdd.invalid">
+                      <div *ngIf="investorCardIdInputAdd.errors?.required" class="invalid-feedback d-block">
+                        Vui lòng nhập CMT/CCCD
+                      </div>
+                      <div *ngIf="investorCardIdInputAdd.errors?.minlength || investorCardIdInputAdd.errors?.pattern"
+                           class="invalid-feedback d-block">
+                        CMT/CCCD không hợp lệ
+                      </div>
+                    </ng-template>
+                  </div>
+
+                  <div class="col-6 col-md-3 form-group">
+                    <label>Ngày cấp</label>
+                    <app-date-picker [(startDate)]="newConstructionViolate.investorCardDate"
+                                     [parentEl]="'addConstructionViolateForm'"></app-date-picker>
+                  </div>
+                  <div class="col-md-5 form-group">
+                    <label for="cardIdProviderSelectAdd">Nơi cấp</label>
+                    <select name="cardIdProviderSelectAdd" id="cardIdProviderSelectAdd" class="custom-select"
+                            #cardIdProviderSelectAdd="ngModel"
+                            [(ngModel)]="newConstructionViolate.cardIdProvider" required
+                            [class]="{'is-invalid': cardIdProviderSelectAdd.touched && cardIdProviderSelectAdd.value === '0'}">
+                      <option value="0" disabled>Chọn nơi cấp</option>
+                      <option *ngFor="let place of idProvider" [value]="place">
+                        {{place}}
+                      </option>
+                    </select>
+                    <ng-template [ngIf]="cardIdProviderSelectAdd.touched">
+                      <div *ngIf="cardIdProviderSelectAdd.value === '0'" class="invalid-feedback d-block">
+                        Vui lòng chọn nơi cấp CMND
+                      </div>
+                    </ng-template>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-sm-9 form-group">
+                    <label for="violateAddressInputAdd">Địa chỉ vi phạm</label>
+                    <input type="text" class="form-control" name="violateAddressInputAdd" id="violateAddressInputAdd"
+                           #violateAddressInputAdd="ngModel"
+                           [(ngModel)]="newConstructionViolate.violateAddress" placeholder="Địa chỉ vi phạm"
+                           [class]="{'is-invalid': violateAddressInputAdd.touched && violateAddressInputAdd.errors}"
+                           required/>
+                    <ng-template [ngIf]="violateAddressInputAdd.touched && violateAddressInputAdd.invalid">
+                      <div *ngIf="violateAddressInputAdd.errors?.required" class="invalid-feedback d-block">
+                        Vui lòng nhập địa chỉ vi phạm
+                      </div>
+                    </ng-template>
+                  </div>
+                  <div class="col-sm-3 form-group">
+                    <label for="wardSelectAdd">Phường</label>
+                    <select name="wardSelectAdd" id="wardSelectAdd" class="custom-select" #wardSelectAdd="ngModel"
+                            [(ngModel)]="newConstructionViolate.ward.id" required [disabled]="isEmployeeFromWard()"
+                            [class]="{'is-invalid': wardSelectAdd.touched && wardSelectAdd.value === 0}">
+                      <option value="0" disabled>Chọn phường</option>
+                      <option *ngFor="let w of wards" [value]="w.id">
+                        {{w.name}}
+                      </option>
+                    </select>
+                    <ng-template [ngIf]="wardSelectAdd.touched">
+                      <div *ngIf="wardSelectAdd.value === 0" class="invalid-feedback d-block">
+                        Vui lòng chọn phường
+                      </div>
+                    </ng-template>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-4 form-group">
+                    <label for="certificateSelectAdd">Giấy chứng nhận</label>
+                    <select name="certificateSelectAdd" id="certificateSelectAdd" class="custom-select"
+                            #certificateSelectAdd="ngModel"
+                            [(ngModel)]="newConstructionViolate.certificate.id" required
+                            [class]="{'is-invalid': certificateSelectAdd.touched && certificateSelectAdd.value === 0}">
+                      <option value="0" disabled>Chọn giấy chứng nhận</option>
+                      <option *ngFor="let type of certificates" [value]="type.id">
+                        {{type.name}}
+                      </option>
+                    </select>
+                    <ng-template [ngIf]="certificateSelectAdd.touched">
+                      <div *ngIf="certificateSelectAdd.value === 0" class="invalid-feedback d-block">
+                        Vui lòng chọn giấy chứng nhận
+                      </div>
+                    </ng-template>
+                  </div>
+                  <div class="col-6 col-md-2 form-group">
+                    <label for="certificateNumberInputAdd">Số</label>
+                    <input type="text" class="form-control" name="certificateNumberInputAdd"
+                           id="certificateNumberInputAdd" #certificateNumberInputAdd="ngModel"
+                           [(ngModel)]="newConstructionViolate.certificateNumber" placeholder="Số"
+                           [class]="{'is-invalid': certificateNumberInputAdd.touched && certificateNumberInputAdd.errors}"
+                           required/>
+                    <ng-template [ngIf]="certificateNumberInputAdd.touched && certificateNumberInputAdd.invalid">
+                      <div *ngIf="certificateNumberInputAdd.errors?.required" class="invalid-feedback d-block">
+                        Vui lòng nhập số chứng nhận
+                      </div>
+                    </ng-template>
+                  </div>
+                  <div class="col-6 col-md-2 form-group">
+                    <label>Ngày</label>
+                    <app-date-picker [(startDate)]="newConstructionViolate.certificateDate"
+                                     [parentEl]="'addConstructionViolateForm'"></app-date-picker>
+                  </div>
+                  <div class="col-md-4 form-group">
+                    <label for="certificateProviderInputAdd">Nơi cấp</label>
+                    <input type="text" class="form-control" name="certificateProviderInputAdd"
+                           id="certificateProviderInputAdd" #certificateProviderInputAdd="ngModel"
+                           [(ngModel)]="newConstructionViolate.certificateProvider" placeholder="Nơi cấp chứng nhận"
+                           [class]="{'is-invalid': certificateProviderInputAdd.touched && certificateProviderInputAdd.errors}"
+                           required/>
+                    <ng-template [ngIf]="certificateProviderInputAdd.touched && certificateProviderInputAdd.invalid">
+                      <div *ngIf="certificateProviderInputAdd.errors?.required" class="invalid-feedback d-block">
+                        Vui lòng nhập nơi cấp chứng nhận
+                      </div>
+                    </ng-template>
+                  </div>
+                </div>
+              </fieldset>
+              <!--    End Investor's Information    -->
+              <br>
+              <div class="row">
+                <div class="col-7 col-md-3 form-group">
+                  <label for="reportNumberInputAdd">Công văn /BB-VPHC số</label>
+                  <input type="text" class="form-control" name="reportNumberInputAdd" id="reportNumberInputAdd"
+                         #reportNumberInputAdd="ngModel"
+                         [(ngModel)]="newConstructionViolate.reportNumber" placeholder="Số"
+                         [class]="{'is-invalid': reportNumberInputAdd.touched && reportNumberInputAdd.errors}"
+                         required/>
+                  <ng-template [ngIf]="reportNumberInputAdd.touched && reportNumberInputAdd.invalid">
+                    <div *ngIf="reportNumberInputAdd.errors?.required" class="invalid-feedback d-block">
+                      Vui lòng nhập số công văn
+                    </div>
+                  </ng-template>
+                </div>
+                <div class="col-5 col-md-3 form-group">
+                  <label>Ngày lập</label>
+                  <app-date-picker [(startDate)]="newConstructionViolate.reportCreatedDate"
+                                   [parentEl]="'addConstructionViolateForm'"></app-date-picker>
+                </div>
+                <div class="col-7 col-md-3 form-group">
+                  <label for="wardDocumentNumberInputAdd">Công văn /UBND số</label>
+                  <input type="text" class="form-control" name="wardDocumentNumberInputAdd"
+                         id="wardDocumentNumberInputAdd" #wardDocumentNumberInputAdd="ngModel"
+                         [(ngModel)]="newConstructionViolate.wardDocumentNumber" placeholder="Số"
+                         [class]="{'is-invalid': wardDocumentNumberInputAdd.touched && wardDocumentNumberInputAdd.errors}"
+                         required/>
+                  <ng-template [ngIf]="wardDocumentNumberInputAdd.touched && wardDocumentNumberInputAdd.invalid">
+                    <div *ngIf="wardDocumentNumberInputAdd.errors?.required" class="invalid-feedback d-block">
+                      Vui lòng nhập số công văn
+                    </div>
+                  </ng-template>
+                </div>
+                <div class="col-5 col-md-3 form-group">
+                  <label>Ngày lập</label>
+                  <app-date-picker [(startDate)]="newConstructionViolate.wardDocumentCreatedDate"
+                                   [parentEl]="'addConstructionViolateForm'"></app-date-picker>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-7 col-md-3 form-group">
+                  <label for="violateTypeSelectAdd">Loại vi phạm</label>
+                  <select name="violateTypeSelectAdd" id="violateTypeSelectAdd" class="custom-select"
+                          #violateTypeSelectAdd="ngModel"
+                          [(ngModel)]="newConstructionViolate.violateType.id" required
+                          [class]="{'is-invalid': violateTypeSelectAdd.touched && violateTypeSelectAdd.value === 0}">
+                    <option value="0" disabled>Chọn loại vi phạm</option>
+                    <option *ngFor="let type of violateTypes" [value]="type.id">
+                      {{type.name}}
+                    </option>
+                  </select>
+                  <ng-template [ngIf]="violateTypeSelectAdd.touched">
+                    <div *ngIf="violateTypeSelectAdd.value === 0" class="invalid-feedback d-block">
+                      Vui lòng chọn loại vi phạm
+                    </div>
+                  </ng-template>
+                </div>
+                <div class="col-5 col-md-3 form-group">
+                  <label>Thời điểm vi phạm</label>
+                  <app-date-picker [(startDate)]="newConstructionViolate.violateDate"
+                                   [parentEl]="'addConstructionViolateForm'"></app-date-picker>
+                </div>
+                <div class="col-7 col-md-3 form-group">
+                  <div>
+                    <label for="violateReceiptIdInputAdd" class="mr-2">Biên lai</label>
+                    <input [(ngModel)]="hasReceipt" type="checkbox" name="violateReceiptIdChecboxAdd" id="violateReceiptIdChecboxAdd">
+                  </div>
+                  <input type="text" class="form-control" name="violateReceiptIdInputAdd" id="violateReceiptIdInputAdd"
+                         #violateReceiptIdInputAdd="ngModel" [required]="hasReceipt"
+                         [(ngModel)]="newConstructionViolate.violateReceiptId" placeholder="Số biên lai" [disabled]="!hasReceipt"/>
+                  <ng-template [ngIf]="violateReceiptIdInputAdd.touched && violateReceiptIdInputAdd.invalid">
+                    <div *ngIf="violateReceiptIdInputAdd.errors?.required" class="invalid-feedback d-block">
+                      Vui lòng nhập biên lai
+                    </div>
+                  </ng-template>
+                </div>
+                <div class="col-5 col-md-3 form-group">
+                  <label>Ngày xuất</label>
+                  <app-date-picker [(startDate)]="newConstructionViolate.violateReceiptDate" [disabled]="!hasReceipt"
+                                   [parentEl]="'addConstructionViolateForm'"></app-date-picker>
+                </div>
+              </div>
+              <!--    Violate Detail    -->
+              <fieldset class="border p-4">
+                <legend class="font-italic font-weight-bolder" style="width: fit-content">Nội dung vi phạm hành chính
+                </legend>
+                <div class="row justify-content-between">
+                  <div class="col-12 form-group">
+                    <label for="violateDetailInputAdd">Nội dung vi phạm</label>
+                    <textarea type="text" class="form-control" name="violateDetailInputAdd" id="violateDetailInputAdd"
+                              #violateDetailInputAdd="ngModel"
+                              [(ngModel)]="newConstructionViolate.violateDetail" placeholder="Nội dung vi phạm"
+                              [class]="{'is-invalid': violateDetailInputAdd.touched && violateDetailInputAdd.errors}"
+                              required style="min-height: 120px">
+                    </textarea>
+                    <ng-template [ngIf]="violateDetailInputAdd.touched && violateDetailInputAdd.invalid">
+                      <div *ngIf="violateDetailInputAdd.errors?.required" class="invalid-feedback d-block">
+                        Vui lòng nhập nội dung vi phạm
+                      </div>
+                    </ng-template>
+                  </div>
+                  <div class="col-sm-8 form-group">
+                    <label for="structureInputAdd">Kết cấu</label>
+                    <input type="text" class="form-control" name="structureInputAdd" id="structureInputAdd"
+                           #structureInputAdd="ngModel"
+                           [(ngModel)]="newConstructionViolate.structure" placeholder="Kết cấu"
+                           [class]="{'is-invalid': structureInputAdd.touched && structureInputAdd.errors}" required/>
+                    <ng-template [ngIf]="structureInputAdd.touched && structureInputAdd.invalid">
+                      <div *ngIf="structureInputAdd.errors?.required" class="invalid-feedback d-block">
+                        Vui lòng nhập kết cấu
+                      </div>
+                    </ng-template>
+                  </div>
+                  <div class="col-sm-4 form-group order-2 order-sm-0">
+                    <label for="violateAreaInputAdd">Diện tích vi phạm</label>
+                    <input type="number" class="form-control" name="violateAreaInputAdd" id="violateAreaInputAdd"
+                           #violateAreaInputAdd="ngModel"
+                           [(ngModel)]="newConstructionViolate.violateArea" placeholder="Diện tích vi phạm"
+                           [class]="{'is-invalid': violateAreaInputAdd.touched && violateAreaInputAdd.errors}"
+                           required/>
+                    <ng-template [ngIf]="violateAreaInputAdd.touched && violateAreaInputAdd.invalid">
+                      <div *ngIf="violateAreaInputAdd.errors?.required" class="invalid-feedback d-block">
+                        Vui lòng nhập diện tích vi phạm
+                      </div>
+                    </ng-template>
+                  </div>
+                  <div class="col-sm-8 form-group">
+                    <label for="currentStatusInputAdd">Hiện trạng</label>
+                    <input type="text" class="form-control" name="currentStatusInputAdd" id="currentStatusInputAdd"
+                           #currentStatusInputAdd="ngModel"
+                           [(ngModel)]="newConstructionViolate.currentStatus" placeholder="Hiện trạng"
+                           [class]="{'is-invalid': currentStatusInputAdd.touched && currentStatusInputAdd.errors}"
+                           required/>
+                    <ng-template [ngIf]="currentStatusInputAdd.touched && currentStatusInputAdd.invalid">
+                      <div *ngIf="currentStatusInputAdd.errors?.required" class="invalid-feedback d-block">
+                        Vui lòng nhập hiện trạng
+                      </div>
+                    </ng-template>
+                  </div>
+                  <div class="col-sm-4 form-group order-3 order-sm-0">
+                    <label for="fineInputAdd">Số tiền phạt</label>
+                    <input type="number" class="form-control" name="fineInputAdd" id="fineInputAdd"
+                           #fineInputAdd="ngModel"
+                           [(ngModel)]="newConstructionViolate.fine" placeholder="Số tiền phạt"
+                           [class]="{'is-invalid': fineInputAdd.touched && fineInputAdd.errors}" required/>
+                    <ng-template [ngIf]="fineInputAdd.touched && fineInputAdd.invalid">
+                      <div *ngIf="fineInputAdd.errors?.required" class="invalid-feedback d-block">
+                        Vui lòng nhập số tiền phạt
+                      </div>
+                    </ng-template>
+                  </div>
+                  <div class="col-12 form-group order-4 order-sm-0">
+                    <label for="solveProblemInputAdd">Khắc phục hậu quả</label>
+                    <textarea type="text" class="form-control" name="solveProblemInputAdd" id="solveProblemInputAdd"
+                              #solveProblemInputAdd="ngModel"
+                              [(ngModel)]="newConstructionViolate.solveProblem" placeholder="Khắc phục hậu quả"
+                              [class]="{'is-invalid': solveProblemInputAdd.touched && solveProblemInputAdd.errors}"
+                              required style="min-height: 120px">
+                    </textarea>
+                    <ng-template [ngIf]="solveProblemInputAdd.touched && solveProblemInputAdd.invalid">
+                      <div *ngIf="solveProblemInputAdd.errors?.required" class="invalid-feedback d-block">
+                        Vui lòng nhập biện pháp khắc phục
+                      </div>
+                    </ng-template>
+                  </div>
+                </div>
+              </fieldset>
+              <!--    End Violate Detail    -->
+              <br>
+              <div class="row justify-content-between">
+                <div>
+                  <button type="submit" class="btn btn-secondary" routerLink="/quan-ly-vi-pham-xay-dung">
+                    <i class="fas fa-chevron-left mr-1"></i>
+                    Quay lại
+                  </button>
+                </div>
+                <div>
+                  <button type="submit" class="btn btn-primary" [disabled]="!isValid()">
+                    <i class="fas fa-file mr-1"></i>
+                    Tạo biên bản
+                  </button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

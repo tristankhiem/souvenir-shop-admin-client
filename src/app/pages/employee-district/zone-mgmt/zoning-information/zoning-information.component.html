@@ -1,0 +1,81 @@
+<!-- Content Header (Page header) -->
+<section class="content-header">
+  <div class="container-fluid">
+    <div class="row mb-2">
+      <div class="col-12 col-lg-5 mb-2">
+        <h1 class="m-0 font-weight-bold text-gray-dark">QUẢN LÝ THÔNG TIN ĐẤT</h1>
+      </div>
+      <div class="col-12 col-lg-7">
+        <ol class="breadcrumb float-lg-right">
+          <li class="breadcrumb-item"><a routerLink="/">Trang chủ</a></li>
+          <li class="breadcrumb-item active">Quản lý thông tin đất</li>
+        </ol>
+      </div>
+    </div>
+    <!-- /.row -->
+  </div>
+  <!-- /.container-fluid -->
+</section>
+<!-- /.content-header -->
+
+<!-- Main content -->
+<section class="content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-12">
+        <div class="card">
+          <div class="card-body">
+            <app-data-table #dataTableZoningInformation [dataTable]="search" (changeEvent)="onChangeDataEvent($event)">
+              <div class="row block-buttons-right justify-content-center justify-content-md-end text-center">
+                <button class="btn btn-success" (click)="addZoningInformationComponent.show()">
+                  <i class="fas fa-plus mr-1 d-none d-lg-inline"></i>
+                  <span>Tạo mới</span>
+                </button>
+              </div>
+              <thead>
+                <tr>
+                  <th>Mã số</th>
+                  <th>Tên chủ hộ</th>
+                  <th>Chứng minh thư</th>
+                  <th>Số liên lạc</th>
+                  <th>Số tờ</th>
+                  <th>Số thửa</th>
+                  <th>Diện tích</th>
+                  <th>Phường/Xã</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let e of search.result">
+                  <td>{{e.id}}</td>
+                  <td>{{e.ownerName}}</td>
+                  <td>{{e.ownerCardId}}</td>
+                  <td>{{e.phoneNumber}}</td>
+                  <td>{{e.sheet}}</td>
+                  <td>{{e.parcel}}</td>
+                  <td>{{e.area}} m<sup>2</sup></td>
+                  <td>{{e.ward.name}}</td>
+                  <td>
+                    <app-dropdown-menu>
+                      <a class="dropdown-item text-cyan" href="#" (click)="updateZoningInformationComponent.show(e.id, $event)">
+                        <i class="far fa-edit"></i>
+                        Sửa
+                      </a>
+                      <a class="dropdown-item text-red" href="#" (click)="openDeleteModal(e.id, $event)">
+                        <i class="far fa-trash-alt mr-1"></i>
+                        Xóa
+                      </a>
+                    </app-dropdown-menu>
+                  </td>
+                </tr>
+              </tbody>
+            </app-data-table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<app-add-zoning-information #addZoningInformationComponent (saveCompleted)="onChangeDataEvent()"></app-add-zoning-information>
+<app-update-zoning-information #updateZoningInformationComponent (saveCompleted)="onChangeDataEvent()"></app-update-zoning-information>

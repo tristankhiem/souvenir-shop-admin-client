@@ -1,0 +1,186 @@
+{
+  "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+  "version": 1,
+  "newProjectRoot": "projects",
+  "projects": {
+    "urbangovernance-client-district": {
+      "projectType": "application",
+      "schematics": {
+        "@schematics/angular:component": {
+          "style": "scss"
+        }
+      },
+      "root": "",
+      "sourceRoot": "src",
+      "prefix": "app",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/urbangovernance-client-district",
+            "index": "src/index.html",
+            "main": "src/main.ts",
+            "polyfills": "src/polyfills.ts",
+            "tsConfig": "tsconfig.app.json",
+            "aot": true,
+            "assets": [
+              "src/favicon.ico",
+              "src/assets"
+            ],
+            "styles": [
+              "node_modules/bootstrap/dist/css/bootstrap.min.css",
+              "node_modules/datatables.net-bs4/css/dataTables.bootstrap4.min.css",
+              "node_modules/@ttskch/select2-bootstrap4-theme/dist/select2-bootstrap4.min.css",
+              "node_modules/datatables.net-responsive-bs4/css/responsive.bootstrap4.min.css",
+              "node_modules/select2/dist/css/select2.min.css",
+              "node_modules/toastr/build/toastr.min.css",
+              "node_modules/daterangepicker/daterangepicker.css",
+              "node_modules/overlayscrollbars/css/OverlayScrollbars.min.css",
+              "node_modules/@fortawesome/fontawesome-free/css/all.min.css",
+              "src/assets/css/adminlte.min.css",
+              "src/styles.css"
+            ],
+            "scripts": [
+              "node_modules/jquery/dist/jquery.min.js",
+              "node_modules/bootstrap/dist/js/bootstrap.bundle.min.js",
+              "node_modules/datatables.net/js/jquery.dataTables.min.js",
+              "node_modules/datatables.net-bs4/js/dataTables.bootstrap4.min.js",
+              "node_modules/datatables.net-responsive/js/dataTables.responsive.min.js",
+              "node_modules/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js",
+              "node_modules/select2/dist/js/select2.full.min.js",
+              "node_modules/toastr/build/toastr.min.js",
+              "node_modules/moment/min/moment.min.js",
+              "node_modules/daterangepicker/daterangepicker.js",
+              "node_modules/slugify/slugify.js",
+              "node_modules/overlayscrollbars/js/OverlayScrollbars.min.js",
+              "node_modules/@fortawesome/fontawesome-free/js/all.min.js",
+              "node_modules/read-excel-file/bundle/read-excel-file.min.js",
+              "node_modules/sockjs-client/dist/sockjs.min.js",
+              "node_modules/pizzip/dist/pizzip.min.js",
+              "node_modules/pizzip/dist/pizzip-utils.min.js",
+              "node_modules/docxtemplater/build/docxtemplater.min.js",
+              "node_modules/file-saver/dist/FileSaver.min.js",
+              "src/assets/js/adminlte.js",
+              "src/assets/js/main.js"
+            ]
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb",
+                  "maximumError": "10kb"
+                }
+              ]
+            },
+            "staging": {
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.staging.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "urbangovernance-client-district:build"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "urbangovernance-client-district:build:production"
+            }
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "urbangovernance-client-district:build"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "src/test.ts",
+            "polyfills": "src/polyfills.ts",
+            "tsConfig": "tsconfig.spec.json",
+            "karmaConfig": "karma.conf.js",
+            "assets": [
+              "src/favicon.ico",
+              "src/assets"
+            ],
+            "styles": [
+              "src/styles.scss"
+            ],
+            "scripts": []
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "tsconfig.app.json",
+              "tsconfig.spec.json",
+              "e2e/tsconfig.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        },
+        "e2e": {
+          "builder": "@angular-devkit/build-angular:protractor",
+          "options": {
+            "protractorConfig": "e2e/protractor.conf.js",
+            "devServerTarget": "urbangovernance-client-district:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "urbangovernance-client-district:serve:production"
+            }
+          }
+        }
+      }
+    }},
+  "defaultProject": "urbangovernance-client-district",
+  "cli": {
+    "analytics": false
+  }
+}
