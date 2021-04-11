@@ -3,45 +3,46 @@ import {BaseSearchModel} from '../../data-services/search/base-search.model';
 import {AppAlert, AppLoading, AppModals} from '../../utils';
 import {ResponseModel} from '../../data-services/response.model';
 import {HTTP_CODE_CONSTANT} from '../../constants/http-code.constant';
-import {ColorService} from '../../services/store/color.service';
+import {SizeModel} from '../../data-services/schema/size.model';
 import {ColorModel} from '../../data-services/schema/color.model';
+import {SizeService} from '../../services/store/size.service';
 
 @Component({
-  selector: 'app-color',
-  templateUrl: './color.component.html'
+  selector: 'app-size',
+  templateUrl: './size.component.html'
 })
-export class ColorComponent implements OnInit {
+export class SizeComponent implements OnInit {
   constructor(
     private root: ElementRef,
     private loading: AppLoading,
     private alert: AppAlert,
     private modal: AppModals,
-    private colorService: ColorService
+    private sizeService: SizeService
   ){
   }
 
   @ViewChild('dataTableSize', {read: ElementRef}) dataTableSize: ElementRef;
 
-  public search: BaseSearchModel<ColorModel[]> = new BaseSearchModel<ColorModel[]>();
+  public search: BaseSearchModel<SizeModel[]> = new BaseSearchModel<SizeModel[]>();
 
   ngOnInit(): void {
-    this.getColor();
+    this.getSize();
   }
 
-  public onChangeDataEvent(search?: BaseSearchModel<ColorModel[]>): void {
+  public onChangeDataEvent(search?: BaseSearchModel<SizeModel[]>): void {
     if (search) {
       this.search = search;
     }
 
-    this.getColor(this.dataTableSize.nativeElement);
+    this.getSize(this.dataTableSize.nativeElement);
   }
 
-  private getColor(targetLoading?: ElementRef): void {
+  private getSize(targetLoading?: ElementRef): void {
     this.loading.show(targetLoading);
-    this.colorService.search(this.search).subscribe(res => this.getColorCompleted(res, targetLoading));
+    this.sizeService.search(this.search).subscribe(res => this.getSizeCompleted(res, targetLoading));
   }
 
-  private getColorCompleted(res: ResponseModel<BaseSearchModel<ColorModel[]>>, targetLoading: ElementRef): void {
+  private getSizeCompleted(res: ResponseModel<BaseSearchModel<SizeModel[]>>, targetLoading: ElementRef): void {
     this.loading.hide(targetLoading);
     if (res.status !== HTTP_CODE_CONSTANT.OK) {
       this.alert.errorMessages(res.message);
@@ -50,22 +51,22 @@ export class ColorComponent implements OnInit {
     this.search = res.result;
   }
 
-  public openDeleteModal(color: ColorModel, event: Event): void {
+  public openDeleteModal(size: SizeModel, event: Event): void {
     event.preventDefault();
-    this.modal.confirm(`Bạn có chắc chắn muốn xóa màu "${color.name}"?`, 'Xóa màu sắc', true)
-      .subscribe(res => this.confirmDeleteColor(res, color));
+    this.modal.confirm(`Bạn có chắc chắn muốn xóa size "${size.name}"?`, 'Xóa size hàng hoá', true)
+      .subscribe(res => this.confirmDeleteSize(res, size));
   }
 
-  private confirmDeleteColor(state: boolean, color: ColorModel): void {
+  private confirmDeleteSize(state: boolean, size: SizeModel): void {
     if (!state) {
       return;
     }
 
     this.loading.show();
-    this.colorService.deleteColor(color.id).subscribe(res => this.deleteColorCompleted(res));
+    this.sizeService.deleteSize(size.id).subscribe(res => this.deleteSizeCompleted(res));
   }
 
-  private deleteColorCompleted(res: ResponseModel<any>): void {
+  private deleteSizeCompleted(res: ResponseModel<any>): void {
     this.loading.hide();
     if (res.status !== HTTP_CODE_CONSTANT.OK) {
       this.alert.errorMessages(res.message);

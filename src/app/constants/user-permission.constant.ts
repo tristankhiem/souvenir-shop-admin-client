@@ -165,7 +165,7 @@ export const ROUTER_USER_PERMISSION_MAPPER = [
     }),
   new RouterPermissionMappingModel(
     {
-      routerLink: '/size',
+      routerLink: '/color',
       matchUrl: '',
       name: 'Màu sắc',
       icon: 'fas fa-paint-brush',
@@ -173,6 +173,42 @@ export const ROUTER_USER_PERMISSION_MAPPER = [
         USER_PERMISSION_CODE.PRODUCT_MANAGEMENT
       ],
       sort: 0,
+      isMenu: true
+    }),
+  new RouterPermissionMappingModel(
+    {
+      routerLink: '/size',
+      matchUrl: '',
+      name: 'Kích thước',
+      icon: 'fas fa-object-group',
+      permissions: [
+        USER_PERMISSION_CODE.PRODUCT_MANAGEMENT
+      ],
+      sort: 1,
+      isMenu: true
+    }),
+  new RouterPermissionMappingModel(
+    {
+      routerLink: '/category',
+      matchUrl: '',
+      name: 'Danh mục hàng hoá',
+      icon: 'fas fa-boxes',
+      permissions: [
+        USER_PERMISSION_CODE.PRODUCT_MANAGEMENT
+      ],
+      sort: 2,
+      isMenu: true
+    }),
+  new RouterPermissionMappingModel(
+    {
+      routerLink: '/sub-category',
+      matchUrl: '',
+      name: 'Danh mục con hàng hoá',
+      icon: 'fas fa-boxes',
+      permissions: [
+        USER_PERMISSION_CODE.PRODUCT_MANAGEMENT
+      ],
+      sort: 3,
       isMenu: true
     }),
 ];

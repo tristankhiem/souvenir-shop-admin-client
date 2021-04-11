@@ -25,6 +25,12 @@ import {AddFeedbackViolateComponent} from './popups/add-feedback-violate/add-fee
 import {ViewFeedbackViolateComponent} from './popups/view-feedback-violate/view-feedback-violate.component';
 import {AddColorComponent} from './popups/add-color/add-color.component';
 import {UpdateColorComponent} from './popups/update-color/update-color.component';
+import {AddSizeComponent} from './popups/add-size/add-size.component';
+import {UpdateSizeComponent} from './popups/update-size/update-size.component';
+import {AddCategoryComponent} from './popups/add-category/add-category.component';
+import {UpdateCategoryComponent} from './popups/update-category/update-category.component';
+import {AutoCompleteModule} from 'primeng';
+import {AddSubCategoryComponent} from './popups/add-sub-category/add-sub-category.component';
 
 const COMPONENTS = [
   AppUserProfileComponent,
@@ -49,7 +55,12 @@ const COMPONENTS = [
   AddFeedbackViolateComponent,
   ViewFeedbackViolateComponent,
   AddColorComponent,
-  UpdateColorComponent
+  UpdateColorComponent,
+  AddSizeComponent,
+  UpdateSizeComponent,
+  AddCategoryComponent,
+  UpdateCategoryComponent,
+  AddSubCategoryComponent
 ];
 
 @NgModule({
@@ -59,7 +70,8 @@ const COMPONENTS = [
   imports: [
     RouterModule,
     CommonModule,
-    FormsModule
+    FormsModule,
+    AutoCompleteModule
   ],
   exports: [
     ...COMPONENTS

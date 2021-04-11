@@ -9,54 +9,74 @@ import {ResponseModel} from '../../../data-services/response.model';
 
 import {HTTP_CODE_CONSTANT} from '../../../constants/http-code.constant';
 import {CustomerGrantPermissionModel} from '../../../data-services/customer-grant-permission.model';
+import {CustomerGroupModel} from '../../../data-services/customer-group.model';
 import {CustomerPermissionModel} from '../../../data-services/customer-permission.model';
 import {ColorService} from '../../../services/store/color.service';
 import {ColorModel} from '../../../data-services/schema/color.model';
+import {SizeService} from '../../../services/store/size.service';
+import {SizeModel} from '../../../data-services/schema/size.model';
 
 declare var $: any;
 
 @Component({
-  selector: 'app-add-color',
-  templateUrl: './add-color.component.html'
+  selector: 'app-update-size',
+  templateUrl: './update-size.component.html'
 })
-export class AddColorComponent implements AfterViewInit {
+export class UpdateSizeComponent implements AfterViewInit {
   constructor(
     private loading: AppLoading,
     private alert: AppAlert,
     private common: AppCommon,
-    private colorService: ColorService,
+    private sizeService: SizeService,
   ) {
   }
 
   @Output() saveCompleted = new EventEmitter<any>();
-  @ViewChild('addColorModalWrapper', {static: true}) addColorModalWrapper: ModalWrapperComponent;
-  @ViewChild('addColorForm', {static: true}) addColorForm: NgForm;
+  @ViewChild('updateSizeModalWrapper', {static: true}) updateSizeModalWrapper: ModalWrapperComponent;
+  @ViewChild('updateSizeForm', {static: true}) updateSizeForm: NgForm;
 
-  public color: ColorModel = new ColorModel();
+  public size: SizeModel = new SizeModel();
 
   private targetModalLoading: ElementRef;
 
   ngAfterViewInit(): void {
-    this.targetModalLoading = $(`#${this.addColorModalWrapper.id} .modal-dialog`);
+    this.targetModalLoading = $(`#${this.updateSizeModalWrapper.id} .modal-dialog`);
   }
 
-  public show(): void {
-    this.addColorModalWrapper.show();
+  public show(size: SizeModel, event: Event): void {
+    event.preventDefault();
+    this.getSize(size.id);
+    this.updateSizeModalWrapper.show();
 
   }
 
   public hide(): void {
-    this.addColorForm.onReset();
-    this.addColorModalWrapper.hide();
+    this.updateSizeForm.onReset();
+    this.updateSizeModalWrapper.hide();
   }
 
   public onHideEvent(): void {
-    this.color = new ColorModel();
-    this.addColorForm.onReset();
+    this.size = new CustomerGroupFullModel();
+    this.updateSizeForm.onReset();
   }
 
-  public isValid(): boolean {
-    if (this.addColorForm.invalid){
+  private getSize(id: number): void{
+    this.loading.show();
+    this.sizeService.getById(id).subscribe(res => this.getSizeCompleted(res));
+  }
+
+  private getSizeCompleted(res: ResponseModel<SizeModel>): void {
+    this.loading.hide();
+    if (res.status !== HTTP_CODE_CONSTANT.OK) {
+      this.alert.errorMessages(res.message);
+      return;
+    }
+
+    this.size = res.result;
+  }
+
+  public isValid(): boolean{
+    if (this.updateSizeForm.invalid){
       return false;
     }
 
@@ -67,15 +87,15 @@ export class AddColorComponent implements AfterViewInit {
     if (!this.isValid()){
       return;
     }
-    this.saveColor();
+    this.saveSize();
   }
 
-  private saveColor(): void {
+  private saveSize(): void {
     this.loading.show(this.targetModalLoading);
-    this.colorService.save(this.color).subscribe(res => this.saveColorCompleted(res));
+    this.sizeService.update(this.size).subscribe(res => this.saveSizeCompleted(res));
   }
 
-  private saveColorCompleted(res: ResponseModel<ColorModel>): void {
+  private saveSizeCompleted(res: ResponseModel<SizeModel>): void {
     this.loading.hide(this.targetModalLoading);
     if (res.status !== HTTP_CODE_CONSTANT.OK) {
       this.alert.errorMessages(res.message);

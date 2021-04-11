@@ -42,7 +42,7 @@ export class UpdateColorComponent implements AfterViewInit {
   }
 
   public show(color: ColorModel, event: Event): void {
-    event.preventDefault();;
+    event.preventDefault();
     this.getColor(color.id);
     this.updateColorModalWrapper.show();
 

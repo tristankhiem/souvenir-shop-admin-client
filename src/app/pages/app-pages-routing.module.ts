@@ -15,6 +15,9 @@ import {ConstructionViolateUpdateComponent} from './employee-district/constructi
 import {CustomerMgmtComponent} from './customer/customer-mgmt/customer-mgmt.component';
 import {ZoningSearchComponent} from './employee-district/zone-mgmt/zoning-search/zoning-search.component';
 import {ColorComponent} from './color/color.component';
+import {SizeComponent} from './size/size.component';
+import {CategoryComponent} from './category/category.component';
+import {SubCategoryComponent} from './sub-category/sub-category.component';
 
 const routes: Routes = [
   {
@@ -87,8 +90,20 @@ const routes: Routes = [
     component: ConstructionViolateUpdateComponent,
   },
   {
-    path: 'size',
+    path: 'color',
     component: ColorComponent,
+  },
+  {
+    path: 'size',
+    component: SizeComponent,
+  },
+  {
+    path: 'category',
+    component: CategoryComponent,
+  },
+  {
+    path: 'sub-category',
+    component: SubCategoryComponent,
   },
 ];
 
@@ -113,5 +128,8 @@ export const routedComponents = [
   ConstructionViolateMgmtComponent,
   ConstructionViolateAddComponent,
   ConstructionViolateUpdateComponent,
-  ColorComponent
+  ColorComponent,
+  SizeComponent,
+  CategoryComponent,
+  SubCategoryComponent
 ];

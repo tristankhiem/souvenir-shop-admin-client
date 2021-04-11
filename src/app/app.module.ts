@@ -13,6 +13,7 @@ import {FooterComponent} from './partials/footer/footer.component';
 
 import * as Services from './services';
 import * as Utils from './utils';
+import {NoopAnimationsModule} from '@angular/platform-browser/animations';
 
 const PARTIALS = [
   SidebarComponent,
@@ -37,6 +38,7 @@ const UTILS_PROVIDERS = [
     BrowserModule,
     CommonModule,
     HttpClientModule,
+    NoopAnimationsModule,
     AppRoutingModule,
     AppComponentsModule,
     FormsModule,
