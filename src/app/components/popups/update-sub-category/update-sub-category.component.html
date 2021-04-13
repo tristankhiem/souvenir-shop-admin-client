@@ -1,0 +1,50 @@
+<app-modal-wrapper [size]="'sm'" #updateSubCategoryModalWrapper title="Cập nhật danh mục con hàng hoá" (hideEvent)="onHideEvent()">
+  <form #updateSubCategoryForm="ngForm" novalidate (submit)="onSave()" >
+    <div class="modal-body">
+      <div class="row">
+        <div class="col-sm-12 form-group">
+          <label for="groupNameInput">Tên</label>
+          <input type="text" class="form-control" name="groupNameInput" id="groupNameInput" #groupNameInput="ngModel"
+                 [(ngModel)]="subCategory.name" placeholder="Tên nhóm"
+                 [class]="{'is-invalid': groupNameInput.touched && groupNameInput.errors}" required/>
+          <ng-template [ngIf]="groupNameInput.touched && groupNameInput.invalid">
+            <div *ngIf="groupNameInput.errors?.required" class="invalid-feedback d-block">
+              Vui lòng nhập tên nhóm
+            </div>
+          </ng-template>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-12 form-group">
+          <label>Danh mục cha</label>
+          <p-autoComplete inputStyleClass="form-control" name="categoryInput" id="categoryInput" #categoryInput="ngModel"
+                          [(ngModel)]="category" [suggestions]="categoryResult"
+                          (completeMethod)="searchCategories($event)" field="name" size="100%"
+                          placeholder="Nhập danh mục cha" [minLength]="1" [autoHighlight]="true"
+                          (onSelect)="selectCategory()" required
+                          emptyMessage="Không tìm thấy"
+                          [class]="{'is-invalid': categoryInput.touched && categoryInput.errors}">
+            <ng-template let-item pTemplate="item">
+              <div>{{item.name}}</div>
+            </ng-template>
+          </p-autoComplete>
+          <ng-template [ngIf]="categoryInput.touched && categoryInput.invalid">
+            <div *ngIf="categoryInput.errors?.required" class="invalid-feedback d-block">
+              Vui lòng nhập danh mục cha
+            </div>
+          </ng-template>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer justify-content-between">
+      <button (click)="hide()" type="button" class="btn btn-default">
+        <i class="fas fa-times mr-1"></i>
+        Đóng
+      </button>
+      <button type="submit" class="btn btn-primary" [disabled]="!isValid()">
+        <i class="far fa-save mr-1"></i>
+        Lưu
+      </button>
+    </div>
+  </form>
+</app-modal-wrapper>

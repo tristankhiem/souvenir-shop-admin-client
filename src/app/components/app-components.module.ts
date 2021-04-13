@@ -31,6 +31,7 @@ import {AddCategoryComponent} from './popups/add-category/add-category.component
 import {UpdateCategoryComponent} from './popups/update-category/update-category.component';
 import {AutoCompleteModule} from 'primeng';
 import {AddSubCategoryComponent} from './popups/add-sub-category/add-sub-category.component';
+import {UpdateSubCategoryComponent} from './popups/update-sub-category/update-sub-category.component';
 
 const COMPONENTS = [
   AppUserProfileComponent,
@@ -60,7 +61,8 @@ const COMPONENTS = [
   UpdateSizeComponent,
   AddCategoryComponent,
   UpdateCategoryComponent,
-  AddSubCategoryComponent
+  AddSubCategoryComponent,
+  UpdateSubCategoryComponent
 ];
 
 @NgModule({

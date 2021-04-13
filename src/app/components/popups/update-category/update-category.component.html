@@ -5,7 +5,7 @@
         <div class="col-sm-12 form-group">
           <label for="groupNameInput">Tên</label>
           <input type="text" class="form-control" name="groupNameInput" id="groupNameInput" #groupNameInput="ngModel"
-                 [(ngModel)]="size.name" placeholder="Tên nhóm"
+                 [(ngModel)]="category.name" placeholder="Tên nhóm"
                  [class]="{'is-invalid': groupNameInput.touched && groupNameInput.errors}" required/>
           <ng-template [ngIf]="groupNameInput.touched && groupNameInput.invalid">
             <div *ngIf="groupNameInput.errors?.required" class="invalid-feedback d-block">

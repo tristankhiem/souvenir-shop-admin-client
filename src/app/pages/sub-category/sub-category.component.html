@@ -42,10 +42,10 @@
               <tbody>
               <tr *ngFor="let e of search.result">
                 <td>{{e.name}}</td>
-                <td>{{e.category.name}}</td>
+                <td>{{e.category?.name}}</td>
                 <td>
                   <app-dropdown-menu>
-                    <a class="dropdown-item text-cyan" (click)="updateCategoryComponent.show(e, $event)">
+                    <a class="dropdown-item text-cyan" (click)="updateSubCategoryComponent.show(e, $event)">
                       <i class="far fa-edit"></i>
                       Sửa
                     </a>
@@ -66,4 +66,4 @@
 </section>
 
 <app-add-sub-category #addSubCategoryComponent (saveCompleted)="onChangeDataEvent()"></app-add-sub-category>
-<app-update-category #updateCategoryComponent (saveCompleted)="onChangeDataEvent()"></app-update-category>
+<app-update-sub-category #updateSubCategoryComponent (saveCompleted)="onChangeDataEvent()"></app-update-sub-category>

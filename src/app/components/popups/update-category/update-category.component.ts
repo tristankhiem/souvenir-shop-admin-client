@@ -29,7 +29,7 @@ export class UpdateCategoryComponent implements AfterViewInit {
   @ViewChild('updateCategoryModalWrapper', {static: true}) updateCategoryModalWrapper: ModalWrapperComponent;
   @ViewChild('updateCategoryForm', {static: true}) updateCategoryForm: NgForm;
 
-  public size: CategoryModel = new CategoryModel();
+  public category: CategoryModel = new CategoryModel();
 
   private targetModalLoading: ElementRef;
 
@@ -50,7 +50,7 @@ export class UpdateCategoryComponent implements AfterViewInit {
   }
 
   public onHideEvent(): void {
-    this.size = new CustomerGroupFullModel();
+    this.category = new CategoryModel();
     this.updateCategoryForm.onReset();
   }
 
@@ -66,7 +66,7 @@ export class UpdateCategoryComponent implements AfterViewInit {
       return;
     }
 
-    this.size = res.result;
+    this.category = res.result;
   }
 
   public isValid(): boolean{
@@ -86,7 +86,7 @@ export class UpdateCategoryComponent implements AfterViewInit {
 
   private saveCategory(): void {
     this.loading.show(this.targetModalLoading);
-    this.categoryService.update(this.size).subscribe(res => this.saveCategoryCompleted(res));
+    this.categoryService.update(this.category).subscribe(res => this.saveCategoryCompleted(res));
   }
 
   private saveCategoryCompleted(res: ResponseModel<CategoryModel>): void {
