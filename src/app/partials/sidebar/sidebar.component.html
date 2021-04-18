@@ -47,7 +47,7 @@
           </a>
         </li>
 
-        <li class="nav-header" *ngIf="employeeGroups.length > 0">Thông tin cán bộ</li>
+        <li class="nav-header" *ngIf="employeeGroups.length > 0">Thông tin nhân viên</li>
         <li *ngFor="let item of employeeGroups" class="nav-item">
           <a [routerLinkActive]="['active']"
             routerLink="{{item.routerLink}}"

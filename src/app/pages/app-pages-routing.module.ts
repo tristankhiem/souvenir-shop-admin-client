@@ -18,6 +18,7 @@ import {ColorComponent} from './color/color.component';
 import {SizeComponent} from './size/size.component';
 import {CategoryComponent} from './category/category.component';
 import {SubCategoryComponent} from './sub-category/sub-category.component';
+import {RoleComponent} from './role/role.component';
 
 const routes: Routes = [
   {
@@ -105,6 +106,10 @@ const routes: Routes = [
     path: 'sub-category',
     component: SubCategoryComponent,
   },
+  {
+    path: 'role',
+    component: RoleComponent,
+  },
 ];
 
 @NgModule({
@@ -131,5 +136,6 @@ export const routedComponents = [
   ColorComponent,
   SizeComponent,
   CategoryComponent,
-  SubCategoryComponent
+  SubCategoryComponent,
+  RoleComponent
 ];

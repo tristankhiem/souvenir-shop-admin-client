@@ -3,15 +3,14 @@ import {AppAlert, AppLoading} from '../../../utils';
 import {AppCommon} from '../../../utils/app-common';
 import {ModalWrapperComponent} from '../../commons/modal-wrapper/modal-wrapper.component';
 import {NgForm} from '@angular/forms';
-import {PermissionModel} from '../../../data-services/permission.model';
+import {PermissionModel} from '../../../data-services/schema/permission.model';
 import {ResponseModel} from '../../../data-services/response.model';
 
 import {HTTP_CODE_CONSTANT} from '../../../constants/http-code.constant';
-import {RoleService} from '../../../services/district/role.service';
-import {RoleFullModel} from '../../../data-services/role-full.model';
-import {GrantPermissionModel} from '../../../data-services/grant-permission.model';
-import {EmployeeGroupModel} from '../../../data-services/employee-group.model';
-import {EmployeeGroupService} from '../../../services/district/employee-group.service';
+import {RoleService} from '../../../services/store/role.service';
+import {RoleFullModel} from '../../../data-services/schema/role-full.model';
+import {GrantPermissionModel} from '../../../data-services/schema/grant-permission.model';
+import {PermissionService} from '../../../services/store/permission.service';
 
 declare var $: any;
 
@@ -25,7 +24,7 @@ export class AddRoleComponent implements AfterViewInit {
     private alert: AppAlert,
     private common: AppCommon,
     private roleService: RoleService,
-    private employeeGroupService: EmployeeGroupService
+    private permissionService: PermissionService
   ) {
   }
 
@@ -35,22 +34,17 @@ export class AddRoleComponent implements AfterViewInit {
 
   public roleFull: RoleFullModel = new RoleFullModel();
   public permissionList: PermissionModel[] = [];
-  public filteredPermissionList: PermissionModel[] = [];
   public selectedPermission: PermissionModel[] = [];
-  public employeeGroups: EmployeeGroupModel[] = [];
   public grantPermission: GrantPermissionModel;
 
   private targetModalLoading: ElementRef;
-  private countRequest: number;
 
   ngAfterViewInit(): void {
     this.targetModalLoading = $(`#${this.addRoleModalWrapper.id} .modal-dialog`);
   }
 
   public show(): void {
-    this.roleFull.employeeGroup.id = 0;
     this.loadData();
-    this.filteredPermissionList = [];
     this.selectedPermission = [];
     this.addRoleModalWrapper.show();
 
@@ -68,49 +62,21 @@ export class AddRoleComponent implements AfterViewInit {
 
   private loadData(): void {
     this.loading.show();
-    this.countRequest = 2;
-    this.getEmployeeGroups();
     this.getPermission();
   }
 
-  private loadDataCompleted(): void {
-    --this.countRequest;
-    if (this.countRequest === 0) {
-      this.loading.hide();
-    }
-  }
-
-  private getEmployeeGroups(): void {
-    this.employeeGroupService.findAll().subscribe(res => this.getEmployeeGroupsCompleted(res));
-  }
-
-  private getEmployeeGroupsCompleted(res: ResponseModel<EmployeeGroupModel[]>): void {
-    this.loadDataCompleted();
-    if (res.status !== HTTP_CODE_CONSTANT.OK) {
-      this.alert.errorMessages(res.message);
-      return;
-    }
-
-    this.employeeGroups = res.result;
-  }
-
   private getPermission(): void{
-    this.roleService.findAllPermission().subscribe(res => this.getPermissionCompleted(res));
+    this.permissionService.findAll().subscribe(res => this.getPermissionCompleted(res));
   }
 
   private getPermissionCompleted(res: ResponseModel<PermissionModel[]>): void {
-    this.loadDataCompleted();
+    this.loading.show();
     if (res.status !== HTTP_CODE_CONSTANT.OK) {
       this.alert.errorMessages(res.message);
       return;
     }
-
+    this.loading.hide();
     this.permissionList = res.result;
-  }
-
-  public filterPermission(): void{
-    this.selectedPermission = [];
-    this.filteredPermissionList = this.permissionList.filter(e => e.employeeGroup.id === +this.roleFull.employeeGroup.id);
   }
 
   public onCheck(permission: PermissionModel): void{

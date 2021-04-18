@@ -1,31 +1,15 @@
-<app-modal-wrapper #updateRoleModalWrapper title="Thêm chức vụ" (hideEvent)="onHideEvent()">
+<app-modal-wrapper #updateRoleModalWrapper title="Cập nhật quyền" (hideEvent)="onHideEvent()">
   <form #updateRoleForm="ngForm" novalidate (submit)="onSave()">
     <div class="modal-body">
       <div class="row">
-        <div class="col-sm-6 form-group">
-          <label for="roleUpdate">Chức vụ</label>
+        <div class="col-12 form-group">
+          <label for="roleUpdate">Tên quyền</label>
           <input type="text" class="form-control" name="roleUpdate" id="roleUpdate" #roleUpdate="ngModel"
-                 [(ngModel)]="roleFull.name" placeholder="Chức vụ"
+                 [(ngModel)]="roleFull.name" placeholder="Tên quyền"
                  [class]="{'is-invalid': roleUpdate.touched && roleUpdate.errors}" required/>
           <ng-template [ngIf]="roleUpdate.touched && roleUpdate.invalid">
             <div *ngIf="roleUpdate.errors?.required" class="invalid-feedback d-block">
-              Vui lòng nhập chức vụ
-            </div>
-          </ng-template>
-        </div>
-        <div class="col-sm-6 form-group">
-          <label for="employeeGroupSelectUpdate">Nhóm cán bộ</label>
-          <select name="employeeGroupSelectUpdate" id="employeeGroupSelectUpdate" class="custom-select" #employeeGroupSelectUpdate="ngModel"
-                  [(ngModel)]="roleFull.employeeGroup.id"  required (change)="filterPermission()"
-                  [class]="{'is-invalid': employeeGroupSelectUpdate.touched && employeeGroupSelectUpdate.value === 0}">
-            <option value="0" disabled>Chọn nhóm cán bộ</option>
-            <option *ngFor="let group of employeeGroups" [value]="group.id">
-              {{group.name}}
-            </option>
-          </select>
-          <ng-template [ngIf]="employeeGroupSelectUpdate.touched">
-            <div *ngIf="employeeGroupSelectUpdate.value === 0" class="invalid-feedback d-block">
-              Vui lòng chọn nhóm
+              Vui lòng nhập tên quyền
             </div>
           </ng-template>
         </div>
@@ -38,13 +22,11 @@
                 <thead>
                 <tr>
                   <th>Quyền</th>
-                  <th>Mô tả</th>
                   <th></th>
                 </tr>
                 </thead>
                 <tbody>
-                <tr *ngFor="let item of filteredPermissionList,let i = index">
-                  <td>{{item.name}}</td>
+                <tr *ngFor="let item of permissionList,let i = index">
                   <td>{{item.description}}</td>
                   <td>
                     <input type="checkbox" (input)="onCheck(item)" [value]="item" [checked]="isCheckedPermission[i]">

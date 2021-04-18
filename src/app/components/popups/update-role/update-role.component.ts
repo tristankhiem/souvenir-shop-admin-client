@@ -5,14 +5,13 @@ import {ModalWrapperComponent} from '../../commons/modal-wrapper/modal-wrapper.c
 import {NgForm} from '@angular/forms';
 import {PermissionModel} from '../../../data-services/permission.model';
 
-import {RoleService} from '../../../services/district/role.service';
+import {RoleService} from '../../../services/store/role.service';
 import {RoleFullModel} from '../../../data-services/role-full.model';
 import {GrantPermissionModel} from '../../../data-services/grant-permission.model';
-import {EmployeeGroupModel} from '../../../data-services/employee-group.model';
-import {EmployeeGroupService} from '../../../services/district/employee-group.service';
 import {ResponseModel} from '../../../data-services/response.model';
 import {HTTP_CODE_CONSTANT} from '../../../constants/http-code.constant';
 import {RoleModel} from '../../../data-services/role.model';
+import {PermissionService} from '../../../services/store/permission.service';
 
 
 declare var $: any;
@@ -27,7 +26,7 @@ export class UpdateRoleComponent implements AfterViewInit {
     private alert: AppAlert,
     private common: AppCommon,
     private roleService: RoleService,
-    private employeeGroupService: EmployeeGroupService
+    private permissionService: PermissionService
   ) {
   }
 
@@ -37,14 +36,11 @@ export class UpdateRoleComponent implements AfterViewInit {
 
   public roleFull: RoleFullModel = new RoleFullModel();
   public permissionList: PermissionModel[] = [];
-  public filteredPermissionList: PermissionModel[] = [];
   public selectedPermission: PermissionModel[] = [];
-  public employeeGroups: EmployeeGroupModel[] = [];
   public grantPermission: GrantPermissionModel;
   public isCheckedPermission: boolean[] = [];
 
   private targetModalLoading: ElementRef;
-  private countRequest: number;
 
   ngAfterViewInit(): void {
     this.targetModalLoading = $(`#${this.updateRoleModalWrapper.id} .modal-dialog`);
@@ -52,6 +48,7 @@ export class UpdateRoleComponent implements AfterViewInit {
 
   public show(role: RoleModel, event: Event): void {
     event.preventDefault();
+    this.permissionList = [];
     this.selectedPermission = [];
     this.isCheckedPermission = [];
     this.loadData();
@@ -72,7 +69,7 @@ export class UpdateRoleComponent implements AfterViewInit {
 
   private getRoleFull(id: number): void{
     this.loading.show();
-    this.roleService.getRoleFull(id).subscribe(res => this.getRoleFullCompleted(res));
+    this.roleService.getById(id).subscribe(res => this.getRoleFullCompleted(res));
   }
 
   private getRoleFullCompleted(res: ResponseModel<RoleFullModel>): void {
@@ -86,10 +83,9 @@ export class UpdateRoleComponent implements AfterViewInit {
     for (const item of this.roleFull.grantPermissions){
       this.selectedPermission.push(item.permission);
     }
-    this.filteredPermissionList = this.permissionList.filter(e => e.employeeGroup.id === +this.roleFull.employeeGroup.id);
 
-    for (let i = 0; i < this.filteredPermissionList.length; i++){
-      const tempPermission = this.selectedPermission.find(item => item.code === this.filteredPermissionList[i].code);
+    for (let i = 0; i < this.permissionList.length; i++){
+      const tempPermission = this.selectedPermission.find(item => item.code === this.permissionList[i].code);
       if (tempPermission !== undefined){
         this.isCheckedPermission[i] = true;
       }
@@ -101,50 +97,20 @@ export class UpdateRoleComponent implements AfterViewInit {
 
   private loadData(): void {
     this.loading.show();
-    this.countRequest = 2;
-    this.getEmployeeGroups();
     this.getPermission();
   }
 
-  private loadDataCompleted(): void {
-    --this.countRequest;
-    if (this.countRequest === 0) {
-      this.loading.hide();
-    }
-  }
-
-  private getEmployeeGroups(): void {
-    this.employeeGroupService.findAll().subscribe(res => this.getEmployeeGroupsCompleted(res));
-  }
-
-  private getEmployeeGroupsCompleted(res: ResponseModel<EmployeeGroupModel[]>): void {
-    this.loadDataCompleted();
-    if (res.status !== HTTP_CODE_CONSTANT.OK) {
-      this.alert.errorMessages(res.message);
-      return;
-    }
-
-    this.employeeGroups = res.result;
-  }
-
   private getPermission(): void{
-    this.roleService.findAllPermission().subscribe(res => this.getPermissionCompleted(res));
+    this.permissionService.findAll().subscribe(res => this.getPermissionCompleted(res));
   }
 
   private getPermissionCompleted(res: ResponseModel<PermissionModel[]>): void {
-    this.loadDataCompleted();
     if (res.status !== HTTP_CODE_CONSTANT.OK) {
       this.alert.errorMessages(res.message);
       return;
     }
 
     this.permissionList = res.result;
-  }
-
-  public filterPermission(): void{
-    this.selectedPermission = [];
-    this.isCheckedPermission = [];
-    this.filteredPermissionList = this.permissionList.filter(e => e.employeeGroup.id === +this.roleFull.employeeGroup.id);
   }
 
   public onCheck(permission: PermissionModel): void{
