@@ -49,16 +49,15 @@ export const ROUTER_USER_PERMISSION_MAPPER = [
       name: 'Quản lý chức vụ',
       icon: 'fa-users-cog',
       permissions: [
-        USER_PERMISSION_CODE.PRODUCT_MANAGEMENT
       ],
       sort: 2,
       isMenu: true
     }),
   new RouterPermissionMappingModel(
     {
-      routerLink: '/quan-ly-can-bo',
+      routerLink: '/quan-ly-nhan-vien',
       matchUrl: '',
-      name: 'Quản lý cán bộ',
+      name: 'Quản lý nhân viên',
       icon: 'fa-users',
       permissions: [
         USER_PERMISSION_CODE.EMPLOYEE_MANAGEMENT
@@ -97,7 +96,6 @@ export const ROUTER_USER_PERMISSION_MAPPER = [
       name: 'Quản lý nhóm khách hàng',
       icon: 'fa-users',
       permissions: [
-        USER_PERMISSION_CODE.CUSTOMER_MANAGEMENT
       ],
       sort: 6,
       isMenu: true

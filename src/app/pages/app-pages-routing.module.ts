@@ -19,6 +19,7 @@ import {SizeComponent} from './size/size.component';
 import {CategoryComponent} from './category/category.component';
 import {SubCategoryComponent} from './sub-category/sub-category.component';
 import {RoleComponent} from './role/role.component';
+import {EmployeeComponent} from './employee/employee.component';
 
 const routes: Routes = [
   {
@@ -35,12 +36,8 @@ const routes: Routes = [
     component: RoleMgmtComponent,
   },
   {
-    path: 'quan-ly-can-bo',
-    component: EmployeeMgmtComponent,
-  },
-  {
-    path: 'quan-ly-can-bo',
-    component: EmployeeMgmtComponent,
+    path: 'quan-ly-nhan-vien',
+    component: EmployeeComponent,
   },
   {
     path: 'quan-ly-quy-hoach',
@@ -137,5 +134,6 @@ export const routedComponents = [
   SizeComponent,
   CategoryComponent,
   SubCategoryComponent,
-  RoleComponent
+  RoleComponent,
+  EmployeeComponent
 ];
