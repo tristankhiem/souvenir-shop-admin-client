@@ -8,7 +8,8 @@ export const USER_PERMISSION_CODE = {
   CONSTRUCTION_VIOLATE_MANAGEMENT: 'CONSTRUCTION_VIOLATE_MANAGEMENT',
   CONSTRUCTION_VIOLATE_REQUEST: 'CONSTRUCTION_VIOLATE_REQUEST',
   ZONING_SEARCH: 'ZONING_SEARCH',
-  PRODUCT_MANAGEMENT: 'PRODUCT_MANAGEMENT'
+  PRODUCT_MANAGEMENT: 'PRODUCT_MANAGEMENT',
+  SUPPLIER_MANAGEMENT: 'SUPPLIER_MANAGEMENT'
 };
 
 export const ROUTER_USER_PERMISSION_MAPPER = [
@@ -215,6 +216,30 @@ export const ROUTER_USER_PERMISSION_MAPPER = [
       matchUrl: '',
       name: 'Quản lý quyền',
       icon: 'fas fa-users',
+      permissions: [
+        USER_PERMISSION_CODE.EMPLOYEE_MANAGEMENT
+      ],
+      sort: 0,
+      isMenu: true
+    }),
+  new RouterPermissionMappingModel(
+    {
+      routerLink: '/supplier',
+      matchUrl: '',
+      name: 'Quản lý nhà cung cấp',
+      icon: 'fas fa-users',
+      permissions: [
+        USER_PERMISSION_CODE.SUPPLIER_MANAGEMENT
+      ],
+      sort: 0,
+      isMenu: true
+    }),
+  new RouterPermissionMappingModel(
+    {
+      routerLink: '/employee',
+      matchUrl: '',
+      name: 'Quản lý nhân viên',
+      icon: 'fas-fa-users',
       permissions: [
         USER_PERMISSION_CODE.EMPLOYEE_MANAGEMENT
       ],

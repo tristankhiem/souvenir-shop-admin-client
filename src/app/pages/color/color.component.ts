@@ -48,6 +48,7 @@ export class ColorComponent implements OnInit {
     }
 
     this.search = res.result;
+    console.log(this.search);
   }
 
   public openDeleteModal(color: ColorModel, event: Event): void {

@@ -5,6 +5,7 @@ declare var $: any;
   selector: 'app-modal-wrapper',
   templateUrl: './modal-wrapper.component.html'
 })
+
 export class ModalWrapperComponent implements AfterViewInit {
   @Input() title = '';
   // modal-sm, modal-lg or modal-xl

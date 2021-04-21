@@ -1,0 +1,42 @@
+<app-modal-wrapper [size]="'sm'" #addSupplierModalWrapper title="Thêm danh sách nhà cung cấp" (hideEvent)="onHideEvent()">
+  <form #addSupplierForm="ngForm" novalidate (submit)="onSave()" >
+    <div class="modal-body">
+      <div class="row">
+        <div class="col-sm-12 form-group">
+          <label for="groupNameInput">Tên nhà cung cấp</label>
+          <input type="text" class="form-control" name="groupNameInput" id="groupNameInput" #groupNameInput="ngModel"
+                 [(ngModel)]="supplier.name" placeholder="Tên nhà cung cấp"
+                 [class]="{'is-invalid': groupNameInput.touched && groupNameInput.errors}" required/>
+          <ng-template [ngIf]="groupNameInput.touched && groupNameInput.invalid">
+            <div *ngIf="groupNameInput.errors?.required" class="invalid-feedback d-block">
+              Vui lòng nhập tên nhà cung cấp
+            </div>
+          </ng-template>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-12 form-group">
+          <label for="groupAddressInput">Địa chỉ</label>
+          <input type="text" class="form-control" name="groupAddressInput" id="groupAddressInput" #groupAddressInput="ngModel"
+                 [(ngModel)]="supplier.address" placeholder="Tên địa chỉ"
+                 [class]="{'is-invalid': groupAddressInput.touched && groupAddressInput.errors}" required/>
+          <ng-template [ngIf]="groupAddressInput.touched && groupAddressInput.invalid">
+            <div *ngIf="groupAddressInput.errors?.required" class="invalid-feedback d-block">
+              Vui lòng nhập địa chỉ
+            </div>
+          </ng-template>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer justify-content-between">
+      <button (click)="hide()" type="button" class="btn btn-default">
+        <i class="fas fa-times mr-1"></i>
+        Đóng
+      </button>
+      <button type="submit" class="btn btn-primary" [disabled]="!isValid()">
+        <i class="far fa-save mr-1"></i>
+        Lưu
+      </button>
+    </div>
+  </form>
+</app-modal-wrapper>
