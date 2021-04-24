@@ -1,17 +1,15 @@
 import {AfterViewInit, Component, ElementRef, EventEmitter, Output, ViewChild} from '@angular/core';
 import {ModalWrapperComponent} from '../../commons/modal-wrapper/modal-wrapper.component';
 import {AppAlert, AppLoading} from '../../../utils';
-import {EmployeeService} from '../../../services/store/employee.service';
-import {EmployeeGroupService} from '../../../services/district/employee-group.service';
-import {WardService} from '../../../services/district/ward.service';
 import {RoleService} from '../../../services/store/role.service';
 import {ResponseModel} from '../../../data-services/response.model';
 import {HTTP_CODE_CONSTANT} from '../../../constants/http-code.constant';
-import {RoleModel} from '../../../data-services/role.model';
+import {RoleModel} from '../../../data-services/schema/role.model';
 import {NgForm} from '@angular/forms';
 import {AppCommon} from '../../../utils/app-common';
 import {INPUT_PATTERN_CONSTANT} from '../../../constants/input-pattern.constant';
 import {EmployeeModel} from '../../../data-services/schema/employee.model';
+import {EmployeeService} from '../../../services/store/employee.service';
 
 declare var $: any;
 
@@ -25,8 +23,6 @@ export class AddEmployeeComponent implements AfterViewInit {
     private alert: AppAlert,
     private common: AppCommon,
     private employeeService: EmployeeService,
-    private employeeGroupService: EmployeeGroupService,
-    private wardService: WardService,
     private roleService: RoleService
   ) {
   }

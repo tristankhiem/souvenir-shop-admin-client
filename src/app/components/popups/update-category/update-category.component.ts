@@ -3,7 +3,6 @@ import {AppAlert, AppLoading} from '../../../utils';
 import {AppCommon} from '../../../utils/app-common';
 import {ModalWrapperComponent} from '../../commons/modal-wrapper/modal-wrapper.component';
 import {NgForm} from '@angular/forms';
-import {CustomerGroupFullModel} from '../../../data-services/customer-group-full.model';
 import {ResponseModel} from '../../../data-services/response.model';
 
 import {HTTP_CODE_CONSTANT} from '../../../constants/http-code.constant';

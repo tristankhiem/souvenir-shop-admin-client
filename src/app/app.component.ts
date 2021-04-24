@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {NavigationStart, Router} from '@angular/router';
-import {CurrentUserService} from './services/district/current-user.service';
+import {CurrentUserService} from './services/store/current-user.service';
 import {AUTH_CONSTANT} from './constants/auth.constant';
 import {RouterPermissionMappingModel} from './data-components/router-permission-mapping.model';
 import {ROUTER_USER_PERMISSION_MAPPER} from './constants/user-permission.constant';

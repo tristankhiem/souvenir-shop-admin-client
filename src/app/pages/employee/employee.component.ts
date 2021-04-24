@@ -1,10 +1,10 @@
 import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
-import {EmployeeService} from '../../services/store/employee.service';
 import {BaseSearchModel} from '../../data-services/search/base-search.model';
 import {EmployeeModel} from '../../data-services/schema/employee.model';
 import {AppAlert, AppLoading, AppModals} from '../../utils';
 import {ResponseModel} from '../../data-services/response.model';
 import {HTTP_CODE_CONSTANT} from '../../constants/http-code.constant';
+import {EmployeeService} from '../../services/store/employee.service';
 
 @Component({
   selector: 'app-employee',

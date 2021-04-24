@@ -3,13 +3,8 @@ import {AppAlert, AppLoading} from '../../../utils';
 import {AppCommon} from '../../../utils/app-common';
 import {ModalWrapperComponent} from '../../commons/modal-wrapper/modal-wrapper.component';
 import {NgForm} from '@angular/forms';
-import {CustomerGroupService} from '../../../services/customer/customer-group.service';
-import {CustomerGroupFullModel} from '../../../data-services/customer-group-full.model';
 import {ResponseModel} from '../../../data-services/response.model';
-
 import {HTTP_CODE_CONSTANT} from '../../../constants/http-code.constant';
-import {CustomerGrantPermissionModel} from '../../../data-services/customer-grant-permission.model';
-import {CustomerPermissionModel} from '../../../data-services/customer-permission.model';
 import {ColorService} from '../../../services/store/color.service';
 import {ColorModel} from '../../../data-services/schema/color.model';
 

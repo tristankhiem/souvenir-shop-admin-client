@@ -1,9 +1,9 @@
 import {BaseSearchModel} from '../../data-services/search/base-search.model';
-import {EmployeeModel} from '../../data-services/employee-model';
-import {CurrentUserService} from '../../services/district/current-user.service';
+import {CurrentUserService} from '../../services/store/current-user.service';
 import {Router} from '@angular/router';
 import {Component} from '@angular/core';
 import {AUTH_CONSTANT} from '../../constants/auth.constant';
+import {EmployeeModel} from '../../data-services/schema/employee.model';
 
 @Component({
   selector: 'app-user-profile',
@@ -16,7 +16,7 @@ export class AppUserProfileComponent {
     private router: Router,
     private currentUserService: CurrentUserService,
   ) {
-    this.fullName = currentUserService.getFullName();
+    // this.fullName = currentUserService.getFullName();
   }
   public search: BaseSearchModel<EmployeeModel[]> = new BaseSearchModel<EmployeeModel[]>();
 

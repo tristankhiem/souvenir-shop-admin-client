@@ -2,12 +2,7 @@ import {RouterPermissionMappingModel} from '../data-components/router-permission
 
 export const USER_PERMISSION_CODE = {
   EMPLOYEE_MANAGEMENT: 'EMPLOYEE_MANAGEMENT',
-  ZONING_TYPE_MANAGEMENT: 'ZONING_TYPE_MANAGEMENT',
-  ZONING_INFORMATION_MANAGEMENT: 'ZONING_INFORMATION_MANAGEMENT',
   CUSTOMER_MANAGEMENT: 'CUSTOMER_MANAGEMENT',
-  CONSTRUCTION_VIOLATE_MANAGEMENT: 'CONSTRUCTION_VIOLATE_MANAGEMENT',
-  CONSTRUCTION_VIOLATE_REQUEST: 'CONSTRUCTION_VIOLATE_REQUEST',
-  ZONING_SEARCH: 'ZONING_SEARCH',
   PRODUCT_MANAGEMENT: 'PRODUCT_MANAGEMENT',
   SUPPLIER_MANAGEMENT: 'SUPPLIER_MANAGEMENT'
 };
@@ -42,125 +37,6 @@ export const ROUTER_USER_PERMISSION_MAPPER = [
       permissions: [],
       sort: 0,
       isMenu: false
-    }),
-  new RouterPermissionMappingModel(
-    {
-      routerLink: '/quan-ly-chuc-vu',
-      matchUrl: '',
-      name: 'Quản lý chức vụ',
-      icon: 'fa-users-cog',
-      permissions: [
-      ],
-      sort: 2,
-      isMenu: true
-    }),
-  // new RouterPermissionMappingModel(
-  //   {
-  //     routerLink: '/quan-ly-nhan-vien',
-  //     matchUrl: '',
-  //     name: 'Quản lý nhân viên',
-  //     icon: 'fa-users',
-  //     permissions: [
-  //       USER_PERMISSION_CODE.EMPLOYEE_MANAGEMENT
-  //     ],
-  //     sort: 3,
-  //     isMenu: true
-  //   }),
-  new RouterPermissionMappingModel(
-    {
-      routerLink: '/quan-ly-quy-hoach',
-      matchUrl: '\/quan-ly-quy-hoach(\/[a-z-]{1,})?',
-      name: 'Quản lý quy hoạch',
-      icon: 'fa-building',
-      permissions: [
-        USER_PERMISSION_CODE.ZONING_TYPE_MANAGEMENT
-      ],
-      sort: 4,
-      isMenu: true
-    }),
-  new RouterPermissionMappingModel(
-    {
-      routerLink: '/quan-ly-thong-tin-dat',
-      matchUrl: '',
-      name: 'Quản lý thông tin đất',
-      icon: 'fa-landmark',
-      permissions: [
-        USER_PERMISSION_CODE.ZONING_INFORMATION_MANAGEMENT
-      ],
-      sort: 5,
-      isMenu: true
-    }),
-  new RouterPermissionMappingModel(
-    {
-      routerLink: '/quan-ly-nhom-khach-hang',
-      matchUrl: '',
-      name: 'Quản lý nhóm khách hàng',
-      icon: 'fa-users',
-      permissions: [
-      ],
-      sort: 6,
-      isMenu: true
-    }),
-  new RouterPermissionMappingModel(
-    {
-      routerLink: '/tra-cuu-thong-tin',
-      matchUrl: '',
-      name: 'Tra cứu thông tin',
-      icon: 'fa-landmark',
-      permissions: [],
-      sort: 7,
-      isMenu: true
-    }),
-  new RouterPermissionMappingModel(
-    {
-      routerLink: '/quan-ly-vi-pham-xay-dung',
-      matchUrl: '',
-      name: 'Lĩnh vực xây dựng',
-      icon: 'fa-copy',
-      permissions: [
-        USER_PERMISSION_CODE.CONSTRUCTION_VIOLATE_MANAGEMENT,
-        USER_PERMISSION_CODE.CONSTRUCTION_VIOLATE_REQUEST
-      ],
-      sort: 6,
-      isMenu: true
-    }),
-  new RouterPermissionMappingModel(
-    {
-      routerLink: '/tao-bien-ban-xu-phat-xay-dung',
-      matchUrl: '',
-      name: '',
-      icon: '',
-      permissions: [
-        USER_PERMISSION_CODE.CONSTRUCTION_VIOLATE_MANAGEMENT,
-        USER_PERMISSION_CODE.CONSTRUCTION_VIOLATE_REQUEST
-      ],
-      sort: 0,
-      isMenu: false
-    }),
-  new RouterPermissionMappingModel(
-    {
-      routerLink: '',
-      matchUrl: '\/xu-ly-vi-pham-xay-dung\/\\d+',
-      name: '',
-      icon: '',
-      permissions: [
-        USER_PERMISSION_CODE.CONSTRUCTION_VIOLATE_MANAGEMENT,
-        USER_PERMISSION_CODE.CONSTRUCTION_VIOLATE_REQUEST
-      ],
-      sort: 0,
-      isMenu: false
-    }),
-  new RouterPermissionMappingModel(
-    {
-      routerLink: '/quan-ly-khach-hang',
-      matchUrl: '',
-      name: 'Quản lý khách hàng',
-      icon: 'fa-user-friends',
-      permissions: [
-        USER_PERMISSION_CODE.CUSTOMER_MANAGEMENT
-      ],
-      sort: 7,
-      isMenu: true
     }),
   new RouterPermissionMappingModel(
     {

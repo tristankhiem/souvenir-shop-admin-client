@@ -3,15 +3,15 @@ import {AppAlert, AppLoading} from '../../../utils';
 import {AppCommon} from '../../../utils/app-common';
 import {ModalWrapperComponent} from '../../commons/modal-wrapper/modal-wrapper.component';
 import {NgForm} from '@angular/forms';
-import {PermissionModel} from '../../../data-services/permission.model';
 
 import {RoleService} from '../../../services/store/role.service';
-import {RoleFullModel} from '../../../data-services/role-full.model';
-import {GrantPermissionModel} from '../../../data-services/grant-permission.model';
 import {ResponseModel} from '../../../data-services/response.model';
 import {HTTP_CODE_CONSTANT} from '../../../constants/http-code.constant';
-import {RoleModel} from '../../../data-services/role.model';
 import {PermissionService} from '../../../services/store/permission.service';
+import {RoleModel} from '../../../data-services/schema/role.model';
+import {RoleFullModel} from '../../../data-services/schema/role-full.model';
+import {PermissionModel} from '../../../data-services/schema/permission.model';
+import {GrantPermissionModel} from '../../../data-services/schema/grant-permission.model';
 
 
 declare var $: any;

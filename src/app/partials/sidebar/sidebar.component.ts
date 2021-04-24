@@ -1,6 +1,6 @@
 import {Component, AfterContentChecked, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
-import {CurrentUserService} from '../../services/district/current-user.service';
+import {CurrentUserService} from '../../services/store/current-user.service';
 import {ROUTER_USER_PERMISSION_MAPPER, USER_PERMISSION_CODE} from '../../constants/user-permission.constant';
 import {RouterPermissionMappingModel} from '../../data-components/router-permission-mapping.model';
 
@@ -16,9 +16,7 @@ export class SidebarComponent implements AfterContentChecked, OnInit {
   }
 
   public employeeGroups: RouterPermissionMappingModel[] = [];
-  public zoneGroups: RouterPermissionMappingModel[] = [];
   public customerGroups: RouterPermissionMappingModel[] = [];
-  public violateGroups: RouterPermissionMappingModel[] = [];
   public productGroups: RouterPermissionMappingModel[] = [];
   public supplierGroups: RouterPermissionMappingModel[] = [];
   ngOnInit(): void {
@@ -34,11 +32,7 @@ export class SidebarComponent implements AfterContentChecked, OnInit {
   private collectData(): void {
     const permissions = [
       USER_PERMISSION_CODE.EMPLOYEE_MANAGEMENT,
-      USER_PERMISSION_CODE.ZONING_TYPE_MANAGEMENT,
-      USER_PERMISSION_CODE.ZONING_INFORMATION_MANAGEMENT,
       USER_PERMISSION_CODE.CUSTOMER_MANAGEMENT,
-      USER_PERMISSION_CODE.CONSTRUCTION_VIOLATE_MANAGEMENT,
-      USER_PERMISSION_CODE.CONSTRUCTION_VIOLATE_REQUEST,
       USER_PERMISSION_CODE.PRODUCT_MANAGEMENT,
       USER_PERMISSION_CODE.SUPPLIER_MANAGEMENT,
     ];
@@ -50,20 +44,8 @@ export class SidebarComponent implements AfterContentChecked, OnInit {
         case USER_PERMISSION_CODE.EMPLOYEE_MANAGEMENT:
           this.employeeGroups = this.employeeGroups.concat(mapper);
           break;
-        case USER_PERMISSION_CODE.ZONING_TYPE_MANAGEMENT:
-          this.zoneGroups = this.zoneGroups.concat(mapper);
-          break;
-        case USER_PERMISSION_CODE.ZONING_INFORMATION_MANAGEMENT:
-          this.zoneGroups = this.zoneGroups.concat(mapper);
-          break;
         case USER_PERMISSION_CODE.CUSTOMER_MANAGEMENT:
           this.customerGroups = this.customerGroups.concat(mapper);
-          break;
-        case USER_PERMISSION_CODE.CONSTRUCTION_VIOLATE_MANAGEMENT:
-          this.violateGroups = this.violateGroups.concat(mapper);
-          break;
-        case USER_PERMISSION_CODE.CONSTRUCTION_VIOLATE_REQUEST:
-          this.violateGroups = this.violateGroups.concat(mapper);
           break;
         case USER_PERMISSION_CODE.PRODUCT_MANAGEMENT:
           this.productGroups = this.productGroups.concat(mapper);
@@ -75,9 +57,7 @@ export class SidebarComponent implements AfterContentChecked, OnInit {
     }
 
     this.employeeGroups.sort(this.sortItems);
-    this.zoneGroups.sort(this.sortItems);
     this.customerGroups.sort(this.sortItems);
-    this.violateGroups.sort(this.sortItems);
     this.supplierGroups.sort(this.sortItems);
   }
 

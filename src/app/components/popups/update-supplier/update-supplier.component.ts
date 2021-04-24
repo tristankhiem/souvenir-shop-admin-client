@@ -3,13 +3,11 @@ import {AppAlert, AppLoading} from '../../../utils';
 import {AppCommon} from '../../../utils/app-common';
 import {ModalWrapperComponent} from '../../commons/modal-wrapper/modal-wrapper.component';
 import {NgForm} from '@angular/forms';
-import {CustomerGroupFullModel} from '../../../data-services/customer-group-full.model';
 import {ResponseModel} from '../../../data-services/response.model';
 
 import {HTTP_CODE_CONSTANT} from '../../../constants/http-code.constant';
 import {SupplierModel} from '../../../data-services/schema/supplier.model';
-import {CategoryService} from '../../../services/store/category.service';
-import {SupplierService} from "../../../services/store/supplier.service";
+import {SupplierService} from '../../../services/store/supplier.service';
 
 declare var $: any;
 

@@ -51,7 +51,7 @@
                   <td>{{e.role ? e.role.name : ''}}</td>
                   <td>
                     <app-dropdown-menu>
-                      <a class="dropdown-item text-cyan" href="#" (click)="updateEmployeeComponent.show(e, $event)">
+                      <a class="dropdown-item text-cyan" href="#">
                         <i class="far fa-edit"></i>
                         Sửa
                       </a>
@@ -72,4 +72,3 @@
 </section>
 
 <app-add-employee #addEmployeeComponent (saveCompleted)="onChangeDataEvent()"></app-add-employee>
-<app-update-employee #updateEmployeeComponent (saveCompleted)="onChangeDataEvent()"></app-update-employee>
