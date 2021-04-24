@@ -54,18 +54,18 @@ export const ROUTER_USER_PERMISSION_MAPPER = [
       sort: 2,
       isMenu: true
     }),
-  new RouterPermissionMappingModel(
-    {
-      routerLink: '/quan-ly-nhan-vien',
-      matchUrl: '',
-      name: 'Quản lý nhân viên',
-      icon: 'fa-users',
-      permissions: [
-        USER_PERMISSION_CODE.EMPLOYEE_MANAGEMENT
-      ],
-      sort: 3,
-      isMenu: true
-    }),
+  // new RouterPermissionMappingModel(
+  //   {
+  //     routerLink: '/quan-ly-nhan-vien',
+  //     matchUrl: '',
+  //     name: 'Quản lý nhân viên',
+  //     icon: 'fa-users',
+  //     permissions: [
+  //       USER_PERMISSION_CODE.EMPLOYEE_MANAGEMENT
+  //     ],
+  //     sort: 3,
+  //     isMenu: true
+  //   }),
   new RouterPermissionMappingModel(
     {
       routerLink: '/quan-ly-quy-hoach',
@@ -243,7 +243,7 @@ export const ROUTER_USER_PERMISSION_MAPPER = [
       permissions: [
         USER_PERMISSION_CODE.EMPLOYEE_MANAGEMENT
       ],
-      sort: 0,
+      sort: 2,
       isMenu: true
     }),
 ];

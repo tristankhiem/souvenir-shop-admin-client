@@ -37,7 +37,7 @@ const routes: Routes = [
     component: RoleMgmtComponent,
   },
   {
-    path: 'quan-ly-nhan-vien',
+    path: 'employee',
     component: EmployeeComponent,
   },
   {

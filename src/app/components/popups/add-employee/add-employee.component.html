@@ -1,151 +1,75 @@
-<app-modal-wrapper #addEmployeeModalWrapper title="Thêm cán bộ" (hideEvent)="onHideEvent()">
-  <form #addEmployeeForm="ngForm" novalidate (submit)="onSave()">
+<script src="../../../data-services/schema/sub-category.model.ts"></script>
+<app-modal-wrapper [size]="'sm'" #addEmployeeModalWrapper title="Thêm nhân viên" (hideEvent)="onHideEvent()">
+  <form #addEmployeeForm="ngForm" novalidate (submit)="onSave()" >
     <div class="modal-body">
       <div class="row">
-        <div class="col-12 col-md-7">
-          <div class="row">
-            <div class="col-sm-6 form-group">
-              <label for="employeeGroupSelectAdd">Nhóm cán bộ</label>
-              <select name="employeeGroupSelectAdd" id="employeeGroupSelectAdd" class="custom-select"
-                      #employeeGroupSelectAdd="ngModel"
-                      [ngModel]="newEmployee.employeeGroup.id" (ngModelChange)="onChangeGroup($event)" required
-                      [class]="{'is-invalid': employeeGroupSelectAdd.touched && employeeGroupSelectAdd.value === 0}">
-                <option value="0" disabled>Chọn nhóm cán bộ</option>
-                <option *ngFor="let group of employeeGroups" [value]="group.id">
-                  {{group.name}}
-                </option>
-              </select>
-              <ng-template [ngIf]="employeeGroupSelectAdd.touched">
-                <div *ngIf="employeeGroupSelectAdd.value === 0" class="invalid-feedback d-block">
-                  Vui lòng chọn nhóm
-                </div>
-              </ng-template>
+        <div class="col-sm-12 form-group">
+          <label for="nameInputAdd">Tên nhân viên</label>
+          <input type="text" class="form-control" name="nameInputAdd" id="nameInputAdd" #nameInputAdd="ngModel"
+                 [(ngModel)]="newEmployee.name" placeholder="Tên nhân viên"
+                 [class]="{'is-invalid': nameInputAdd.touched && nameInputAdd.errors}" required/>
+          <ng-template [ngIf]="nameInputAdd.touched && nameInputAdd.invalid">
+            <div *ngIf="nameInputAdd.errors?.required" class="invalid-feedback d-block">
+              Vui lòng nhập tên nhân viên
             </div>
-            <div class="col-sm-6 form-group">
-              <label for="roleSelectAdd">Chức vụ</label>
-              <select name="roleSelectAdd" id="roleSelectAdd" class="custom-select" #roleSelectAdd="ngModel"
-                      [(ngModel)]="newEmployee.role.id" [disabled]="newEmployee.employeeGroup.id === 0" required
-                      [class]="{'is-invalid': roleSelectAdd.touched && roleSelectAdd.value === 0}">
-                <option value="0" disabled>Chọn chức vụ</option>
-                <ng-template ngFor let-role [ngForOf]="roles">
-                  <option *ngIf="+newEmployee.employeeGroup.id === +role.employeeGroup.id" [value]="role.id">
-                    {{role.name}}
-                  </option>
-                </ng-template>
-              </select>
-              <ng-template [ngIf]="roleSelectAdd.touched">
-                <div *ngIf="roleSelectAdd.value === 0" class="invalid-feedback d-block">
-                  Vui lòng chọn chức vụ
-                </div>
-              </ng-template>
-            </div>
-            <div class="col-sm-6 form-group">
-              <label for="fullNameInputAdd">Họ tên</label>
-              <input type="text" class="form-control" name="fullNameInputAdd" id="fullNameInputAdd"
-                     #fullNameInputAdd="ngModel"
-                     [(ngModel)]="newEmployee.fullName" placeholder="Họ tên"
-                     [class]="{'is-invalid': fullNameInputAdd.touched && fullNameInputAdd.errors}" required/>
-              <ng-template [ngIf]="fullNameInputAdd.touched && fullNameInputAdd.invalid">
-                <div *ngIf="fullNameInputAdd.errors?.required" class="invalid-feedback d-block">
-                  Vui lòng nhập họ tên đầy đủ
-                </div>
-              </ng-template>
-            </div>
-            <div class="col-sm-6 form-group">
-              <label for="phoneInputAdd">Số liên lạc</label>
-              <input type="text" class="form-control" name="phoneInputAdd" id="phoneInputAdd" #phoneInputAdd="ngModel"
-                     minlength="10" [pattern]="phonePattern" [(ngModel)]="newEmployee.phone" placeholder="Số liên lạc"
-                     [class]="{'is-invalid': phoneInputAdd.touched && phoneInputAdd.errors}" required/>
-              <ng-template [ngIf]="phoneInputAdd.touched && phoneInputAdd.invalid">
-                <div *ngIf="phoneInputAdd.errors?.required" class="invalid-feedback d-block">
-                  Vui lòng nhập số liên lạc
-                </div>
-                <div *ngIf="phoneInputAdd.errors?.minlength || phoneInputAdd.errors?.pattern"
-                     class="invalid-feedback d-block">
-                  Số liên lạc không hợp lệ
-                </div>
-              </ng-template>
-            </div>
-            <div class="col-sm-6 form-group">
-              <label for="cardIdInputAdd">Chứng minh thư</label>
-              <input type="text" class="form-control" name="cardIdInputAdd" id="cardIdInputAdd"
-                     #cardIdInputAdd="ngModel"
-                     minlength="9" [pattern]="cardIdPattern" [(ngModel)]="newEmployee.cardId"
-                     placeholder="Chứng minh thư"
-                     [class]="{'is-invalid': cardIdInputAdd.touched && cardIdInputAdd.errors}" required/>
-              <ng-template [ngIf]="cardIdInputAdd.touched && cardIdInputAdd.invalid">
-                <div *ngIf="cardIdInputAdd.errors?.required" class="invalid-feedback d-block">
-                  Vui lòng nhập CMT/CCCD
-                </div>
-                <div *ngIf="cardIdInputAdd.errors?.minlength || cardIdInputAdd.errors?.pattern"
-                     class="invalid-feedback d-block">
-                  CMT/CCCD không hợp lệ
-                </div>
-              </ng-template>
-            </div>
-            <div class="col-sm-6 form-group">
-              <label>Ngày sinh</label>
-              <app-date-picker [(startDate)]="newEmployee.birthDate"
-                               parentEl="{{addEmployeeModalWrapper.id}}"></app-date-picker>
-            </div>
-            <div class="col-sm-6 form-group">
-              <label for="emailInputAdd">Email</label>
-              <input type="email" class="form-control" name="emailInputAdd" id="emailInputAdd" #emailInputAdd="ngModel"
-                     [(ngModel)]="newEmployee.email" placeholder="Email" [pattern]="emailPattern"
-                     [class]="{'is-invalid': emailInputAdd.touched && emailInputAdd.errors}" required/>
-              <ng-template [ngIf]="emailInputAdd.touched && emailInputAdd.invalid">
-                <div *ngIf="emailInputAdd.errors?.required" class="invalid-feedback d-block">
-                  Vui lòng nhập email
-                </div>
-                <div *ngIf="emailInputAdd.errors?.pattern" class="invalid-feedback d-block">
-                  Email không hợp lệ
-                </div>
-              </ng-template>
-            </div>
-            <div class="col-sm-6 form-group">
-              <label for="passwordInputAdd">Mật khẩu</label>
-              <input type="password" class="form-control" name="passwordInputAdd" id="passwordInputAdd"
-                     #passwordInputAdd="ngModel"
-                     [(ngModel)]="newEmployee.password" [pattern]="passwordPattern" placeholder="Mật khẩu"
-                     [class]="{'is-invalid': passwordInputAdd.touched && passwordInputAdd.errors}" required/>
-              <ng-template [ngIf]="passwordInputAdd.touched && passwordInputAdd.invalid">
-                <div *ngIf="passwordInputAdd.errors?.required" class="invalid-feedback d-block">
-                  Vui lòng nhập mật khẩu
-                </div>
-                <div *ngIf="passwordInputAdd.errors?.pattern" class="invalid-feedback d-block">
-                  Mật khẩu có ít nhất 6 ký tự và 1 ký tự đặc biệt (!@#$%^&*...)
-                </div>
-              </ng-template>
-            </div>
-          </div>
+          </ng-template>
         </div>
-        <div class="col-12 col-md-5">
-          <div class="d-flex justify-content-between">
-            <label>Nơi công tác</label>
-            <div *ngIf="!isWardGroup && newEmployee.employeeGroup.id !== 0" class="form-group mb-0 pr-3">
-              <input id="allCheckedWardPermissionAdd" (change)="onCheckAllWardPermission()" class="mr-1" type="checkbox"
-                     [checked]="wards.length === newEmployee.wardPermissions.length">
-              <label for="allCheckedWardPermissionAdd" style="cursor: pointer;">Chọn tất cả</label>
+      </div>
+      <div class="row">
+        <div class="col-sm-6 form-group">
+          <label for="emailInputAdd">Email</label>
+          <input type="email" class="form-control" name="emailInputAdd" id="emailInputAdd" #emailInputAdd="ngModel"
+                [(ngModel)]="newEmployee.email" placeholder="Email" [pattern]="emailPattern"
+                [class]="{'is-invalid': emailInputAdd.touched && emailInputAdd.errors}" required/>
+          <ng-template [ngIf]="emailInputAdd.touched && emailInputAdd.invalid">
+            <div *ngIf="emailInputAdd.errors?.required" class="invalid-feedback d-block">
+              Vui lòng nhập email
             </div>
-          </div>
-          <div class="card">
-            <div class="card-body table-responsive p-0" style="height: 17rem">
-              <table class="table text-nowrap">
-                <tbody>
-                <tr *ngFor="let ward of wards">
-                  <td>{{ward.name}}</td>
-                  <td>
-                    <input type="checkbox" (change)="onCheckWardPermission(ward)"
-                           [checked]="isWardPermissionChecked(ward)">
-                  </td>
-                </tr>
-                </tbody>
-              </table>
+            <div *ngIf="emailInputAdd.errors?.pattern" class="invalid-feedback d-block">
+              Email không hợp lệ
             </div>
-          </div>
-          <div *ngIf="isInvalidWardPermission()" class="invalid-feedback text-center d-block">
-            Vui lòng chọn nơi công tác
-          </div>
+          </ng-template>
+        </div>
+        <div class="col-sm-6 form-group">
+          <label for="passwordInputAdd">Password</label>
+          <input type="text" class="form-control" name="passwordInputAdd" id="passwordInputAdd" #passwordInputAdd="ngModel"
+                 minlength="10" [pattern]="passwordPattern" [(ngModel)]="newEmployee.password" placeholder="Password"
+                 [class]="{'is-invalid': passwordInputAdd.touched && passwordInputAdd.errors}" required/>
+          <ng-template [ngIf]="passwordInputAdd.touched && passwordInputAdd.invalid">
+            <div *ngIf="passwordInputAdd.errors?.required" class="invalid-feedback d-block">
+              Vui lòng nhập password
+            </div>
+            <div *ngIf="passwordInputAdd.errors?.minlength || passwordInputAdd.errors?.pattern"
+                 class="invalid-feedback d-block">
+                Mật khẩu có ít nhất 10 ký tự và 1 ký tự đặc biệt (!@#$%^&*...)
+            </div>
+          </ng-template>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-6 form-group">
+          <label>Ngày sinh</label>
+          <app-date-picker [(startDate)]="newEmployee.birthDate"
+                           parentEl="{{addEmployeeModalWrapper.id}}"></app-date-picker>
+        </div>
+        <div class="col-sm-6 form-group">
+          <label>Vai trò</label>
+          <p-autoComplete inputStyleClass="form-control" name="roleInput" id="categoryInput" #roleInput="ngModel"
+                          [(ngModel)]="role" [suggestions]="roleResult"
+                          (completeMethod)="searchRoles($event)" field="name" size="100%"
+                          placeholder="Nhập vai trò" [minLength]="1" [autoHighlight]="true"
+                          (onSelect)="selectRole()" required
+                          emptyMessage="Không tìm thấy"
+                          [class]="{'is-invalid': roleInput.touched && roleInput.errors}">
+            <ng-template let-item pTemplate="item">
+              <div>{{item.name}}</div>
+            </ng-template>
+          </p-autoComplete>
+          <ng-template [ngIf]="roleInput.touched && roleInput.invalid">
+            <div *ngIf="roleInput.errors?.required" class="invalid-feedback d-block">
+              Vui lòng nhập vai trò
+            </div>
+          </ng-template>
         </div>
       </div>
     </div>

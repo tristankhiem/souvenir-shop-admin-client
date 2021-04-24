@@ -1,7 +1,7 @@
 import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
-import {EmployeeService} from '../../services/district/employee.service';
+import {EmployeeService} from '../../services/store/employee.service';
 import {BaseSearchModel} from '../../data-services/search/base-search.model';
-import {EmployeeModel} from '../../data-services/employee-model';
+import {EmployeeModel} from '../../data-services/schema/employee.model';
 import {AppAlert, AppLoading, AppModals} from '../../utils';
 import {ResponseModel} from '../../data-services/response.model';
 import {HTTP_CODE_CONSTANT} from '../../constants/http-code.constant';
@@ -37,13 +37,13 @@ export class EmployeeComponent implements OnInit {
 
   public openDeleteModal(employee: EmployeeModel, event: Event): void {
     event.preventDefault();
-    this.modal.confirm(`Bạn có chắc chắn muốn xóa tài khoản ${employee.fullName}?`, 'Xóa tài khoản cán bộ', true)
+    this.modal.confirm(`Bạn có chắc chắn muốn xóa tài khoản ${employee.name}?`, 'Xóa tài khoản cán bộ', true)
       .subscribe(res => this.confirmDeleteEmployee(res, employee));
   }
 
   private getEmployees(targetLoading?: ElementRef): void {
     this.loading.show(targetLoading);
-    this.employeeService.find(this.search).subscribe( res =>  this.getEmployeesCompleted(res, targetLoading));
+    this.employeeService.search(this.search).subscribe( res =>  this.getEmployeesCompleted(res, targetLoading));
   }
 
   private getEmployeesCompleted(res: ResponseModel<BaseSearchModel<EmployeeModel[]>>, targetLoading: ElementRef): void {
