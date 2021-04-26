@@ -21,6 +21,7 @@ import {AddSubCategoryComponent} from './popups/add-sub-category/add-sub-categor
 import {UpdateSubCategoryComponent} from './popups/update-sub-category/update-sub-category.component';
 import {AddSupplierComponent} from './popups/add-supplier/add-supplier.component';
 import {UpdateSupplierComponent} from './popups/update-supplier/update-supplier.component';
+import {UpdateEmployeeComponent} from './popups/update-employee/update-employee.component';
 
 const COMPONENTS = [
   AppUserProfileComponent,
@@ -41,6 +42,7 @@ const COMPONENTS = [
   UpdateSubCategoryComponent,
   AddSupplierComponent,
   UpdateSupplierComponent,
+  UpdateEmployeeComponent,
 ];
 
 @NgModule({

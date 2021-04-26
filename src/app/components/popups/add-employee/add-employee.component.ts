@@ -43,19 +43,19 @@ export class AddEmployeeComponent implements AfterViewInit {
   // private isLoaded = false;
   // private countRequest: number;
   private targetModalLoading: ElementRef;
+  private tempBirthDate: Date;
 
   ngAfterViewInit(): void {
     this.targetModalLoading = $(`#${this.addEmployeeModalWrapper.id} .modal-dialog`);
   }
 
-  // private onInit(): void {
-  //   this.newEmployee.employeeGroup.id = 0;
-  //   this.newEmployee.role.id = 0;
-  //   this.newEmployee.birthDate = new Date().getTime();
-  // }
+  private onInit(): void {
+    this.newEmployee.birthDate = new Date();
+    this.tempBirthDate = new Date(this.newEmployee.birthDate);
+  }
 
   public show(): void {
-    // this.onInit();
+    this.onInit();
     this.addEmployeeModalWrapper.show();
     // if (!this.isLoaded) {
     //   this.loadData();
@@ -72,14 +72,6 @@ export class AddEmployeeComponent implements AfterViewInit {
     // this.isWardGroup = false;
   }
 
-  // public isInvalidWardPermission(): boolean {
-  //   if (!this.addEmployeeForm.touched || this.addEmployeeForm.invalid) {
-  //     return false;
-  //   }
-  //
-  //   return this.newEmployee.wardPermissions.length < 1;
-  // }
-
   public isValid(): boolean {
     if (this.addEmployeeForm.invalid){
       return false;
@@ -92,25 +84,12 @@ export class AddEmployeeComponent implements AfterViewInit {
     if (!this.isValid()) {
       return;
     }
+    if(this.tempBirthDate != this.newEmployee.birthDate) {
+      this.newEmployee.birthDate = new Date(this.newEmployee.birthDate.getMilliseconds() - 24 * 60 * 60 * 1000);
+    }
 
     this.saveEmployee();
   }
-
-  // private loadData(): void {
-  //   this.loading.show();
-  //   this.countRequest = 3;
-  //   // this.getEmployeeGroups();
-  //   // this.getWards();
-  //   this.getRoles();
-  // }
-  //
-  // private loadDataCompleted(): void {
-  //   --this.countRequest;
-  //   if (this.countRequest === 0) {
-  //     this.isLoaded = true;
-  //     this.loading.hide();
-  //   }
-  // }
 
   public selectRole(): void {
     this.newEmployee.role = new RoleModel(this.role);
@@ -131,20 +110,6 @@ export class AddEmployeeComponent implements AfterViewInit {
     }
     this.roleResult = res.result || [];
   }
-
-  // private getRoles(): void {
-  //   this.roleService.findAll().subscribe(res => this.getRolesCompleted(res));
-  // }
-  //
-  // private getRolesCompleted(res: ResponseModel<RoleModel[]>): void {
-  //   this.loadDataCompleted();
-  //   if (res.status !== HTTP_CODE_CONSTANT.OK) {
-  //     this.alert.errorMessages(res.message);
-  //     return;
-  //   }
-  //
-  //   this.roleResult = res.result;
-  // }
 
   private saveEmployee(): void {
     this.loading.show(this.targetModalLoading);
