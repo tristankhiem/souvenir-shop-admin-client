@@ -86,10 +86,10 @@ export class AddEmployeeComponent implements AfterViewInit {
 
   public searchRoles(event): void {
     this.loading.show(this.targetModalLoading);
-    this.roleService.getLikeName(event.query).subscribe(res => this.searchCategoryCompleted(res));
+    this.roleService.getLikeName(event.query).subscribe(res => this.searchRoleCompleted(res));
   }
 
-  private searchCategoryCompleted(res: ResponseModel<RoleModel[]>): void {
+  private searchRoleCompleted(res: ResponseModel<RoleModel[]>): void {
     this.loading.hide(this.targetModalLoading);
     if (res.status !== HTTP_CODE_CONSTANT.OK) {
       res.message.forEach(value => {

@@ -47,6 +47,10 @@ export class UpdateEmployeeComponent implements  AfterViewInit{
     this.targetModalLoading = $(`#${this.updateEmployeeModalWrapper.id} .modal-dialog`);
   }
 
+  private onInit(): void{
+    this.employee.birthDate = new Date().toString();
+  }
+
   public show(employee: EmployeeModel, event: Event): void {
     event.preventDefault();
     this.getEmployee(employee.id);
@@ -92,6 +96,9 @@ export class UpdateEmployeeComponent implements  AfterViewInit{
     if (!this.isValid()){
       return;
     }
+    const currentDate = new Date(this.employee.birthDate);
+    this.employee.birthDate = new Date(currentDate.getTime()).toDateString();
+
     this.saveEmployee();
   }
 
@@ -112,7 +119,8 @@ export class UpdateEmployeeComponent implements  AfterViewInit{
       });
       return;
     }
-    this.roleResult = res.result || [];
+    this.roleResult = res.result;
+    this.role = this.employee.role;
   }
 
   private saveEmployee(): void {

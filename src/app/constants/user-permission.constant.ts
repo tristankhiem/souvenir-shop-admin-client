@@ -122,4 +122,17 @@ export const ROUTER_USER_PERMISSION_MAPPER = [
       sort: 2,
       isMenu: true
     }),
+  new RouterPermissionMappingModel(
+    {
+      routerLink: '/customer',
+      matchUrl: '',
+      name: 'Quản lý khách hàng',
+      icon: 'fas fa-users',
+      permissions: [
+        USER_PERMISSION_CODE.CUSTOMER_MANAGEMENT
+      ],
+      sort: 0,
+      isMenu: true
+    }
+  ),
 ];
