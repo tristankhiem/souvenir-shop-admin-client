@@ -12,6 +12,10 @@ export class SubCategoryService extends StoreBaseService {
     return this.post('/api/subcategory/search', search);
   }
 
+  public getLikeName(name: string): Observable<any> {
+    return this.get('/api/subcategory/get-like-name/' + name);
+  }
+
   public getById(id: number): Observable<any> {
     return this.get('/api/subcategory/' + id);
   }

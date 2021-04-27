@@ -1,0 +1,75 @@
+<!-- Content Header (Page header) -->
+<section class="content-header">
+  <div class="container-fluid">
+    <div class="row mb-2">
+      <div class="col-sm-6">
+        <h1 class="m-0 font-weight-bold text-gray-dark">QUẢN LÝ NHẬP HÀNG</h1>
+      </div>
+      <div class="col-sm-6">
+        <ol class="breadcrumb float-sm-right">
+          <li class="breadcrumb-item"><a routerLink="/">Trang chủ</a></li>
+          <li class="breadcrumb-item active">Quản lý nhập hàng</li>
+        </ol>
+      </div>
+    </div>
+    <!-- /.row -->
+  </div>
+  <!-- /.container-fluid -->
+</section>
+<!-- /.content-header -->
+
+<!-- Main content -->
+<section class="content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-12">
+        <div class="card">
+          <div class="card-body">
+            <app-data-table #dataTableSize [dataTable]="search" (changeEvent)="onChangeDataEvent($event)">
+              <div class="block-buttons-right float-sm-right text-center">
+                <button class="btn btn-success" (click)="addImportingOrderComponent.show()">
+                  <i class="fas fa-plus mr-1"></i>
+                  Thêm phiếu nhập
+                </button>
+              </div>
+              <thead>
+              <tr>
+                <th>Nhà cung cấp</th>
+                <th>Ngày thanh toán</th>
+                <th>Ngày giao</th>
+                <th>Số tiền</th>
+                <th>Trạng thái</th>
+                <th></th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr *ngFor="let e of search.result">
+                <td>{{e.supplier.name}}</td>
+                <td>{{e.invoiceDate | date:'dd/MM/yyyy'}}</td>
+                <td>{{e.deliveryDate | date:'dd/MM/yyyy'}}</td>
+                <td>{{e.total | number}}</td>
+                <td>{{e.status}}</td>
+                <td>
+                  <app-dropdown-menu>
+                    <a class="dropdown-item text-cyan" (click)="updateCategoryComponent.show(e, $event)">
+                      <i class="far fa-edit"></i>
+                      Sửa
+                    </a>
+                    <a class="dropdown-item text-red" href="#" (click)="openDeleteModal(e, $event)">
+                      <i class="far fa-trash-alt mr-1"></i>
+                      Xóa
+                    </a>
+                  </app-dropdown-menu>
+                </td>
+              </tr>
+              </tbody>
+            </app-data-table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<app-add-importing-order #addImportingOrderComponent (saveCompleted)="onChangeDataEvent()"></app-add-importing-order>
+<app-update-category #updateCategoryComponent (saveCompleted)="onChangeDataEvent()"></app-update-category>

@@ -19,6 +19,7 @@ export class SidebarComponent implements AfterContentChecked, OnInit {
   public customerGroups: RouterPermissionMappingModel[] = [];
   public productGroups: RouterPermissionMappingModel[] = [];
   public supplierGroups: RouterPermissionMappingModel[] = [];
+  public transactionGroups: RouterPermissionMappingModel[] = [];
   ngOnInit(): void {
     this.collectData();
   }
@@ -35,6 +36,7 @@ export class SidebarComponent implements AfterContentChecked, OnInit {
       USER_PERMISSION_CODE.CUSTOMER_MANAGEMENT,
       USER_PERMISSION_CODE.PRODUCT_MANAGEMENT,
       USER_PERMISSION_CODE.SUPPLIER_MANAGEMENT,
+      USER_PERMISSION_CODE.TRANSACTION_MANAGEMENT
     ];
 
     // const permissions = this.currentUserService.getPermissions();
@@ -53,12 +55,16 @@ export class SidebarComponent implements AfterContentChecked, OnInit {
         case USER_PERMISSION_CODE.SUPPLIER_MANAGEMENT:
           this.supplierGroups = this.supplierGroups.concat(mapper);
           break;
+        case USER_PERMISSION_CODE.TRANSACTION_MANAGEMENT:
+          this.transactionGroups = this.transactionGroups.concat(mapper);
+          break;
       }
     }
 
     this.employeeGroups.sort(this.sortItems);
     this.customerGroups.sort(this.sortItems);
     this.supplierGroups.sort(this.sortItems);
+    this.transactionGroups.sort(this.sortItems);
   }
 
   private getPermissionMapping(permissionCode: string): RouterPermissionMappingModel[] {

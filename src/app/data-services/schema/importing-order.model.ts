@@ -1,8 +1,7 @@
-import {CustomerModel} from './customer.model';
 import {SupplierModel} from './supplier.model';
 import {EmployeeModel} from './employee.model';
 export class ImportingOrderModel {
-  public id: string;
+  public id: number;
   public supplier: SupplierModel;
   public invoiceDate: string;
   public employee: EmployeeModel;

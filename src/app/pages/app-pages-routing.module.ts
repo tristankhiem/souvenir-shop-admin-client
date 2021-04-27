@@ -9,6 +9,8 @@ import {SubCategoryComponent} from './sub-category/sub-category.component';
 import {RoleComponent} from './role/role.component';
 import {EmployeeComponent} from './employee/employee.component';
 import {SupplierComponent} from './supplier/supplier.component';
+import {ImportingOrderComponent} from './importing-order/importing-order.component';
+import {ProductComponent} from './product/product.component';
 
 const routes: Routes = [
   {
@@ -52,6 +54,14 @@ const routes: Routes = [
     path: 'supplier',
     component: SupplierComponent,
   },
+  {
+    path: 'importing-order',
+    component: ImportingOrderComponent,
+  },
+  {
+    path: 'product',
+    component: ProductComponent,
+  },
 ];
 
 @NgModule({
@@ -70,5 +80,7 @@ export const routedComponents = [
   SubCategoryComponent,
   RoleComponent,
   EmployeeComponent,
-  SupplierComponent
+  SupplierComponent,
+  ImportingOrderComponent,
+  ProductComponent
 ];
