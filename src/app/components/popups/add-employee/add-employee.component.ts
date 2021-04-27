@@ -35,31 +35,22 @@ export class AddEmployeeComponent implements AfterViewInit {
   public role: RoleModel = new RoleModel();
   public newEmployee: EmployeeModel = new EmployeeModel();
 
-  // public phonePattern = INPUT_PATTERN_CONSTANT.phonePattern;
   public cardIdPattern = INPUT_PATTERN_CONSTANT.cardIdPattern;
   public passwordPattern = INPUT_PATTERN_CONSTANT.passwordPattern;
   public emailPattern = INPUT_PATTERN_CONSTANT.emailPattern;
-
-  // private isLoaded = false;
-  // private countRequest: number;
   private targetModalLoading: ElementRef;
-  private tempBirthDate: Date;
 
   ngAfterViewInit(): void {
     this.targetModalLoading = $(`#${this.addEmployeeModalWrapper.id} .modal-dialog`);
   }
 
   private onInit(): void {
-    this.newEmployee.birthDate = new Date();
-    this.tempBirthDate = new Date(this.newEmployee.birthDate);
+    this.newEmployee.birthDate = new Date().toDateString();
   }
 
   public show(): void {
     this.onInit();
     this.addEmployeeModalWrapper.show();
-    // if (!this.isLoaded) {
-    //   this.loadData();
-    // }
   }
 
   public hide(): void {
@@ -69,7 +60,6 @@ export class AddEmployeeComponent implements AfterViewInit {
   public onHideEvent(): void {
     this.newEmployee = new EmployeeModel();
     this.addEmployeeForm.onReset();
-    // this.isWardGroup = false;
   }
 
   public isValid(): boolean {
@@ -84,9 +74,8 @@ export class AddEmployeeComponent implements AfterViewInit {
     if (!this.isValid()) {
       return;
     }
-    if(this.tempBirthDate != this.newEmployee.birthDate) {
-      this.newEmployee.birthDate = new Date(this.newEmployee.birthDate.getMilliseconds() - 24 * 60 * 60 * 1000);
-    }
+    const currentDate = new Date(this.newEmployee.birthDate);
+    this.newEmployee.birthDate = new Date(currentDate.getTime()).toDateString();
 
     this.saveEmployee();
   }
@@ -114,7 +103,6 @@ export class AddEmployeeComponent implements AfterViewInit {
   private saveEmployee(): void {
     this.loading.show(this.targetModalLoading);
 
-    // this.newEmployee.fullNameSlug = this.common.toSlug(this.newEmployee.fullName);
     this.employeeService.save(this.newEmployee).subscribe(res => this.saveEmployeeCompleted(res));
   }
 

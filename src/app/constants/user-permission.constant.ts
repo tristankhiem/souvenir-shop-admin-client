@@ -91,7 +91,7 @@ export const ROUTER_USER_PERMISSION_MAPPER = [
       routerLink: '/role',
       matchUrl: '',
       name: 'Quản lý quyền',
-      icon: 'fas fa-users',
+      icon: 'fa-users-cog',
       permissions: [
         USER_PERMISSION_CODE.EMPLOYEE_MANAGEMENT
       ],
@@ -115,7 +115,7 @@ export const ROUTER_USER_PERMISSION_MAPPER = [
       routerLink: '/employee',
       matchUrl: '',
       name: 'Quản lý nhân viên',
-      icon: 'fas-fa-users',
+      icon: 'fas fa-users',
       permissions: [
         USER_PERMISSION_CODE.EMPLOYEE_MANAGEMENT
       ],
