@@ -1,10 +1,10 @@
-import { Component, ElementRef, OnInit, ViewChild } from "@angular/core";
-import { HTTP_CODE_CONSTANT } from "src/app/constants/http-code.constant";
-import { ResponseModel } from "src/app/data-services/response.model";
-import { CustomerModel } from "src/app/data-services/schema/customer.model";
-import { BaseSearchModel } from "src/app/data-services/search/base-search.model";
-import { CustomerService } from "src/app/services/store/customer.service";
-import { AppAlert, AppLoading, AppModals } from "src/app/utils";
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { HTTP_CODE_CONSTANT } from 'src/app/constants/http-code.constant';
+import { ResponseModel } from 'src/app/data-services/response.model';
+import { CustomerModel } from 'src/app/data-services/schema/customer.model';
+import { BaseSearchModel } from 'src/app/data-services/search/base-search.model';
+import { CustomerService } from 'src/app/services/store/customer.service';
+import { AppAlert, AppLoading, AppModals } from 'src/app/utils';
 
 @Component({
     selector: 'app-customer',
@@ -20,7 +20,7 @@ export class CustomerComponent implements OnInit {
         private modal: AppModals
     ){}
 
-    @ViewChild('dataTableCustomer', {read: ElementRef}) dataTableCustomer: ElementRef
+    @ViewChild('dataTableCustomer', {read: ElementRef}) dataTableCustomer: ElementRef;
 
     public search: BaseSearchModel<CustomerModel[]> = new BaseSearchModel<CustomerModel[]>();
 
@@ -29,7 +29,7 @@ export class CustomerComponent implements OnInit {
     }
 
     public onChangeDataEvent(search?: BaseSearchModel<CustomerModel[]>): void{
-        if(search){
+        if (search){
             this.search = search;
         }
 
@@ -41,7 +41,7 @@ export class CustomerComponent implements OnInit {
         this.modal.confirm(`Bạn có chắc chắn muốn xóa tài khoản ${customer.name}?`, 'Xóa tài khoản khách hàng', true)
           .subscribe(res => this.confirmDeleteCustomer(res, customer));
     }
-    
+
     private getCustomers(targetLoading?: ElementRef): void {
         this.loading.show(targetLoading);
         this.customerService.search(this.search).subscribe( res =>  this.getCustomersCompleted(res, targetLoading));
@@ -52,7 +52,7 @@ export class CustomerComponent implements OnInit {
         if (res.status !== HTTP_CODE_CONSTANT.OK) {
           this.alert.errorMessages(res.message);
         }
-    
+
         this.search = res.result;
     }
 
@@ -64,25 +64,27 @@ export class CustomerComponent implements OnInit {
         this.loading.show();
         this.customerService.deleteCustomer(customer.id).subscribe(res => this.deleteCustomerCompleted(res));
     }
-    
+
     private deleteCustomerCompleted(res: ResponseModel<any>): void {
         this.loading.hide();
         if (res.status !== HTTP_CODE_CONSTANT.OK) {
           this.alert.errorMessages(res.message);
           return;
         }
-    
+
         this.alert.successMessages(res.message);
         this.onChangeDataEvent();
     }
 
     public changeAccountState(customer: CustomerModel): void{
+        // event.preventDefault();
+        this.loading.show();
         this.customerService.changeAccountState(customer).subscribe(res => this.changeAccountStateCompleted(res));
     }
 
     private changeAccountStateCompleted(res: ResponseModel<any>): void{
         this.loading.hide();
-        if(res.status !== HTTP_CODE_CONSTANT.OK){
+        if (res.status !== HTTP_CODE_CONSTANT.OK){
             this.alert.errorMessages(res.message);
             return;
         }

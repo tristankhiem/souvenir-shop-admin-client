@@ -17,7 +17,7 @@
     <!-- /.container-fluid -->
   </section>
   <!-- /.content-header -->
-  
+
   <!-- Main content -->
   <section class="content">
     <div class="container-fluid">
@@ -55,15 +55,15 @@
                     <td>{{e.isValid ? 'Đã kích hoạt' : 'Chưa kích hoạt'}}</td>
                     <td>
                       <app-dropdown-menu>
-                        <a *ngIf="!e.isValid" class="dropdown-item text-green" href="#" (click)="changeAccountState(e)">
-                          <i class="far fa-edit"></i>
+                        <button *ngIf="!e.isValid" class="dropdown-item text-green" href="#" (click)="changeAccountState(e)">
+                          <i class="fa fa-key"></i>
                           Kích hoạt
-                        </a>
-                        <a *ngIf="e.isValid" class="dropdown-item text-green" href="#" (click)="changeAccountState(e)">
-                          <i class="far fa-edit"></i>
+                        </button>
+                        <button *ngIf="e.isValid" class="dropdown-item text-green" (click)="changeAccountState(e)">
+                          <i class="fa fa-key"></i>
                           Khoá
-                        </a>
-                        <a class="dropdown-item text-cyan" href="#" (click)="updateCustomeromponent.show(e, $event)">
+                        </button>
+                        <a class="dropdown-item text-cyan" href="#" (click)="updateCustomerComponent.show(e, $event)">
                           <i class="far fa-edit"></i>
                           Sửa
                         </a>
@@ -82,7 +82,6 @@
       </div>
     </div>
   </section>
-  
-  <app-add-customer #addCustomeromponent (saveCompleted)="onChangeDataEvent()"></app-add-customer>
+
+  <app-add-customer #addCustomerComponent (saveCompleted)="onChangeDataEvent()"></app-add-customer>
   <app-update-customer #updateCustomerComponent (saveCompleted)="onChangeDataEvent()"></app-update-customer>
-  

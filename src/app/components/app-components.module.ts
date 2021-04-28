@@ -22,6 +22,8 @@ import {UpdateSubCategoryComponent} from './popups/update-sub-category/update-su
 import {AddSupplierComponent} from './popups/add-supplier/add-supplier.component';
 import {UpdateSupplierComponent} from './popups/update-supplier/update-supplier.component';
 import {UpdateEmployeeComponent} from './popups/update-employee/update-employee.component';
+import {UpdateCustomerComponent} from './popups/update-customer/update-customer.component';
+import {AddCustomerComponent} from './popups/add-customer/add-customer.component';
 
 const COMPONENTS = [
   AppUserProfileComponent,
@@ -43,6 +45,8 @@ const COMPONENTS = [
   AddSupplierComponent,
   UpdateSupplierComponent,
   UpdateEmployeeComponent,
+  AddCustomerComponent,
+  UpdateCustomerComponent,
 ];
 
 @NgModule({

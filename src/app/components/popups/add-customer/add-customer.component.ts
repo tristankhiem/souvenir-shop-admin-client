@@ -1,14 +1,14 @@
-import { ElementRef } from "@angular/core";
-import { AfterViewInit, Component, EventEmitter, Output, ViewChild } from "@angular/core";
-import { NgForm } from "@angular/forms";
-import { HTTP_CODE_CONSTANT } from "src/app/constants/http-code.constant";
-import { INPUT_PATTERN_CONSTANT } from "src/app/constants/input-pattern.constant";
-import { ResponseModel } from "src/app/data-services/response.model";
-import { CustomerModel } from "src/app/data-services/schema/customer.model";
-import { CustomerService } from "src/app/services/store/customer.service";
-import { AppLoading, AppAlert } from "src/app/utils";
-import { AppCommon } from "src/app/utils/app-common";
-import { ModalWrapperComponent } from "../../commons/modal-wrapper/modal-wrapper.component";
+import { ElementRef } from '@angular/core';
+import { AfterViewInit, Component, EventEmitter, Output, ViewChild } from '@angular/core';
+import { NgForm } from '@angular/forms';
+import { HTTP_CODE_CONSTANT } from 'src/app/constants/http-code.constant';
+import { INPUT_PATTERN_CONSTANT } from 'src/app/constants/input-pattern.constant';
+import { ResponseModel } from 'src/app/data-services/response.model';
+import { CustomerModel } from 'src/app/data-services/schema/customer.model';
+import { CustomerService } from 'src/app/services/store/customer.service';
+import { AppLoading, AppAlert } from 'src/app/utils';
+import { AppCommon } from 'src/app/utils/app-common';
+import { ModalWrapperComponent } from '../../commons/modal-wrapper/modal-wrapper.component';
 
 declare var $: any;
 
@@ -36,7 +36,7 @@ export class AddCustomerComponent implements AfterViewInit{
     public passwordPattern = INPUT_PATTERN_CONSTANT.passwordPattern;
     public emailPattern = INPUT_PATTERN_CONSTANT.emailPattern;
     public phonePattern  = INPUT_PATTERN_CONSTANT.phonePattern;
-    
+
     private targetModalLoading: ElementRef;
 
     ngAfterViewInit(): void {
@@ -68,20 +68,20 @@ export class AddCustomerComponent implements AfterViewInit{
 
         return true;
     }
-    
+
     public onSave(): void {
         if (!this.isValid()) {
           return;
         }
         const currentDate = new Date(this.newCustomer.birthDate);
         this.newCustomer.birthDate = new Date(currentDate.getTime()).toDateString();
-    
+
         this.saveCustomer();
     }
 
     private saveCustomer(): void {
         this.loading.show(this.targetModalLoading);
-    
+
         this.customerService.save(this.newCustomer).subscribe(res => this.saveEmployeeCompleted(res));
     }
 

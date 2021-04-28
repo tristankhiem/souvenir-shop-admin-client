@@ -71,7 +71,7 @@
             <div class="col-sm-12 form-group">
                 <label for="addressInputAdd">Địa chỉ</label>
                 <input type="text" class="form-control" name="addressInputAdd" id="addressInputAdd" #addressInputAdd="ngModel"
-                   minlength="10" [pattern]="addressPattern" [(ngModel)]="newCustomer.address" placeholder="address"
+                   minlength="10" [(ngModel)]="newCustomer.address" placeholder="address"
                    [class]="{'is-invalid': addressInputAdd.touched && addressInputAdd.errors}" required/>
                 <ng-template [ngIf]="addressInputAdd.touched && addressInputAdd.invalid">
                     <div *ngIf="addressInputAdd.errors?.required" class="invalid-feedback d-block">
@@ -93,4 +93,3 @@
       </div>
     </form>
   </app-modal-wrapper>
-  
