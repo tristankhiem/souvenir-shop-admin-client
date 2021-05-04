@@ -49,7 +49,7 @@ const COMPONENTS = [
   UpdateSupplierComponent,
   AddImportingOrderComponent,
   AddProductComponent,
-  UpdateProductComponent
+  UpdateProductComponent,
   UpdateEmployeeComponent,
   AddCustomerComponent,
   UpdateCustomerComponent,
