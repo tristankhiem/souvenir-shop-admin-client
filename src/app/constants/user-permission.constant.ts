@@ -4,6 +4,7 @@ export const USER_PERMISSION_CODE = {
   EMPLOYEE_MANAGEMENT: 'EMPLOYEE_MANAGEMENT',
   CUSTOMER_MANAGEMENT: 'CUSTOMER_MANAGEMENT',
   PRODUCT_MANAGEMENT: 'PRODUCT_MANAGEMENT',
+  PRODUCTDETAIL_MANAGEMENT: 'PRODUCTDETAIL_MANAGEMENT',
   SUPPLIER_MANAGEMENT: 'SUPPLIER_MANAGEMENT',
   TRANSACTION_MANAGEMENT: 'TRANSACTION_MANAGEMENT'
 };
@@ -143,6 +144,18 @@ export const ROUTER_USER_PERMISSION_MAPPER = [
       icon: 'fas fa-boxes',
       permissions: [
         USER_PERMISSION_CODE.PRODUCT_MANAGEMENT
+      ],
+      sort: 1,
+      isMenu: true
+    }),
+  new RouterPermissionMappingModel(
+    {
+      routerLink: '/product-detail',
+      matchUrl: '',
+      name: 'Quản lý chi tiết hàng hoá',
+      icon: 'fas fa-boxes',
+      permissions: [
+        USER_PERMISSION_CODE.PRODUCTDETAIL_MANAGEMENT
       ],
       sort: 1,
       isMenu: true

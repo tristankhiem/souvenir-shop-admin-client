@@ -18,6 +18,7 @@ export class SidebarComponent implements AfterContentChecked, OnInit {
   public employeeGroups: RouterPermissionMappingModel[] = [];
   public customerGroups: RouterPermissionMappingModel[] = [];
   public productGroups: RouterPermissionMappingModel[] = [];
+  public productdetailGroups: RouterPermissionMappingModel[] = [];
   public supplierGroups: RouterPermissionMappingModel[] = [];
   public transactionGroups: RouterPermissionMappingModel[] = [];
   ngOnInit(): void {
@@ -35,6 +36,7 @@ export class SidebarComponent implements AfterContentChecked, OnInit {
       USER_PERMISSION_CODE.EMPLOYEE_MANAGEMENT,
       USER_PERMISSION_CODE.CUSTOMER_MANAGEMENT,
       USER_PERMISSION_CODE.PRODUCT_MANAGEMENT,
+      USER_PERMISSION_CODE.PRODUCTDETAIL_MANAGEMENT,
       USER_PERMISSION_CODE.SUPPLIER_MANAGEMENT,
       USER_PERMISSION_CODE.TRANSACTION_MANAGEMENT
     ];
@@ -52,6 +54,9 @@ export class SidebarComponent implements AfterContentChecked, OnInit {
         case USER_PERMISSION_CODE.PRODUCT_MANAGEMENT:
           this.productGroups = this.productGroups.concat(mapper);
           break;
+        case USER_PERMISSION_CODE.PRODUCTDETAIL_MANAGEMENT:
+          this.productdetailGroups = this.productdetailGroups.concat(mapper);
+          break;
         case USER_PERMISSION_CODE.SUPPLIER_MANAGEMENT:
           this.supplierGroups = this.supplierGroups.concat(mapper);
           break;
@@ -63,6 +68,8 @@ export class SidebarComponent implements AfterContentChecked, OnInit {
 
     this.employeeGroups.sort(this.sortItems);
     this.customerGroups.sort(this.sortItems);
+    this.productGroups.sort(this.sortItems);
+    this.productdetailGroups.sort(this.sortItems);
     this.supplierGroups.sort(this.sortItems);
     this.transactionGroups.sort(this.sortItems);
   }
