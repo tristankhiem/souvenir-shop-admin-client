@@ -27,38 +27,37 @@
           <div class="card-body">
             <app-data-table #dataTableSize [dataTable]="search" (changeEvent)="onChangeDataEvent($event)">
               <div class="block-buttons-right float-sm-right text-center">
-                <button class="btn btn-success" (click)="addProductDetailDeComponent.show()">
+                <!-- <button class="btn btn-success" (click)="addProductDetailComponent.show()">
                   <i class="fas fa-plus mr-1"></i>
                   Thêm chi tiết hàng hoá
-                </button>
+                </button> -->
               </div>
               <thead>
               <tr>
-                <th>Tên hàng hoá</th>
+                <th>Tên chi tiết hàng hoá</th>
                 <th>Số lượng</th>
                 <th>Gía bán</th>
                 <th>Gía nhập hàng</th>
-                <th>Danh mục con</th>
                 <th>Màu</th>
                 <th>Kích thước</th>
-                <th>Hàng hóa</th>
+                <th>tên hàng hóa</th>
               </tr>
               </thead>
               <tbody>
               <tr *ngFor="let e of search.result">
                 <td>{{e.name}}</td>
                 <td>{{e.quantity}}</td>
-                <td>{{e.sellingprice}}</td>
-                <td>{{e.importingprice}}</td>
-                <td>{{e.ColorID.}}</td>
-                <td>{{e.SizeId}.}}</td>
-                <td>{{e.ProductID.}}</td>
+                <td>{{e.sellingPrice}}</td>
+                <td>{{e.importingPrice}}</td>
+                <td>{{e.color.name}}</td>
+                <td>{{e.size.name}}</td>
+                <td>{{e.product.name}}</td>
                 <td>
                   <app-dropdown-menu>
-                    <a class="dropdown-item text-cyan" (click)="updateProductDetailComponent.show(e, $event)">
+                    <!-- <a class="dropdown-item text-cyan" (click)="updateProductDetailComponent.show(e, $event)">
                       <i class="far fa-edit"></i>
                       Sửa
-                    </a>
+                    </a> -->
                     <a class="dropdown-item text-red" href="#" (click)="openDeleteModal(e, $event)">
                       <i class="far fa-trash-alt mr-1"></i>
                       Xóa
@@ -75,5 +74,5 @@
   </div>
 </section>
 
-<app-add-product-detail #addProductDetailComponent (saveCompleted)="onChangeDataEvent()"></app-add-product-detail>
-<app-update-product-detail #updateProductDetailComponent (saveCompleted)="onChangeDataEvent()"></app-update-product-detail>
+<!-- <app-add-product-detail #addProductDetailComponent (saveCompleted)="onChangeDataEvent()"></app-add-product-detail> -->
+<!-- <app-update-product-detail #updateProductDetailComponent (saveCompleted)="onChangeDataEvent()"></app-update-product-detail> -->

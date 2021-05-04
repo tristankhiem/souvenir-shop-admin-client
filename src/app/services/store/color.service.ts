@@ -16,7 +16,9 @@ export class ColorService extends StoreBaseService {
   public getById(id: number): Observable<any> {
     return this.get('/api/color/' + id);
   }
-
+  public getLikeName(name: string): Observable<any> {
+    return this.get('/api/color/get-like-name/' + name);
+  }
   public save(color: ColorModel): Observable<any> {
     return this.post('/api/color/insert', color);
   }

@@ -1,0 +1,132 @@
+<app-modal-wrapper [size]="'sm'" #addProductDetailModalWrapper title="Thêm chi tiết hàng hoá" (hideEvent)="onHideEvent()">
+  <form #addProductDetailForm="ngForm" novalidate (submit)="onSave()" >
+    <div class="modal-body">
+      <div class="row">
+        <div class="col-sm-12 form-group">
+          <label for="groupNameInput">Tên</label>
+          <input type="text" class="form-control" name="groupNameInput" id="groupNameInput" #groupNameInput="ngModel"
+                 [(ngModel)]="productDetail.name" placeholder="Tên hàng hoá"
+                 [class]="{'is-invalid': groupNameInput.touched && groupNameInput.errors}" required/>
+          <ng-template [ngIf]="groupNameInput.touched && descriptionInput.invalid">
+            <div *ngIf="groupNameInput.errors?.required" class="invalid-feedback d-block">
+              Vui lòng nhập tên hàng hóa
+            </div>
+          </ng-template>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-12 form-group">
+          <label for="quantityInput">Số lượng</label>
+          <input type="number" class="form-control" name="quantityInput" id="quantityInput" #quantityInput="ngModel"
+                 [(ngModel)]="productDetail.quantity" placeholder="Số lượng"
+                 [class]="{'is-invalid': quantityInput.touched && quantityInput.errors}" required/>
+          <ng-template [ngIf]="quantityInput.touched && quantityInput.invalid">
+            <div *ngIf="quantityInput.errors?.required" class="invalid-feedback d-block">
+              Vui lòng nhập số lượng
+            </div>
+          </ng-template>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-12 form-group">
+          <label for="sellingPriceInput">Gía bán</label>
+          <input type="number" class="form-control" name="sellingPriceInput" id="sellingPriceInput" #sellingPriceInput="ngModel"
+                 [(ngModel)]="productDetail.sellingPrice" placeholder="Số lượng"
+                 [class]="{'is-invalid': sellingPriceInput.touched && sellingPriceInput.errors}" required/>
+          <ng-template [ngIf]="sellingPriceInput.touched && sellingPriceInput.invalid">
+            <div *ngIf="sellingPriceInput.errors?.required" class="invalid-feedback d-block">
+              Vui lòng gía bán
+            </div>
+          </ng-template>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-12 form-group">
+          <label for="importingPrice">Gía nhập</label>
+          <input type="number" class="form-control" name="importingPrice" id="importingPrice" #importingPrice="ngModel"
+                 [(ngModel)]="productDetail.importingPrice" placeholder="Số lượng"
+                 [class]="{'is-invalid': importingPrice.touched && importingPrice.errors}" required/>
+          <ng-template [ngIf]="importingPrice.touched && importingPrice.invalid">
+            <div *ngIf="importingPrice.errors?.required" class="invalid-feedback d-block">
+              Vui lòng gía nhập
+            </div>
+          </ng-template>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-12 form-group">
+          <label for="Color">Màu</label>
+          <p-autoComplete inputStyleClass="form-control" name="Color" id="Color" #Color="ngModel"
+                          [(ngModel)]="Color" [suggestions]="Color"
+                          (completeMethod)="searchColor($event)" field="name" size="100%"
+                          placeholder="Nhập màu" [minLength]="1" [autoHighlight]="true"
+                          (onSelect)="selectColor()" required
+                          emptyMessage="Không tìm thấy"
+                          [class]="{'is-invalid': Color.touched && Color.errors}">
+            <ng-template let-item pTemplate="item">
+              <div>{{item.name}}</div>
+            </ng-template>
+          </p-autoComplete>
+          <ng-template [ngIf]="Color.touched && Color.invalid">
+            <div *ngIf="Color.errors?.required" class="invalid-feedback d-block">
+              Vui lòng nhập màu
+            </div>
+          </vng-template>
+        </di>
+      </div>
+      <div class="row">
+        <div class="col-sm-12 form-group">
+          <label for="Size">Kích thước</label>
+          <p-autoComplete inputStyleClass="form-control" name="Size" id="Size" #Size="ngModel"
+                          [(ngModel)]="Size" [suggestions]="Size"
+                          (completeMethod)="searchSize($event)" field="name" size="100%"
+                          placeholder="Nhập màu" [minLength]="1" [autoHighlight]="true"
+                          (onSelect)="selectSize()" required
+                          emptyMessage="Không tìm thấy"
+                          [class]="{'is-invalid': Size.touched && Size.errors}">
+            <ng-template let-item pTemplate="item">
+              <div>{{item.name}}</div>
+            </ng-template>
+          </p-autoComplete>
+          <ng-template [ngIf]="Size.touched && Size.invalid">
+            <div *ngIf="Size.errors?.required" class="invalid-feedback d-block">
+              Vui lòng nhập kích thước
+            </div>
+          </vng-template>
+        </di>
+      </div>
+      <div class="row">
+        <div class="col-sm-12 form-group">
+          <label for="Product">Màu</label>
+          <p-autoComplete inputStyleClass="form-control" name="Product" id="Product" #Product="ngModel"
+                          [(ngModel)]="Product" [suggestions]="Product"
+                          (completeMethod)="searchProduct($event)" field="name" size="100%"
+                          placeholder="Nhập màu" [minLength]="1" [autoHighlight]="true"
+                          (onSelect)="selectProduct()" required
+                          emptyMessage="Không tìm thấy"
+                          [class]="{'is-invalid': Product.touched && Product.errors}">
+            <ng-template let-item pTemplate="item">
+              <div>{{item.name}}</div>
+            </ng-template>
+          </p-autoComplete>
+          <ng-template [ngIf]="Product.touched && Product.invalid">
+            <div *ngIf="Product.errors?.required" class="invalid-feedback d-block">
+              Vui lòng nhập tên chi tiết hàng hóa
+            </div>
+          </vng-template>
+        </di>
+      </div>
+      
+    </div>
+    <div class="modal-footer justify-content-between">
+      <button (click)="hide()" type="button" class="btn btn-default">
+        <i class="fas fa-times mr-1"></i>
+        Đóng
+      </button>
+      <button type="submit" class="btn btn-primary" [disabled]="!isValid()">
+        <i class="far fa-save mr-1"></i>
+        Lưu
+      </button>
+    </div>
+  </form>
+</app-modal-wrapper>

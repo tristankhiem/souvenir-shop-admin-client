@@ -69,16 +69,6 @@
           </a>
         </li>
 
-        <li class="nav-header" *ngIf="productdetailGroups.length > 0">Quản lý chi tiết hàng hoá</li>
-        <li *ngFor="let item of productdetailGroups" class="nav-item">
-          <a [routerLinkActive]="['active']"
-             routerLink="{{item.routerLink}}"
-             class="nav-link">
-            <i class="nav-icon fas {{item.icon}}"></i>
-            <p>{{item.name}}</p>
-          </a>
-        </li>
-
         <li class="nav-header" *ngIf="transactionGroups.length > 0">Quản lý hoạt động giao dịch</li>
         <li *ngFor="let item of transactionGroups" class="nav-item">
           <a [routerLinkActive]="['active']"

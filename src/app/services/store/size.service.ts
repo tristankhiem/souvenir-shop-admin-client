@@ -15,7 +15,9 @@ export class SizeService extends StoreBaseService {
   public getById(id: number): Observable<any> {
     return this.get('/api/size/' + id);
   }
-
+  public getLikeName(name: string): Observable<any> {
+    return this.get('/api/size/get-like-name/' + name);
+  }
   public save(size: SizeModel): Observable<any> {
     return this.post('/api/size/insert', size);
   }
