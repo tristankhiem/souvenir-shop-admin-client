@@ -4,7 +4,7 @@ export class EmployeeModel {
   public name: string;
   public email: string;
   public password: string;
-  public birthDate: number;
+  public birthDate: string;
   public role: RoleModel = new RoleModel();
 
   public constructor(

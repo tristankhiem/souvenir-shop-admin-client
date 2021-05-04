@@ -1,0 +1,95 @@
+<app-modal-wrapper [size]="'sm'" #addCustomerModalWrapper title="Thêm khách hàng" (hideEvent)="onHideEvent()">
+    <form #addCustomerForm="ngForm" novalidate (submit)="onSave()" >
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-sm-12 form-group">
+            <label for="nameInputAdd">Tên khách hàng</label>
+            <input type="text" class="form-control" name="nameInputAdd" id="nameInputAdd" #nameInputAdd="ngModel"
+                   [(ngModel)]="newCustomer.name" placeholder="Tên khách hàng"
+                   [class]="{'is-invalid': nameInputAdd.touched && nameInputAdd.errors}" required/>
+            <ng-template [ngIf]="nameInputAdd.touched && nameInputAdd.invalid">
+              <div *ngIf="nameInputAdd.errors?.required" class="invalid-feedback d-block">
+                Vui lòng nhập tên khách hàng
+              </div>
+            </ng-template>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-6 form-group">
+            <label for="emailInputAdd">Email</label>
+            <input type="email" class="form-control" name="emailInputAdd" id="emailInputAdd" #emailInputAdd="ngModel"
+                  [(ngModel)]="newCustomer.email" placeholder="Email" [pattern]="emailPattern"
+                  [class]="{'is-invalid': emailInputAdd.touched && emailInputAdd.errors}" required/>
+            <ng-template [ngIf]="emailInputAdd.touched && emailInputAdd.invalid">
+              <div *ngIf="emailInputAdd.errors?.required" class="invalid-feedback d-block">
+                Vui lòng nhập email
+              </div>
+              <div *ngIf="emailInputAdd.errors?.pattern" class="invalid-feedback d-block">
+                Email không hợp lệ
+              </div>
+            </ng-template>
+          </div>
+          <div class="col-sm-6 form-group">
+            <label for="passwordInputAdd">Password</label>
+            <input type="text" class="form-control" name="passwordInputAdd" id="passwordInputAdd" #passwordInputAdd="ngModel"
+                   minlength="10" [pattern]="passwordPattern" [(ngModel)]="newCustomer.password" placeholder="Password"
+                   [class]="{'is-invalid': passwordInputAdd.touched && passwordInputAdd.errors}" required/>
+            <ng-template [ngIf]="passwordInputAdd.touched && passwordInputAdd.invalid">
+              <div *ngIf="passwordInputAdd.errors?.required" class="invalid-feedback d-block">
+                Vui lòng nhập password
+              </div>
+              <div *ngIf="passwordInputAdd.errors?.minlength || passwordInputAdd.errors?.pattern"
+                   class="invalid-feedback d-block">
+                  Mật khẩu có ít nhất 10 ký tự và 1 ký tự đặc biệt (!@#$%^&*...)
+              </div>
+            </ng-template>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-6 form-group">
+            <label>Ngày sinh</label>
+            <app-date-picker [(startDate)]="newCustomer.birthDate"
+                             parentEl="{{addCustomerModalWrapper.id}}"></app-date-picker>
+          </div>
+          <div class="col-sm-6 form-group">
+            <label for="phoneInputAdd">Điện thoại</label>
+            <input type="text" class="form-control" name="phoneInputAdd" id="phoneInputAdd" #phoneInputAdd="ngModel"
+                   minlength="10" [pattern]="phonePattern" [(ngModel)]="newCustomer.phone" placeholder="phone"
+                   [class]="{'is-invalid': phoneInputAdd.touched && phoneInputAdd.errors}" required/>
+            <ng-template [ngIf]="phoneInputAdd.touched && phoneInputAdd.invalid">
+              <div *ngIf="phoneInputAdd.errors?.required" class="invalid-feedback d-block">
+                Vui lòng nhập điện thoại
+              </div>
+              <div *ngIf="phoneInputAdd.errors?.minlength || phoneInputAdd.errors?.pattern"
+                   class="invalid-feedback d-block">
+                  Điện thoại không họp lệ
+              </div>
+            </ng-template>
+          </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12 form-group">
+                <label for="addressInputAdd">Địa chỉ</label>
+                <input type="text" class="form-control" name="addressInputAdd" id="addressInputAdd" #addressInputAdd="ngModel"
+                   minlength="10" [(ngModel)]="newCustomer.address" placeholder="address"
+                   [class]="{'is-invalid': addressInputAdd.touched && addressInputAdd.errors}" required/>
+                <ng-template [ngIf]="addressInputAdd.touched && addressInputAdd.invalid">
+                    <div *ngIf="addressInputAdd.errors?.required" class="invalid-feedback d-block">
+                        Vui lòng nhập địa chỉ
+                    </div>
+                </ng-template>
+            </div>
+        </div>
+      </div>
+      <div class="modal-footer justify-content-between">
+        <button (click)="hide()" type="button" class="btn btn-default">
+          <i class="fas fa-times mr-1"></i>
+          Đóng
+        </button>
+        <button type="submit" class="btn btn-primary" [disabled]="!isValid()">
+          <i class="far fa-save mr-1"></i>
+          Lưu
+        </button>
+      </div>
+    </form>
+  </app-modal-wrapper>

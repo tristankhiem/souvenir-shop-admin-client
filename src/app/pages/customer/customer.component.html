@@ -1,0 +1,87 @@
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <div class="container-fluid">
+      <div class="row mb-2">
+        <div class="col-sm-6">
+          <h1 class="m-0 font-weight-bold text-gray-dark">QUẢN LÝ KHÁCH HÀNG</h1>
+        </div>
+        <div class="col-sm-6">
+          <ol class="breadcrumb float-sm-right">
+            <li class="breadcrumb-item"><a routerLink="/">Trang chủ</a></li>
+            <li class="breadcrumb-item active">Quản lý khách hàng</li>
+          </ol>
+        </div>
+      </div>
+      <!-- /.row -->
+    </div>
+    <!-- /.container-fluid -->
+  </section>
+  <!-- /.content-header -->
+
+  <!-- Main content -->
+  <section class="content">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-12">
+          <div class="card">
+            <div class="card-body">
+              <app-data-table #dataTableCustomer [dataTable]="search" (changeEvent)="onChangeDataEvent($event)">
+                <div class="block-buttons-right float-sm-right text-center">
+                  <button (click)="addCustomerComponent.show()" class="btn btn-success">
+                    <i class="fas fa-plus mr-1"></i>
+                    Thêm khách hàng
+                  </button>
+                </div>
+                <thead>
+                  <tr>
+                    <th>Họ tên</th>
+                    <th>Email</th>
+                    <th>Password</th>
+                    <th>Ngày sinh</th>
+                    <th>Điện thoại</th>
+                    <th>Địa chỉ</th>
+                    <th>Trạng thái</th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let e of search.result">
+                    <td>{{e.name}}</td>
+                    <td>{{e.email}}</td>
+                    <td>{{e.password}}</td>
+                    <td>{{e.birthDate | date:'dd/MM/yyyy'}}</td>
+                    <td>{{e.phone}}</td>
+                    <td>{{e.address}}</td>
+                    <td>{{e.isValid ? 'Đã kích hoạt' : 'Chưa kích hoạt'}}</td>
+                    <td>
+                      <app-dropdown-menu>
+                        <button *ngIf="!e.isValid" class="dropdown-item text-green" href="#" (click)="changeAccountState(e)">
+                          <i class="fa fa-key"></i>
+                          Kích hoạt
+                        </button>
+                        <button *ngIf="e.isValid" class="dropdown-item text-green" (click)="changeAccountState(e)">
+                          <i class="fa fa-key"></i>
+                          Khoá
+                        </button>
+                        <a class="dropdown-item text-cyan" href="#" (click)="updateCustomerComponent.show(e, $event)">
+                          <i class="far fa-edit"></i>
+                          Sửa
+                        </a>
+                        <a class="dropdown-item text-red" href="#" (click)="openDeleteModal(e, $event)">
+                          <i class="far fa-trash-alt mr-1"></i>
+                          Xóa
+                        </a>
+                      </app-dropdown-menu>
+                    </td>
+                  </tr>
+                </tbody>
+              </app-data-table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <app-add-customer #addCustomerComponent (saveCompleted)="onChangeDataEvent()"></app-add-customer>
+  <app-update-customer #updateCustomerComponent (saveCompleted)="onChangeDataEvent()"></app-update-customer>

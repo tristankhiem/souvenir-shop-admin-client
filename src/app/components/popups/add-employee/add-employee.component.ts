@@ -35,31 +35,22 @@ export class AddEmployeeComponent implements AfterViewInit {
   public role: RoleModel = new RoleModel();
   public newEmployee: EmployeeModel = new EmployeeModel();
 
-  // public phonePattern = INPUT_PATTERN_CONSTANT.phonePattern;
   public cardIdPattern = INPUT_PATTERN_CONSTANT.cardIdPattern;
   public passwordPattern = INPUT_PATTERN_CONSTANT.passwordPattern;
   public emailPattern = INPUT_PATTERN_CONSTANT.emailPattern;
-
-  // private isLoaded = false;
-  // private countRequest: number;
   private targetModalLoading: ElementRef;
 
   ngAfterViewInit(): void {
     this.targetModalLoading = $(`#${this.addEmployeeModalWrapper.id} .modal-dialog`);
   }
 
-  // private onInit(): void {
-  //   this.newEmployee.employeeGroup.id = 0;
-  //   this.newEmployee.role.id = 0;
-  //   this.newEmployee.birthDate = new Date().getTime();
-  // }
+  private onInit(): void {
+    this.newEmployee.birthDate = new Date().toDateString();
+  }
 
   public show(): void {
-    // this.onInit();
+    this.onInit();
     this.addEmployeeModalWrapper.show();
-    // if (!this.isLoaded) {
-    //   this.loadData();
-    // }
   }
 
   public hide(): void {
@@ -69,16 +60,7 @@ export class AddEmployeeComponent implements AfterViewInit {
   public onHideEvent(): void {
     this.newEmployee = new EmployeeModel();
     this.addEmployeeForm.onReset();
-    // this.isWardGroup = false;
   }
-
-  // public isInvalidWardPermission(): boolean {
-  //   if (!this.addEmployeeForm.touched || this.addEmployeeForm.invalid) {
-  //     return false;
-  //   }
-  //
-  //   return this.newEmployee.wardPermissions.length < 1;
-  // }
 
   public isValid(): boolean {
     if (this.addEmployeeForm.invalid){
@@ -92,25 +74,11 @@ export class AddEmployeeComponent implements AfterViewInit {
     if (!this.isValid()) {
       return;
     }
+    const currentDate = new Date(this.newEmployee.birthDate);
+    this.newEmployee.birthDate = new Date(currentDate.getTime()).toDateString();
 
     this.saveEmployee();
   }
-
-  // private loadData(): void {
-  //   this.loading.show();
-  //   this.countRequest = 3;
-  //   // this.getEmployeeGroups();
-  //   // this.getWards();
-  //   this.getRoles();
-  // }
-  //
-  // private loadDataCompleted(): void {
-  //   --this.countRequest;
-  //   if (this.countRequest === 0) {
-  //     this.isLoaded = true;
-  //     this.loading.hide();
-  //   }
-  // }
 
   public selectRole(): void {
     this.newEmployee.role = new RoleModel(this.role);
@@ -118,10 +86,10 @@ export class AddEmployeeComponent implements AfterViewInit {
 
   public searchRoles(event): void {
     this.loading.show(this.targetModalLoading);
-    this.roleService.getLikeName(event.query).subscribe(res => this.searchCategoryCompleted(res));
+    this.roleService.getLikeName(event.query).subscribe(res => this.searchRoleCompleted(res));
   }
 
-  private searchCategoryCompleted(res: ResponseModel<RoleModel[]>): void {
+  private searchRoleCompleted(res: ResponseModel<RoleModel[]>): void {
     this.loading.hide(this.targetModalLoading);
     if (res.status !== HTTP_CODE_CONSTANT.OK) {
       res.message.forEach(value => {
@@ -132,24 +100,9 @@ export class AddEmployeeComponent implements AfterViewInit {
     this.roleResult = res.result || [];
   }
 
-  // private getRoles(): void {
-  //   this.roleService.findAll().subscribe(res => this.getRolesCompleted(res));
-  // }
-  //
-  // private getRolesCompleted(res: ResponseModel<RoleModel[]>): void {
-  //   this.loadDataCompleted();
-  //   if (res.status !== HTTP_CODE_CONSTANT.OK) {
-  //     this.alert.errorMessages(res.message);
-  //     return;
-  //   }
-  //
-  //   this.roleResult = res.result;
-  // }
-
   private saveEmployee(): void {
     this.loading.show(this.targetModalLoading);
 
-    // this.newEmployee.fullNameSlug = this.common.toSlug(this.newEmployee.fullName);
     this.employeeService.save(this.newEmployee).subscribe(res => this.saveEmployeeCompleted(res));
   }
 

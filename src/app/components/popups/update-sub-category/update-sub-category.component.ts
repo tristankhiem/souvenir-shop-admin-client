@@ -40,9 +40,9 @@ export class UpdateSubCategoryComponent implements AfterViewInit {
     this.targetModalLoading = $(`#${this.updateSubCategoryModalWrapper.id} .modal-dialog`);
   }
 
-  public show(category: SubCategoryModel, event: Event): void {
+  public show(subCategory: SubCategoryModel, event: Event): void {
     event.preventDefault();
-    this.getCategory(category.id);
+    this.getSubCategory(subCategory.id);
     this.updateSubCategoryModalWrapper.show();
 
   }
@@ -57,7 +57,7 @@ export class UpdateSubCategoryComponent implements AfterViewInit {
     this.updateSubCategoryForm.onReset();
   }
 
-  private getCategory(id: number): void{
+  private getSubCategory(id: number): void{
     this.loading.show();
     this.subCategoryService.getById(id).subscribe(res => this.getCategoryCompleted(res));
   }

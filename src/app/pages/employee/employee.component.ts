@@ -37,7 +37,7 @@ export class EmployeeComponent implements OnInit {
 
   public openDeleteModal(employee: EmployeeModel, event: Event): void {
     event.preventDefault();
-    this.modal.confirm(`Bạn có chắc chắn muốn xóa tài khoản ${employee.name}?`, 'Xóa tài khoản cán bộ', true)
+    this.modal.confirm(`Bạn có chắc chắn muốn xóa tài khoản ${employee.name}?`, 'Xóa tài khoản nhân viên', true)
       .subscribe(res => this.confirmDeleteEmployee(res, employee));
   }
 

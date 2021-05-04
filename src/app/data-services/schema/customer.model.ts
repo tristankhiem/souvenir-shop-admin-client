@@ -1,11 +1,11 @@
 export class CustomerModel {
-  public id: string;
+  public id: number;
   public name: string;
   public email: string;
   public password: string;
   public phone: string;
   public address: string;
-  public birthDate: number;
+  public birthDate: string;
   public isValid: boolean;
 
   public constructor(
