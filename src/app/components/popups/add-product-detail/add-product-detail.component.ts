@@ -116,10 +116,10 @@ export class AddProductDetailComponent implements AfterViewInit {
     }
     this.colorResult = res.result || [];
   }
-  public selectproduct(): void {
+  public selectProduct(): void {
     this.productDetail.product = new ProductModel(this.product);
   }
-  public searchproduct(event): void {
+  public searchProduct(event): void {
     this.loading.show(this.targetModalLoading);
     this.productService.getLikeName(event.query).subscribe(res => this.searchProductCompleted(res));
   }
@@ -132,7 +132,7 @@ export class AddProductDetailComponent implements AfterViewInit {
       });
       return;
     }
-    this.colorResult = res.result || [];
+    this.productResult = res.result || [];
   }
 
 

@@ -27,10 +27,10 @@
           <div class="card-body">
             <app-data-table #dataTableSize [dataTable]="search" (changeEvent)="onChangeDataEvent($event)">
               <div class="block-buttons-right float-sm-right text-center">
-                <!-- <button class="btn btn-success" (click)="addProductDetailComponent.show()">
+                <button class="btn btn-success" (click)="addProductDetailComponent.show()">
                   <i class="fas fa-plus mr-1"></i>
                   Thêm chi tiết hàng hoá
-                </button> -->
+                </button>
               </div>
               <thead>
               <tr>
@@ -54,10 +54,10 @@
                 <td>{{e.product.name}}</td>
                 <td>
                   <app-dropdown-menu>
-                    <!-- <a class="dropdown-item text-cyan" (click)="updateProductDetailComponent.show(e, $event)">
+                    <a class="dropdown-item text-cyan" (click)="updateProductDetailComponent.show(e, $event)">
                       <i class="far fa-edit"></i>
                       Sửa
-                    </a> -->
+                    </a>
                     <a class="dropdown-item text-red" href="#" (click)="openDeleteModal(e, $event)">
                       <i class="far fa-trash-alt mr-1"></i>
                       Xóa
@@ -74,5 +74,5 @@
   </div>
 </section>
 
-<!-- <app-add-product-detail #addProductDetailComponent (saveCompleted)="onChangeDataEvent()"></app-add-product-detail> -->
-<!-- <app-update-product-detail #updateProductDetailComponent (saveCompleted)="onChangeDataEvent()"></app-update-product-detail> -->
+<app-add-product-detail #addProductDetailComponent (saveCompleted)="onChangeDataEvent()"></app-add-product-detail>
+<app-update-product-detail #updateProductDetailComponent (saveCompleted)="onChangeDataEvent()"></app-update-product-detail>

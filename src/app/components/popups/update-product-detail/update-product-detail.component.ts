@@ -63,7 +63,7 @@ export class UpdateProductDetailComponent implements AfterViewInit {
   }
 
   public onHideEvent(): void {
-    this.product = new ProductModel();
+    this.productDetail = new ProductDetailModel();
     this.addProductDetailForm.onReset();
   }
 
@@ -86,7 +86,7 @@ export class UpdateProductDetailComponent implements AfterViewInit {
     this.productDetail.size = new SizeModel(this.size);
   }
 
-  public searchSubCategories(event): void {
+  public searchSize(event): void {
     this.loading.show(this.targetModalLoading);
     this.sizeService.getLikeName(event.query).subscribe(res => this.searchSizeCompleted(res));
   }
