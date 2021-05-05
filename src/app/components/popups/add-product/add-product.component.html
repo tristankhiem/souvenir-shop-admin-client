@@ -50,6 +50,19 @@
       </div>
       <div class="row">
         <div class="col-sm-12 form-group">
+          <label for="priceInput">Đơn giá bán</label>
+          <input type="number" class="form-control" name="priceInput" id="priceInput" #priceInput="ngModel"
+                 [(ngModel)]="product.sellingPrice" placeholder="Đơn giá bán"
+                 [class]="{'is-invalid': priceInput.touched && priceInput.errors}" required/>
+          <ng-template [ngIf]="priceInput.touched && priceInput.invalid">
+            <div *ngIf="priceInput.errors?.required" class="invalid-feedback d-block">
+              Vui lòng nhập giá bán
+            </div>
+          </ng-template>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-12 form-group">
           <label for="groupNameInput">Mô tả</label>
           <input type="text" class="form-control" name="descriptionInput" id="descriptionInput" #descriptionInput="ngModel"
                  [(ngModel)]="product.description" placeholder="Mô tả"
@@ -57,6 +70,19 @@
           <ng-template [ngIf]="descriptionInput.touched && descriptionInput.invalid">
             <div *ngIf="descriptionInput.errors?.required" class="invalid-feedback d-block">
               Vui lòng nhập mô tả
+            </div>
+          </ng-template>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-12 form-group">
+          <label for="imageInput">Đường dẫn hình ảnh</label>
+          <input type="text" class="form-control" name="imageInput" id="imageInput" #imageInput="ngModel"
+                 [(ngModel)]="product.imageUrl" placeholder="Đường dẫn hình ảnh"
+                 [class]="{'is-invalid': imageInput.touched && imageInput.errors}" required/>
+          <ng-template [ngIf]="imageInput.touched && imageInput.invalid">
+            <div *ngIf="imageInput.errors?.required" class="invalid-feedback d-block">
+              Vui lòng nhập đường dẫn
             </div>
           </ng-template>
         </div>
