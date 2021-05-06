@@ -26,6 +26,9 @@ import {AddProductComponent} from './popups/add-product/add-product.component';
 import {UpdateProductComponent} from './popups/update-product/update-product.component';
 import {AddProductDetailComponent} from './popups/add-product-detail/add-product-detail.component';
 import {UpdateProductDetailComponent} from './popups/update-product-detail/update-product-detail.component';
+import {UpdateEmployeeComponent} from './popups/update-employee/update-employee.component';
+import {UpdateCustomerComponent} from './popups/update-customer/update-customer.component';
+import {AddCustomerComponent} from './popups/add-customer/add-customer.component';
 
 const COMPONENTS = [
   AppUserProfileComponent,
@@ -50,7 +53,10 @@ const COMPONENTS = [
   AddProductComponent,
   UpdateProductComponent,
   AddProductDetailComponent,
-  UpdateProductDetailComponent
+  UpdateProductDetailComponent,
+  UpdateEmployeeComponent,
+  AddCustomerComponent,
+  UpdateCustomerComponent,
 ];
 @NgModule({
   declarations: [

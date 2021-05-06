@@ -1,11 +1,12 @@
-<app-modal-wrapper [size]="'sm'" #addEmployeeModalWrapper title="Thêm nhân viên" (hideEvent)="onHideEvent()">
-  <form #addEmployeeForm="ngForm" novalidate (submit)="onSave()" >
+<script src="update-employee.component.ts"></script>
+<app-modal-wrapper [size]="'sm'" #updateEmployeeModalWrapper title="Sửa nhân viên" (hideEvent)="onHideEvent()">
+  <form #updateEmployeeForm="ngForm" novalidate (submit)="onSave()" >
     <div class="modal-body">
       <div class="row">
         <div class="col-sm-12 form-group">
           <label for="nameInputAdd">Tên nhân viên</label>
           <input type="text" class="form-control" name="nameInputAdd" id="nameInputAdd" #nameInputAdd="ngModel"
-                 [(ngModel)]="newEmployee.name" placeholder="Tên nhân viên"
+                 [(ngModel)]="employee.name" placeholder="Tên nhân viên"
                  [class]="{'is-invalid': nameInputAdd.touched && nameInputAdd.errors}" required/>
           <ng-template [ngIf]="nameInputAdd.touched && nameInputAdd.invalid">
             <div *ngIf="nameInputAdd.errors?.required" class="invalid-feedback d-block">
@@ -18,8 +19,8 @@
         <div class="col-sm-6 form-group">
           <label for="emailInputAdd">Email</label>
           <input type="email" class="form-control" name="emailInputAdd" id="emailInputAdd" #emailInputAdd="ngModel"
-                [(ngModel)]="newEmployee.email" placeholder="Email" [pattern]="emailPattern"
-                [class]="{'is-invalid': emailInputAdd.touched && emailInputAdd.errors}" required/>
+                 [(ngModel)]="employee.email" placeholder="Email" [pattern]="emailPattern"
+                 [class]="{'is-invalid': emailInputAdd.touched && emailInputAdd.errors}" required/>
           <ng-template [ngIf]="emailInputAdd.touched && emailInputAdd.invalid">
             <div *ngIf="emailInputAdd.errors?.required" class="invalid-feedback d-block">
               Vui lòng nhập email
@@ -32,7 +33,7 @@
         <div class="col-sm-6 form-group">
           <label for="passwordInputAdd">Password</label>
           <input type="text" class="form-control" name="passwordInputAdd" id="passwordInputAdd" #passwordInputAdd="ngModel"
-                 minlength="10" [pattern]="passwordPattern" [(ngModel)]="newEmployee.password" placeholder="Password"
+                 minlength="10" [pattern]="passwordPattern" [(ngModel)]="employee.password" placeholder="Password"
                  [class]="{'is-invalid': passwordInputAdd.touched && passwordInputAdd.errors}" required/>
           <ng-template [ngIf]="passwordInputAdd.touched && passwordInputAdd.invalid">
             <div *ngIf="passwordInputAdd.errors?.required" class="invalid-feedback d-block">
@@ -40,7 +41,7 @@
             </div>
             <div *ngIf="passwordInputAdd.errors?.minlength || passwordInputAdd.errors?.pattern"
                  class="invalid-feedback d-block">
-                Mật khẩu có ít nhất 10 ký tự và 1 ký tự đặc biệt (!@#$%^&*...)
+              Mật khẩu có ít nhất 10 ký tự và 1 ký tự đặc biệt (!@#$%^&*...)
             </div>
           </ng-template>
         </div>
@@ -48,8 +49,8 @@
       <div class="row">
         <div class="col-sm-6 form-group">
           <label>Ngày sinh</label>
-          <app-date-picker [(startDate)]="newEmployee.birthDate"
-                           parentEl="{{addEmployeeModalWrapper.id}}"></app-date-picker>
+          <app-date-picker [(startDate)]="employee.birthDate"
+                           parentEl="{{updateEmployeeModalWrapper.id}}"></app-date-picker>
         </div>
         <div class="col-sm-6 form-group">
           <label>Vai trò</label>

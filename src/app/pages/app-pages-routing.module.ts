@@ -12,6 +12,7 @@ import {SupplierComponent} from './supplier/supplier.component';
 import {ImportingOrderComponent} from './importing-order/importing-order.component';
 import {ProductComponent} from './product/product.component';
 import { ProductDetailComponent } from './product-detail/product-detail.component';
+import { CustomerComponent } from './customer/customer.component';
 
 const routes: Routes = [
   {
@@ -67,6 +68,10 @@ const routes: Routes = [
     path: 'product-detail',
     component: ProductDetailComponent,
   },
+  {
+    path: 'customer',
+    component: CustomerComponent,
+  },
 ];
 
 @NgModule({
@@ -88,5 +93,6 @@ export const routedComponents = [
   SupplierComponent,
   ImportingOrderComponent,
   ProductComponent,
-  ProductDetailComponent
+  ProductDetailComponent,
+  CustomerComponent,
 ];

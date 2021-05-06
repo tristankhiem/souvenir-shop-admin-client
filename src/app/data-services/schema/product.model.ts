@@ -5,6 +5,8 @@ export class ProductModel {
   public name: string;
   public quantity: number;
   public description: string;
+  public imageUrl: string;
+  public sellingPrice: number;
   public subCategory: SubCategoryModel;
 
   public constructor(
@@ -16,6 +18,8 @@ export class ProductModel {
     this.name = product.name;
     this.quantity = product.quantity;
     this.description = product.description;
+    this.imageUrl = product.imageUrl;
+    this.sellingPrice = product.sellingPrice;
     this.subCategory = new SubCategoryModel(product.subCategory);
   }
 }
