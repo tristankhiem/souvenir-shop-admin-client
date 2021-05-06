@@ -26,7 +26,7 @@ export class AddProductDetailComponent implements AfterViewInit {
     private loading: AppLoading,
     private alert: AppAlert,
     private common: AppCommon,
-    private productdetailService: ProductDetailService,
+    private productDetailService: ProductDetailService,
     private sizeService: SizeService,
     private colorService: ColorService,
     private productService: ProductService,
@@ -51,7 +51,6 @@ export class AddProductDetailComponent implements AfterViewInit {
   }
   public show(): void {
     this.addProductDetailModalWrapper.show();
-
   }
 
   public hide(): void {
@@ -79,10 +78,10 @@ export class AddProductDetailComponent implements AfterViewInit {
     this.saveProductDetail();
   }
 
-  
   public selectSize(): void {
     this.productDetail.size = new SizeModel(this.size);
   }
+
   public searchSize(event): void {
     this.loading.show(this.targetModalLoading);
     this.sizeService.getLikeName(event.query).subscribe(res => this.searchSizeCompleted(res));
@@ -98,9 +97,11 @@ export class AddProductDetailComponent implements AfterViewInit {
     }
     this.sizeResult = res.result || [];
   }
+
   public selectColor(): void {
     this.productDetail.color = new ColorModel(this.color);
   }
+
   public searchColor(event): void {
     this.loading.show(this.targetModalLoading);
     this.colorService.getLikeName(event.query).subscribe(res => this.searchColorCompleted(res));
@@ -116,9 +117,11 @@ export class AddProductDetailComponent implements AfterViewInit {
     }
     this.colorResult = res.result || [];
   }
+
   public selectProduct(): void {
     this.productDetail.product = new ProductModel(this.product);
   }
+
   public searchProduct(event): void {
     this.loading.show(this.targetModalLoading);
     this.productService.getLikeName(event.query).subscribe(res => this.searchProductCompleted(res));
@@ -135,10 +138,9 @@ export class AddProductDetailComponent implements AfterViewInit {
     this.productResult = res.result || [];
   }
 
-
   private saveProductDetail(): void {
     this.loading.show(this.targetModalLoading);
-    this.productdetailService.save(this.productDetail).subscribe(res => this.saveProductDetailCompleted(res));
+    this.productDetailService.save(this.productDetail).subscribe(res => this.saveProductDetailCompleted(res));
   }
 
   private saveProductDetailCompleted(res: ResponseModel<ProductDetailModel>): void {

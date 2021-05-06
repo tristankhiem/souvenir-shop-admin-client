@@ -16,7 +16,7 @@ export class ProductDetailComponent implements OnInit {
     private loading: AppLoading,
     private alert: AppAlert,
     private modal: AppModals,
-    private productdetailService: ProductDetailService
+    private productDetailService: ProductDetailService
   ){
   }
 
@@ -38,7 +38,7 @@ export class ProductDetailComponent implements OnInit {
 
   private getProductDetail(targetLoading?: ElementRef): void {
     this.loading.show(targetLoading);
-    this.productdetailService.search(this.search).subscribe(res => this.getProductDetailCompleted(res, targetLoading));
+    this.productDetailService.search(this.search).subscribe(res => this.getProductDetailCompleted(res, targetLoading));
   }
 
   private getProductDetailCompleted(res: ResponseModel<BaseSearchModel<ProductDetailModel[]>>, targetLoading: ElementRef): void {
@@ -62,10 +62,10 @@ export class ProductDetailComponent implements OnInit {
     }
 
     this.loading.show();
-     this.productdetailService.deleteProductDetail(productdetail.id).subscribe(res => this.DeleteProductDetailCompleted(res));
+    this.productDetailService.deleteProductDetail(productdetail.id).subscribe(res => this.deleteProductDetailCompleted(res));
   }
 
-  private DeleteProductDetailCompleted(res: ResponseModel<any>): void {
+  private deleteProductDetailCompleted(res: ResponseModel<any>): void {
     this.loading.hide();
     if (res.status !== HTTP_CODE_CONSTANT.OK) {
       this.alert.errorMessages(res.message);
@@ -73,6 +73,6 @@ export class ProductDetailComponent implements OnInit {
     }
 
     this.alert.successMessages(res.message);
-     this.onChangeDataEvent();
+    this.onChangeDataEvent();
   }
 }

@@ -15,9 +15,11 @@ export class ProductService extends StoreBaseService {
   public getById(id: number): Observable<any> {
     return this.get('/api/product/' + id);
   }
+
   public getLikeName(name: string): Observable<any> {
-    return this.get('/api/color/get-like-name/' + name);
+    return this.get('/api/product/get-like-name/' + name);
   }
+
   public save(product: ProductModel): Observable<any> {
     return this.post('/api/product/insert', product);
   }

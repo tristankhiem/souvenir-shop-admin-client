@@ -26,7 +26,7 @@ export class UpdateProductDetailComponent implements AfterViewInit {
     private loading: AppLoading,
     private alert: AppAlert,
     private common: AppCommon,
-    private productdetailService: ProductDetailService,
+    private productDetailService: ProductDetailService,
     private sizeService: SizeService,
     private colorService: ColorService,
     private productService: ProductService,
@@ -101,6 +101,7 @@ export class UpdateProductDetailComponent implements AfterViewInit {
     }
     this.sizeResult = res.result || [];
   }
+
   public selectColor(): void {
     this.productDetail.color = new ColorModel(this.color);
   }
@@ -139,9 +140,10 @@ export class UpdateProductDetailComponent implements AfterViewInit {
     }
     this.productResult = res.result || [];
   }
+
   private saveProductDetail(): void {
     this.loading.show(this.targetModalLoading);
-    this.productService.update(this.product).subscribe(res => this.saveProductDetailCompleted(res));
+    this.productDetailService.update(this.productDetail).subscribe(res => this.saveProductDetailCompleted(res));
   }
 
   private saveProductDetailCompleted(res: ResponseModel<ProductDetailModel>): void {
@@ -158,7 +160,7 @@ export class UpdateProductDetailComponent implements AfterViewInit {
 
   private getProductDetail(id: number): void{
     this.loading.show();
-    this.productdetailService.getById(id).subscribe(res => this.getProductDetailCompleted(res));
+    this.productDetailService.getById(id).subscribe(res => this.getProductDetailCompleted(res));
   }
 
   private getProductDetailCompleted(res: ResponseModel<ProductDetailModel>): void {
