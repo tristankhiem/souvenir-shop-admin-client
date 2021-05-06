@@ -75,5 +75,4 @@ export class ProductDetailComponent implements OnInit {
     this.alert.successMessages(res.message);
      this.onChangeDataEvent();
   }
-
 }

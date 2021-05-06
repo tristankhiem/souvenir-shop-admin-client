@@ -95,3 +95,4 @@ export class SidebarComponent implements AfterContentChecked, OnInit {
     return 0;
   }
 }
+

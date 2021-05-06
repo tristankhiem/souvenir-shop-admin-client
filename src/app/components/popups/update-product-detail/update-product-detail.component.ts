@@ -34,8 +34,8 @@ export class UpdateProductDetailComponent implements AfterViewInit {
   }
 
   @Output() saveCompleted = new EventEmitter<any>();
-  @ViewChild('updateProductDetailModalWrapper', {static: true}) addProductDetailModalWrapper: ModalWrapperComponent;
-  @ViewChild('updateProductDetailForm', {static: true}) addProductDetailForm: NgForm;
+  @ViewChild('updateProductDetailModalWrapper', {static: true}) updateProductDetailModalWrapper: ModalWrapperComponent;
+  @ViewChild('updateProductDetailForm', {static: true}) updateProductDetailForm: NgForm;
 
   public productDetail: ProductDetailModel = new ProductDetailModel();
   public product: ProductModel = new ProductModel();
@@ -47,28 +47,28 @@ export class UpdateProductDetailComponent implements AfterViewInit {
   private targetModalLoading: ElementRef;
 
   ngAfterViewInit(): void {
-    this.targetModalLoading = $(`#${this.addProductDetailModalWrapper.id} .modal-dialog`);
+    this.targetModalLoading = $(`#${this.updateProductDetailModalWrapper.id} .modal-dialog`);
   }
 
   public show(productDetail: ProductDetailModel, event: Event): void {
     event.preventDefault();
     this.getProductDetail(productDetail.id);
-    this.addProductDetailModalWrapper.show();
+    this.updateProductDetailModalWrapper.show();
 
   }
 
   public hide(): void {
-    this.addProductDetailForm.onReset();
-    this.addProductDetailModalWrapper.hide();
+    this.updateProductDetailForm.onReset();
+    this.updateProductDetailModalWrapper.hide();
   }
 
   public onHideEvent(): void {
     this.productDetail = new ProductDetailModel();
-    this.addProductDetailForm.onReset();
+    this.updateProductDetailForm.onReset();
   }
 
   public isValid(): boolean {
-    if (this.addProductDetailForm.invalid){
+    if (this.updateProductDetailForm.invalid){
       return false;
     }
 

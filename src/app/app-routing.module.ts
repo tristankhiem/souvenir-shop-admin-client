@@ -43,4 +43,5 @@ export const routedComponents = [
   LoginComponent,
   NotFoundComponent,
   AccessDeniedComponent
+  
 ];

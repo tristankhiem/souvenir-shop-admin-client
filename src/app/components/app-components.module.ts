@@ -52,7 +52,6 @@ const COMPONENTS = [
   AddProductDetailComponent,
   UpdateProductDetailComponent
 ];
-
 @NgModule({
   declarations: [
     ...COMPONENTS,
