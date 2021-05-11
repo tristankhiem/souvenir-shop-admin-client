@@ -9,6 +9,7 @@ export class ProductDetailModel {
   public quantity: number;
   public sellingPrice: number;
   public importingPrice: number;
+  public imageUrl: string;
   public subCategory: SubCategoryModel;
   public color: ColorModel;
   public size: SizeModel;

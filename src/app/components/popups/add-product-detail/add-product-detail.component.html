@@ -55,6 +55,19 @@
       </div>
       <div class="row">
         <div class="col-sm-12 form-group">
+          <label for="imageInput">Đường dẫn hình ảnh</label>
+          <input type="text" class="form-control" name="imageInput" id="imageInput" #imageInput="ngModel"
+                 [(ngModel)]="productDetail.imageUrl" placeholder="Đường dẫn hình ảnh"
+                 [class]="{'is-invalid': imageInput.touched && imageInput.errors}" required/>
+          <ng-template [ngIf]="imageInput.touched && imageInput.invalid">
+            <div *ngIf="imageInput.errors?.required" class="invalid-feedback d-block">
+              Vui lòng nhập đường dẫn
+            </div>
+          </ng-template>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-12 form-group">
           <label>Màu sắc</label>
           <p-autoComplete inputStyleClass="form-control" name="ColorInput" id="ColorInput" #ColorInput="ngModel"
                           [(ngModel)]="color" [suggestions]="colorResult"
