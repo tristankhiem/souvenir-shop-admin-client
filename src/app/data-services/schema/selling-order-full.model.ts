@@ -1,5 +1,6 @@
 import {CustomerModel} from './customer.model';
-export class SellingOrderModel {
+import {SellingTransactionModel} from './selling-transaction.model';
+export class SellingOrderFullModel {
   public id: number;
   public customer: CustomerModel;
   public invoiceDate: string;
@@ -8,9 +9,10 @@ export class SellingOrderModel {
   public deliveryDate: string;
   public receivePerson: string;
   public status: string;
+  public sellingTransactions: SellingTransactionModel[] = [];
 
   public constructor(
-    data?: SellingOrderModel
+    data?: SellingOrderFullModel
   ) {
     const sellingOrder = data == null ? this : data;
 
@@ -22,5 +24,9 @@ export class SellingOrderModel {
     this.deliveryDate = sellingOrder.deliveryDate;
     this.receivePerson = sellingOrder.receivePerson;
     this.status = sellingOrder.status;
+    const sellingTransactions = sellingOrder.sellingTransactions || [];
+    for (const sellingTransaction of sellingTransactions) {
+      this.sellingTransactions.push(new SellingTransactionModel(sellingTransaction));
+    }
   }
 }

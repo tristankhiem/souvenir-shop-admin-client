@@ -13,6 +13,7 @@ import {ImportingOrderComponent} from './importing-order/importing-order.compone
 import {ProductComponent} from './product/product.component';
 import { ProductDetailComponent } from './product-detail/product-detail.component';
 import { CustomerComponent } from './customer/customer.component';
+import {SellingOrderComponent} from './selling-order/selling-order.component';
 
 const routes: Routes = [
   {
@@ -61,6 +62,10 @@ const routes: Routes = [
     component: ImportingOrderComponent,
   },
   {
+    path: 'selling-order',
+    component: SellingOrderComponent,
+  },
+  {
     path: 'product',
     component: ProductComponent,
   },
@@ -92,6 +97,7 @@ export const routedComponents = [
   EmployeeComponent,
   SupplierComponent,
   ImportingOrderComponent,
+  SellingOrderComponent,
   ProductComponent,
   ProductDetailComponent,
   CustomerComponent,

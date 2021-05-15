@@ -137,6 +137,18 @@ export const ROUTER_USER_PERMISSION_MAPPER = [
     }),
   new RouterPermissionMappingModel(
     {
+      routerLink: '/selling-order',
+      matchUrl: '',
+      name: 'Quản lý bán hàng',
+      icon: 'fa-truck-loading',
+      permissions: [
+        USER_PERMISSION_CODE.TRANSACTION_MANAGEMENT
+      ],
+      sort: 2,
+      isMenu: true
+    }),
+  new RouterPermissionMappingModel(
+    {
       routerLink: '/product',
       matchUrl: '',
       name: 'Quản lý hàng hoá',

@@ -33,7 +33,6 @@ export class AddCustomerComponent implements AfterViewInit{
     public newCustomer: CustomerModel = new CustomerModel();
 
     public cardIdPattern = INPUT_PATTERN_CONSTANT.cardIdPattern;
-    public passwordPattern = INPUT_PATTERN_CONSTANT.passwordPattern;
     public emailPattern = INPUT_PATTERN_CONSTANT.emailPattern;
     public phonePattern  = INPUT_PATTERN_CONSTANT.phonePattern;
 

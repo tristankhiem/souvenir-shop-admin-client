@@ -28,11 +28,10 @@ export class UpdateCustomerComponent implements AfterViewInit{
     @Output() saveCompleted = new EventEmitter<any>();
     @ViewChild('updateCustomerModalWrapper', {static: true}) updateCustomerModalWrapper: ModalWrapperComponent;
     @ViewChild('updateCustomerForm', {static: true}) updateCustomerForm: NgForm;
-  
+
     public customer: CustomerModel = new CustomerModel();
 
     public cardIdPattern = INPUT_PATTERN_CONSTANT.cardIdPattern;
-    public passwordPattern = INPUT_PATTERN_CONSTANT.passwordPattern;
     public emailPattern = INPUT_PATTERN_CONSTANT.emailPattern;
     public phonePattern  = INPUT_PATTERN_CONSTANT.phonePattern;
 
@@ -90,7 +89,7 @@ export class UpdateCustomerComponent implements AfterViewInit{
         }
         const currentDate = new Date(this.customer.birthDate);
         this.customer.birthDate = new Date(currentDate.getTime()).toDateString();
-    
+
         this.saveCustomer();
     }
 
@@ -98,14 +97,14 @@ export class UpdateCustomerComponent implements AfterViewInit{
         this.loading.show(this.targetModalLoading);
         this.customerService.update(this.customer).subscribe(res => this.saveCustomerCompleted(res));
     }
-    
+
     private saveCustomerCompleted(res: ResponseModel<CustomerModel>): void {
         this.loading.hide(this.targetModalLoading);
         if (res.status !== HTTP_CODE_CONSTANT.OK) {
         this.alert.errorMessages(res.message);
         return;
         }
-    
+
         this.alert.successMessages(res.message);
         this.saveCompleted.emit();
         this.hide();

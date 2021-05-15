@@ -1,0 +1,68 @@
+<!-- Content Header (Page header) -->
+<section class="content-header">
+  <div class="container-fluid">
+    <div class="row mb-2">
+      <div class="col-sm-6">
+        <h1 class="m-0 font-weight-bold text-gray-dark">QUẢN LÝ HOÁ ĐƠN XUẤT BÁN</h1>
+      </div>
+      <div class="col-sm-6">
+        <ol class="breadcrumb float-sm-right">
+          <li class="breadcrumb-item"><a routerLink="/">Trang chủ</a></li>
+          <li class="breadcrumb-item active">Quản lý bán hàng</li>
+        </ol>
+      </div>
+    </div>
+    <!-- /.row -->
+  </div>
+  <!-- /.container-fluid -->
+</section>
+<!-- /.content-header -->
+
+<!-- Main content -->
+<section class="content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-12">
+        <div class="card">
+          <div class="card-body">
+            <app-data-table #dataTableSize [dataTable]="search" (changeEvent)="onChangeDataEvent($event)">
+              <thead>
+              <tr>
+                <th>Tên khách hàng</th>
+                <th>Ngày thanh toán</th>
+                <th>Ngày giao</th>
+                <th>Số tiền</th>
+                <th>Trạng thái</th>
+                <th></th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr *ngFor="let e of search.result">
+                <td>{{e.customer.name}}</td>
+                <td>{{e.invoiceDate | date:'dd/MM/yyyy'}}</td>
+                <td>{{e.deliveryDate | date:'dd/MM/yyyy'}}</td>
+                <td>{{e.total | number}}</td>
+                <td>{{e.status}}</td>
+                <td>
+                  <app-dropdown-menu>
+                    <a class="dropdown-item text-cyan" (click)="updateSellingOrderComponent.show(e, $event)">
+                      <i class="far fa-edit"></i>
+                      Sửa
+                    </a>
+                    <a class="dropdown-item text-red" href="#" (click)="openDeleteModal(e, $event)">
+                      <i class="far fa-trash-alt mr-1"></i>
+                      Xóa
+                    </a>
+                  </app-dropdown-menu>
+                </td>
+              </tr>
+              </tbody>
+            </app-data-table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<app-update-selling-order #updateSellingOrderComponent (saveCompleted)="onChangeDataEvent()"></app-update-selling-order>

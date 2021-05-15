@@ -29,6 +29,7 @@ import {UpdateProductDetailComponent} from './popups/update-product-detail/updat
 import {UpdateEmployeeComponent} from './popups/update-employee/update-employee.component';
 import {UpdateCustomerComponent} from './popups/update-customer/update-customer.component';
 import {AddCustomerComponent} from './popups/add-customer/add-customer.component';
+import {UpdateSellingOrderComponent} from './popups/update-selling-order/update-selling-order.component';
 
 const COMPONENTS = [
   AppUserProfileComponent,
@@ -57,6 +58,7 @@ const COMPONENTS = [
   UpdateEmployeeComponent,
   AddCustomerComponent,
   UpdateCustomerComponent,
+  UpdateSellingOrderComponent
 ];
 @NgModule({
   declarations: [

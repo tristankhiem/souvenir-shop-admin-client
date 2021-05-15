@@ -1,0 +1,115 @@
+<app-modal-wrapper [size]="'modal-lg'" #updateSellingOrderModalWrapper title="Cập nhật hoá đơn xuất bán" (hideEvent)="onHideEvent()">
+  <form #updateSellingOrderForm="ngForm" novalidate (submit)="onSave()" >
+    <div class="modal-body">
+      <div class="row">
+        <div class="col-sm-3 form-group">
+          <label for="receivePersonInput">Tên người nhận</label>
+          <input type="text" class="form-control" name="receivePersonInput" id="receivePersonInput" #receivePersonInput="ngModel"
+                 [(ngModel)]="sellingOrder.receivePerson" placeholder="Tên người nhận"
+                 [class]="{'is-invalid': receivePersonInput.touched && receivePersonInput.errors}" required/>
+          <ng-template [ngIf]="receivePersonInput.touched && receivePersonInput.invalid">
+            <div *ngIf="receivePersonInput.errors?.required" class="invalid-feedback d-block">
+              Vui lòng nhập tên người nhận
+            </div>
+          </ng-template>
+        </div>
+        <div class="col-sm-6 form-group">
+          <label for="addressInput">Địa chỉ nhận hàng</label>
+          <input type="text" class="form-control" name="addressInput" id="addressInput" #addressInput="ngModel"
+                 [(ngModel)]="sellingOrder.address" placeholder="Tên nhóm"
+                 [class]="{'is-invalid': addressInput.touched && addressInput.errors}" required/>
+          <ng-template [ngIf]="addressInput.touched && addressInput.invalid">
+            <div *ngIf="addressInput.errors?.required" class="invalid-feedback d-block">
+              Vui lòng nhập địa chỉ
+            </div>
+          </ng-template>
+        </div>
+        <div class="col-sm-3 form-group">
+          <label for="statusInput">Trạng thái</label>
+          <select name="statusInput" id="statusInput" class="custom-select"
+                  #statusInput="ngModel"
+                  [(ngModel)]="sellingOrder.status" required
+                  [class]="{'is-invalid': statusInput.touched && statusInput.value === 0}">
+            <option value="0" disabled>Chọn trạng thái</option>
+            <option [value]="'Chờ xác nhận'">Chờ xác nhận</option>
+            <option [value]="'Đã xác nhận'">Đã xác nhận</option>
+            <option [value]="'Đang giao'">Đang giao</option>
+            <option [value]="'Đã hoàn tất'">Đã hoàn tất</option>
+            <option [value]="'Đã huỷ'">Đã huỷ</option>
+          </select>
+          <ng-template [ngIf]="statusInput.touched">
+            <div *ngIf="statusInput.value === 0" class="invalid-feedback d-block">
+              Vui lòng chọn giấy chứng nhận
+            </div>
+          </ng-template>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-4 form-group">
+          <label for="phoneInput">SĐT khách hàng</label>
+          <input type="text" class="form-control" name="phoneInput" id="phoneInput" #phoneInput="ngModel"
+                 [(ngModel)]="sellingOrder.customer.phone" placeholder="Tên nhóm"
+                 [class]="{'is-invalid': phoneInput.touched && phoneInput.errors}" required disabled/>
+          <ng-template [ngIf]="phoneInput.touched && phoneInput.invalid">
+            <div *ngIf="phoneInput.errors?.required" class="invalid-feedback d-block">
+              Vui lòng nhập địa chỉ
+            </div>
+          </ng-template>
+        </div>
+        <div class="col-sm-4 form-group">
+          <label>Ngày xuất hoá đơn</label>
+          <app-date-picker [(startDate)]="sellingOrder.invoiceDate"
+                           parentEl="{{updateSellingOrderModalWrapper.id}}"></app-date-picker>
+        </div>
+        <div class="col-sm-4 form-group">
+          <label>Ngày giao</label>
+          <app-date-picker [(startDate)]="sellingOrder.deliveryDate"
+                           parentEl="{{updateSellingOrderModalWrapper.id}}"></app-date-picker>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12">
+          <div class="card">
+            <div class="card-body table-responsive p-0" style="height: 250px;">
+              <table class="table table-head-fixed text-nowrap">
+                <thead>
+                <tr>
+                  <th>Mã sản phẩm</th>
+                  <th>Tên sản phẩm</th>
+                  <th>Số lượng</th>
+                  <th>Đơn giá</th>
+                  <th>Thành tiền</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr *ngFor="let item of sellingOrder.sellingTransactions, let key = index">
+                  <td>{{item.productDetail.id}}</td>
+                  <td>{{item.productDetail.name}}</td>
+                  <td>{{item.quantity}}</td>
+                  <td>{{item.price | number}}</td>
+                  <td>{{item.quantity*item.price | number}}</td>
+                </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-12">
+          <label class="float-right">Tổng tiền: {{this.getTotal() | number}} đồng</label>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer justify-content-between">
+      <button (click)="hide()" type="button" class="btn btn-default">
+        <i class="fas fa-times mr-1"></i>
+        Đóng
+      </button>
+      <button type="submit" class="btn btn-primary" [disabled]="!isValid()">
+        <i class="far fa-save mr-1"></i>
+        Lưu
+      </button>
+    </div>
+  </form>
+</app-modal-wrapper>

@@ -32,15 +32,11 @@
           <div class="col-sm-6 form-group">
             <label for="passwordInputAdd">Password</label>
             <input type="text" class="form-control" name="passwordInputAdd" id="passwordInputAdd" #passwordInputAdd="ngModel"
-                   minlength="10" [pattern]="passwordPattern" [(ngModel)]="newCustomer.password" placeholder="Password"
+                   [(ngModel)]="newCustomer.password" placeholder="Password"
                    [class]="{'is-invalid': passwordInputAdd.touched && passwordInputAdd.errors}" required/>
             <ng-template [ngIf]="passwordInputAdd.touched && passwordInputAdd.invalid">
               <div *ngIf="passwordInputAdd.errors?.required" class="invalid-feedback d-block">
                 Vui lòng nhập password
-              </div>
-              <div *ngIf="passwordInputAdd.errors?.minlength || passwordInputAdd.errors?.pattern"
-                   class="invalid-feedback d-block">
-                  Mật khẩu có ít nhất 10 ký tự và 1 ký tự đặc biệt (!@#$%^&*...)
               </div>
             </ng-template>
           </div>
@@ -71,7 +67,7 @@
             <div class="col-sm-12 form-group">
                 <label for="addressInputAdd">Địa chỉ</label>
                 <input type="text" class="form-control" name="addressInputAdd" id="addressInputAdd" #addressInputAdd="ngModel"
-                   minlength="10" [(ngModel)]="newCustomer.address" placeholder="address"
+                   [(ngModel)]="newCustomer.address" placeholder="address"
                    [class]="{'is-invalid': addressInputAdd.touched && addressInputAdd.errors}" required/>
                 <ng-template [ngIf]="addressInputAdd.touched && addressInputAdd.invalid">
                     <div *ngIf="addressInputAdd.errors?.required" class="invalid-feedback d-block">
