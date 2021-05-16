@@ -9,6 +9,7 @@ import {HTTP_CODE_CONSTANT} from '../../../constants/http-code.constant';
 import {CategoryModel} from '../../../data-services/schema/category.model';
 import {SellingOrderService} from '../../../services/store/selling-order.service';
 import {SellingOrderFullModel} from '../../../data-services/schema/selling-order-full.model';
+import {SellingOrderModel} from '../../../data-services/schema/selling-order.model';
 
 declare var $: any;
 
@@ -37,9 +38,9 @@ export class UpdateSellingOrderComponent implements AfterViewInit {
     this.targetModalLoading = $(`#${this.updateSellingOrderModalWrapper.id} .modal-dialog`);
   }
 
-  public show(category: CategoryModel, event: Event): void {
+  public show(sellingOrderModel: SellingOrderModel, event: Event): void {
     event.preventDefault();
-    this.getSellingOrder(category.id);
+    this.getSellingOrder(sellingOrderModel.id);
     this.updateSellingOrderModalWrapper.show();
 
   }

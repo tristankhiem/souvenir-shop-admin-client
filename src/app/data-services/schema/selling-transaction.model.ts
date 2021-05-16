@@ -2,7 +2,7 @@
 import {ProductDetailModel} from './product-detail.model';
 import {SellingOrderModel} from './selling-order.model';
 export class SellingTransactionModel {
-  public id: string;
+  public id: number;
   public productDetail: ProductDetailModel;
   public quantity: number;
   public price: number;
