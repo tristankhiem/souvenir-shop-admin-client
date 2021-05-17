@@ -36,7 +36,6 @@
                   <tr>
                     <th>Họ tên</th>
                     <th>Email</th>
-                    <th>Password</th>
                     <th>Ngày sinh</th>
                     <th>Điện thoại</th>
                     <th>Địa chỉ</th>
@@ -48,7 +47,6 @@
                   <tr *ngFor="let e of search.result">
                     <td>{{e.name}}</td>
                     <td>{{e.email}}</td>
-                    <td>{{e.password}}</td>
                     <td>{{e.birthDate | date:'dd/MM/yyyy'}}</td>
                     <td>{{e.phone}}</td>
                     <td>{{e.address}}</td>

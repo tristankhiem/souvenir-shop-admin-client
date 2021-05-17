@@ -123,18 +123,18 @@ export const ROUTER_USER_PERMISSION_MAPPER = [
       sort: 2,
       isMenu: true
     }),
-  new RouterPermissionMappingModel(
-    {
-      routerLink: '/importing-order',
-      matchUrl: '',
-      name: 'Quản lý nhập hàng',
-      icon: 'fa-truck-loading',
-      permissions: [
-        USER_PERMISSION_CODE.TRANSACTION_MANAGEMENT
-      ],
-      sort: 1,
-      isMenu: true
-    }),
+  // new RouterPermissionMappingModel(
+  //   {
+  //     routerLink: '/importing-order',
+  //     matchUrl: '',
+  //     name: 'Quản lý nhập hàng',
+  //     icon: 'fa-truck-loading',
+  //     permissions: [
+  //       USER_PERMISSION_CODE.TRANSACTION_MANAGEMENT
+  //     ],
+  //     sort: 1,
+  //     isMenu: true
+  //   }),
   new RouterPermissionMappingModel(
     {
       routerLink: '/selling-order',

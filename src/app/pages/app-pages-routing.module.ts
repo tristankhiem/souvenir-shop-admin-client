@@ -57,10 +57,10 @@ const routes: Routes = [
     path: 'supplier',
     component: SupplierComponent,
   },
-  {
-    path: 'importing-order',
-    component: ImportingOrderComponent,
-  },
+  // {
+  //   path: 'importing-order',
+  //   component: ImportingOrderComponent,
+  // },
   {
     path: 'selling-order',
     component: SellingOrderComponent,
