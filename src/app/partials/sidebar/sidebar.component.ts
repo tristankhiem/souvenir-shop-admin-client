@@ -31,15 +31,7 @@ export class SidebarComponent implements AfterContentChecked, OnInit {
   }
 
   private collectData(): void {
-    const permissions = [
-      USER_PERMISSION_CODE.EMPLOYEE_MANAGEMENT,
-      USER_PERMISSION_CODE.CUSTOMER_MANAGEMENT,
-      USER_PERMISSION_CODE.PRODUCT_MANAGEMENT,
-      USER_PERMISSION_CODE.SUPPLIER_MANAGEMENT,
-      USER_PERMISSION_CODE.TRANSACTION_MANAGEMENT
-    ];
-
-    // const permissions = this.currentUserService.getPermissions();
+    const permissions = this.currentUserService.getPermissions();
     for (const item of permissions) {
       const mapper = this.getPermissionMapping(item);
       switch (item) {

@@ -3,6 +3,7 @@ import {CommonModule} from '@angular/common';
 import {AppComponentsModule} from '../components/app-components.module';
 import {NgModule} from '@angular/core';
 import {FormsModule} from '@angular/forms';
+import {ChartModule} from 'primeng';
 
 @NgModule({
   declarations: [
@@ -12,7 +13,8 @@ import {FormsModule} from '@angular/forms';
     CommonModule,
     FormsModule,
     AppPagesRoutingModule,
-    AppComponentsModule
+    AppComponentsModule,
+    ChartModule
   ],
   providers: [
     ...AppComponentsModule.forRoot().providers
