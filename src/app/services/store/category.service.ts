@@ -11,26 +11,26 @@ import {CategoryModel} from '../../data-services/schema/category.model';
 })
 export class CategoryService extends StoreBaseService {
   public search(search: BaseSearchModel<CategoryModel[]>): Observable<any> {
-    return this.post('/api/category/search', search);
+    return this.post('/api/v1/category/search', search);
   }
 
   public getLikeName(name: string): Observable<any> {
-    return this.get('/api/category/get-like-name/' + name);
+    return this.get('/api/v1/category/get-like-name/' + name);
   }
 
   public getById(id: number): Observable<any> {
-    return this.get('/api/category/' + id);
+    return this.get('/api/v1/category/' + id);
   }
 
   public save(category: CategoryModel): Observable<any> {
-    return this.post('/api/category/insert', category);
+    return this.post('/api/v1/category/insert', category);
   }
 
   public update(category: CategoryModel): Observable<any> {
-    return this.put('/api/category/update', category);
+    return this.put('/api/v1/category/update', category);
   }
 
   public deleteCategory(id: number): Observable<any> {
-    return this.delete('/api/category/delete/' + id);
+    return this.delete('/api/v1/category/delete/' + id);
   }
 }

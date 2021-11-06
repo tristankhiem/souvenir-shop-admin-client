@@ -8,6 +8,6 @@ import {StoreBaseService} from '../generic/store-base.service';
 })
 export class EmployeeAuthService extends StoreBaseService {
   public login(login: LoginModel): Observable<any> {
-    return this.post('/api/auth/login', login);
+    return this.post('/api/v1/auth/login', login);
   }
 }

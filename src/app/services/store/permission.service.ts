@@ -12,6 +12,6 @@ import {PermissionModel} from '../../data-services/schema/permission.model';
 })
 export class PermissionService extends StoreBaseService {
   public findAll(): Observable<any> {
-    return this.get('/api/permission/find-all');
+    return this.get('/api/v1/permission/find-all');
   }
 }

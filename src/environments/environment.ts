@@ -4,10 +4,10 @@
 
 export const environment = {
   production: false,
-  customerBaseUrl: 'http://localhost:5556',
+  customerBaseUrl: 'http://localhost:5559',
   districtBaseUrl: 'http://localhost:5555',
   districtUrl: 'http://localhost:4200',
-  storeBaseUrl: 'http://localhost:5000',
+  storeBaseUrl: 'http://localhost:5556',
   publishableKey: 'pk_test_51IiEhRCMwONW79drQsA0qwldE1izxLXefG59iip7mX3haqBDJnyDggRDvDXjgU7UD0BTf5FRZhiTL1fC3JYxveji00aKpkh7Ble'
 };
 
