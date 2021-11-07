@@ -1,7 +1,7 @@
 # Souvenir Shop Admin Client
-
+----------------------Hướng dẫn-----------------------
 Cài đặt angular: Trên command line chạy lệnh 'npm install -g @angular/cli'
-Tại thư mục gốc của project chạy npm install để import các thư viện cần thiết
+Tại thư mục gốc của project chạy lệnh 'npm install' để import các thư viện cần thiết cho việc start project
 Chạy lệnh 'ng serve' để chạy project
 
 
