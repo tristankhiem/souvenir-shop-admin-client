@@ -96,9 +96,6 @@ export class UpdateEmployeeComponent implements  AfterViewInit{
     if (!this.isValid()){
       return;
     }
-    const currentDate = new Date(this.employee.birthDate);
-    this.employee.birthDate = new Date(currentDate.getTime()).toDateString();
-
     this.saveEmployee();
   }
 

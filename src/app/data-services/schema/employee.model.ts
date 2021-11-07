@@ -2,6 +2,7 @@ import {RoleModel} from './role.model';
 export class EmployeeModel {
   public id: number;
   public name: string;
+  public phone: string;
   public email: string;
   public password: string;
   public birthDate: string;
@@ -14,6 +15,7 @@ export class EmployeeModel {
 
     this.id = employee.id;
     this.name = employee.name;
+    this.phone = employee.phone;
     this.email = employee.email;
     this.password = employee.password;
     this.birthDate = employee.birthDate;

@@ -16,7 +16,20 @@
         </div>
       </div>
       <div class="row">
-        <div class="col-sm-6 form-group">
+        <div class="col-sm-12 form-group">
+          <label for="phoneInputAdd">Số điện thoại</label>
+          <input type="text" class="form-control" name="phoneInputAdd" id="phoneInputAdd" #phoneInputAdd="ngModel"
+                 [(ngModel)]="employee.phone" placeholder="Số điện thoại"
+                 [class]="{'is-invalid': phoneInputAdd.touched && phoneInputAdd.errors}" required/>
+          <ng-template [ngIf]="phoneInputAdd.touched && phoneInputAdd.invalid">
+            <div *ngIf="phoneInputAdd.errors?.required" class="invalid-feedback d-block">
+              Vui lòng nhập số điện thoại
+            </div>
+          </ng-template>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-12 form-group">
           <label for="emailInputAdd">Email</label>
           <input type="email" class="form-control" name="emailInputAdd" id="emailInputAdd" #emailInputAdd="ngModel"
                  [(ngModel)]="employee.email" placeholder="Email" [pattern]="emailPattern"
@@ -27,21 +40,6 @@
             </div>
             <div *ngIf="emailInputAdd.errors?.pattern" class="invalid-feedback d-block">
               Email không hợp lệ
-            </div>
-          </ng-template>
-        </div>
-        <div class="col-sm-6 form-group">
-          <label for="passwordInputAdd">Password</label>
-          <input type="text" class="form-control" name="passwordInputAdd" id="passwordInputAdd" #passwordInputAdd="ngModel"
-                 minlength="10" [pattern]="passwordPattern" [(ngModel)]="employee.password" placeholder="Password"
-                 [class]="{'is-invalid': passwordInputAdd.touched && passwordInputAdd.errors}" required/>
-          <ng-template [ngIf]="passwordInputAdd.touched && passwordInputAdd.invalid">
-            <div *ngIf="passwordInputAdd.errors?.required" class="invalid-feedback d-block">
-              Vui lòng nhập password
-            </div>
-            <div *ngIf="passwordInputAdd.errors?.minlength || passwordInputAdd.errors?.pattern"
-                 class="invalid-feedback d-block">
-              Mật khẩu có ít nhất 10 ký tự và 1 ký tự đặc biệt (!@#$%^&*...)
             </div>
           </ng-template>
         </div>

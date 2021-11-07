@@ -18,7 +18,7 @@ export class EmployeeService extends StoreBaseService{
     }
 
     public getById(id: number): Observable<any>{
-        return this.get('/api/v1/employee/' + id);
+        return this.get('/api/v1/employee/get-by-id/' + id);
     }
 
     public save(employee: EmployeeModel): Observable<any>{

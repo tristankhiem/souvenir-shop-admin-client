@@ -15,6 +15,19 @@
         </div>
       </div>
       <div class="row">
+        <div class="col-sm-12 form-group">
+          <label for="phoneInputAdd">Số điện thoại</label>
+          <input type="text" class="form-control" name="phoneInputAdd" id="phoneInputAdd" #phoneInputAdd="ngModel"
+                 [(ngModel)]="newEmployee.phone" placeholder="Số điện thoại"
+                 [class]="{'is-invalid': phoneInputAdd.touched && phoneInputAdd.errors}" required/>
+          <ng-template [ngIf]="phoneInputAdd.touched && phoneInputAdd.invalid">
+            <div *ngIf="phoneInputAdd.errors?.required" class="invalid-feedback d-block">
+              Vui lòng nhập số điện thoại
+            </div>
+          </ng-template>
+        </div>
+      </div>
+      <div class="row">
         <div class="col-sm-6 form-group">
           <label for="emailInputAdd">Email</label>
           <input type="email" class="form-control" name="emailInputAdd" id="emailInputAdd" #emailInputAdd="ngModel"

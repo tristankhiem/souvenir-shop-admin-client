@@ -74,8 +74,8 @@ export class AddEmployeeComponent implements AfterViewInit {
     if (!this.isValid()) {
       return;
     }
-    const currentDate = new Date(this.newEmployee.birthDate);
-    this.newEmployee.birthDate = new Date(currentDate.getTime()).toDateString();
+    // const currentDate = new Date(this.newEmployee.birthDate);
+    // this.newEmployee.birthDate = new Date(currentDate.getTime()).toDateString();
 
     this.saveEmployee();
   }
