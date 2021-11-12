@@ -15,11 +15,11 @@ export class CategoryService extends StoreBaseService {
   }
 
   public getLikeName(name: string): Observable<any> {
-    return this.get('/api/v1/category/get-like-name/' + name);
+    return this.get('/api/v1/category/get-like-name', {name});
   }
 
   public getById(id: number): Observable<any> {
-    return this.get('/api/v1/category/' + id);
+    return this.get('/api/v1/category/get-by-id/' + id);
   }
 
   public save(category: CategoryModel): Observable<any> {
