@@ -10,26 +10,26 @@ import {SupplierModel} from "../../data-services/schema/supplier.model";
 })
 export class SupplierService extends StoreBaseService {
   public search(search: BaseSearchModel<SupplierModel[]>): Observable<any> {
-    return this.post('/api/supplier/search', search);
+    return this.post('/api/v1/supplier/search', search);
   }
 
   public getLikeName(name: string): Observable<any> {
-    return this.get('/api/supplier/get-like-name/' + name);
+    return this.get('/api/v1/supplier/get-like-name/' + name);
   }
 
   public getById(id: number): Observable<any> {
-    return this.get('/api/supplier/' + id);
+    return this.get('/api/v1/supplier/get-by-id/' + id);
   }
 
   public save(supplier: SupplierModel): Observable<any> {
-    return this.post('/api/supplier/insert', supplier);
+    return this.post('/api/v1/supplier/insert', supplier);
   }
 
   public update(supplier: SupplierModel): Observable<any> {
-    return this.put('/api/supplier/update', supplier);
+    return this.put('/api/v1/supplier/update', supplier);
   }
 
   public deleteSupplier(id: number): Observable<any> {
-    return this.delete('/api/supplier/delete/' + id);
+    return this.delete('/api/v1/supplier/delete/' + id);
   }
 }

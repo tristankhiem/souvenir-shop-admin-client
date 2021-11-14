@@ -79,6 +79,7 @@ export class CustomerComponent implements OnInit {
     public changeAccountState(customer: CustomerModel): void{
         // event.preventDefault();
         this.loading.show();
+       customer.isValid=true ? customer.isValid=false : customer.isValid=true
         this.customerService.changeAccountState(customer).subscribe(res => this.changeAccountStateCompleted(res));
     }
 

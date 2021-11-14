@@ -87,9 +87,9 @@ export class UpdateCustomerComponent implements AfterViewInit{
         if (!this.isValid()){
           return;
         }
-        const currentDate = new Date(this.customer.birthDate);
-        this.customer.birthDate = new Date(currentDate.getTime()).toDateString();
-
+        //const currentDate = new Date(this.customer.birthDate);
+        //this.customer.birthDate = new Date(currentDate.getTime()).toDateString();
+        this.customer.isValid=true;
         this.saveCustomer();
     }
 
