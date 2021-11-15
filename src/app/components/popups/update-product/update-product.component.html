@@ -74,19 +74,44 @@
           </ng-template>
         </div>
       </div>
-      <div class="row">
-        <div class="col-sm-12 form-group">
-          <label for="imageInput">Đường dẫn hình ảnh</label>
-          <input type="text" class="form-control" name="imageInput" id="imageInput" #imageInput="ngModel"
-                 [(ngModel)]="product.imageUrl" placeholder="Đường dẫn hình ảnh"
-                 [class]="{'is-invalid': imageInput.touched && imageInput.errors}" required/>
-          <ng-template [ngIf]="imageInput.touched && imageInput.invalid">
-            <div *ngIf="imageInput.errors?.required" class="invalid-feedback d-block">
-              Vui lòng nhập đường dẫn
-            </div>
-          </ng-template>
+<!--      <div class="row">-->
+<!--        <div class="col-sm-12 form-group">-->
+<!--          <label for="imageInput">Đường dẫn hình ảnh</label>-->
+<!--          <input type="text" class="form-control" name="imageInput" id="imageInput" #imageInput="ngModel"-->
+<!--                 [(ngModel)]="product.imageUrl" placeholder="Đường dẫn hình ảnh"-->
+<!--                 [class]="{'is-invalid': imageInput.touched && imageInput.errors}" required/>-->
+<!--          <ng-template [ngIf]="imageInput.touched && imageInput.invalid">-->
+<!--            <div *ngIf="imageInput.errors?.required" class="invalid-feedback d-block">-->
+<!--              Vui lòng nhập đường dẫn-->
+<!--            </div>-->
+<!--          </ng-template>-->
+<!--        </div>-->
+<!--      </div>-->
+      <div class="form-group row">
+        <div class="col-12">
+          <label for="updateImgAgency" class="btn btn-success ml-1" type="button" style="height: 28px">Chọn ảnh</label>
+          <input (change)="logUpdateImageMainEvent($event)" type="file"  id="updateImgAgency"  style="display: none">
         </div>
       </div>
+      <div class="form-group row">
+        <div class="col-xl-3 col-lg-2 col-2">
+        </div>
+        <div class="filtr-item col-xl-6 col-lg-8 col-8 text-center">
+          <img [src]="this.product.imageUrl != null ? this.product.imageUrl : '../../../../assets/img/image-not-found.jpg'" id="updateImageAgencyData" onerror="this.onerror=null;this.src='../../../../assets/img/image-not-found.jpg';" style="width: 100%; height: auto; border-radius: 10px;"/>
+        </div>
+        <div class="col-xl-3 col-lg-2 col-2">
+        </div>
+      </div>
+      <div *ngIf="files != null || product.imageUrl != null" class="p-1 row">
+        <div class=" col-sm-5 text-center">
+        </div>
+        <div class="col-sm-2 text-center" >
+          <button type="button" class="btn btn-danger btn-sm" (click)="deleteImage()">
+            <i class="fas fa-trash"> </i>
+          </button>
+        </div>
+      </div>
+
     </div>
     <div class="modal-footer justify-content-between">
       <button (click)="hide()" type="button" class="btn btn-default">

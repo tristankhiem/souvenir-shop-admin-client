@@ -9,26 +9,30 @@ import {ProductModel} from '../../data-services/schema/product.model';
 })
 export class ProductService extends StoreBaseService {
   public search(search: BaseSearchModel<ProductModel[]>): Observable<any> {
-    return this.post('/api/product/search', search);
+    return this.post('/api/v1/product/findAll', search);
   }
 
   public getById(id: number): Observable<any> {
-    return this.get('/api/product/' + id);
+    return this.get('/api/v1/product/' + id);
   }
 
   public getLikeName(name: string): Observable<any> {
-    return this.get('/api/product/get-like-name/' + name);
+    return this.get('/api/v1/product/get-like-name/' + name);
   }
 
   public save(product: ProductModel): Observable<any> {
-    return this.post('/api/product/insert', product);
+    return this.post('/api/v1/product/insert', product);
   }
 
   public update(product: ProductModel): Observable<any> {
-    return this.put('/api/product/update', product);
+    return this.put('/api/v1/product/update', product);
   }
 
-  public deleteProduct(id: number): Observable<any> {
-    return this.delete('/api/product/delete/' + id);
+  public deleteProduct(id: string): Observable<any> {
+    return this.delete('/api/v1/product/delete/' + id);
+  }
+
+  public saveImage(productId: string, formData: FormData): Observable<any> {
+    return this.post('/api/v1/product/upload-image/' + productId, formData);
   }
 }

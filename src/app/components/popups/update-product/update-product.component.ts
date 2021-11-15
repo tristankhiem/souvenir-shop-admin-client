@@ -35,6 +35,8 @@ export class UpdateProductComponent implements AfterViewInit {
   public subCategory: SubCategoryModel = new SubCategoryModel();
   public subCategoryResult: SubCategoryModel[] = [];
   private targetModalLoading: ElementRef;
+  private typeFileImage = ['jpg', 'jpeg', 'png'];
+  public files: FormData = new FormData();
 
   ngAfterViewInit(): void {
     this.targetModalLoading = $(`#${this.addSubCategoryModalWrapper.id} .modal-dialog`);
@@ -97,16 +99,39 @@ export class UpdateProductComponent implements AfterViewInit {
     this.productService.update(this.product).subscribe(res => this.saveProductCompleted(res));
   }
 
-  private saveProductCompleted(res: ResponseModel<SubCategoryModel>): void {
+  private saveProductCompleted(res: ResponseModel<ProductModel>): void {
     this.loading.hide(this.targetModalLoading);
     if (res.status !== HTTP_CODE_CONSTANT.OK) {
       this.alert.errorMessages(res.message);
       return;
     }
+    this.product = res.result;
+    this.saveAgencyImage();
+  }
 
-    this.alert.successMessages(res.message);
-    this.saveCompleted.emit();
+  public saveAgencyImage(): void {
+    this.loading.show();
+    if (this.files != null) {
+      this.productService.saveImage(this.product.id, this.files)
+        .subscribe(res => this.saveAgencyImageCompleted(res));
+      return;
+    }
+    this.alert.success('Cập nhật sản phẩm thành công!');
     this.hide();
+    this.saveCompleted.emit();
+  }
+
+  private saveAgencyImageCompleted(res: ResponseModel<string[]>): void {
+    this.loading.hide();
+    if (res.status !== HTTP_CODE_CONSTANT.OK) {
+      res.message.forEach(value => {
+        this.alert.error(value);
+      });
+      return;
+    }
+    this.alert.success('Cập nhật hàng hóa thành công!');
+    this.hide();
+    this.saveCompleted.emit(res.result);
   }
 
   private getProduct(id: number): void{
@@ -123,5 +148,62 @@ export class UpdateProductComponent implements AfterViewInit {
 
     this.product = res.result;
     this.subCategory = this.product.subCategory;
+  }
+
+  public deleteImageOnShow(): void {
+    this.files = null;
+    if (this.product.imageUrl == null && $('#updateImageAgencyData').attr('src') !== '../../../../assets/img/image-not-found.jpg') {
+      $('#updateImageAgencyData').attr('src', '../../../../assets/img/image-not-found.jpg');
+    }
+  }
+
+  public deleteImage(): void {
+    this.product.imageUrl = null;
+    this.files = null;
+    if ($('#updateImageAgencyData').attr('src') !== '../../../../assets/img/image-not-found.jpg') {
+      $('#updateImageAgencyData').attr('src', '../../../../assets/img/image-not-found.jpg');
+    }
+  }
+
+  private validateFiles(files: File[]): boolean {
+    for (const item of files){
+      const typeOfFile = item.name.split('.').pop();
+      let flag = false;
+      for (const temp of this.typeFileImage){
+        if (temp === typeOfFile){
+          flag = true;
+          break;
+        }
+      }
+      if (flag === false){
+        this.alert.error('Chỉ chọn file ảnh có định dạng jpg, jpeg, png');
+        return false;
+      }
+    }
+    return true;
+  }
+
+  public logUpdateImageMainEvent(event): void {
+    if (this.product.imageUrl != null) {
+      this.alert.error('Vui lòng xóa ảnh trước khi chọn ảnh mới');
+      return;
+    }
+    const formData = new FormData();
+    if (this.validateFiles(event.target.files)) {
+      for (const item of event.target.files) {
+        formData.append('files', item, item.name);
+      }
+      this.files = formData;
+      if (event.target.files && event.target.files[0]) {
+        const reader = new FileReader();
+
+        reader.onload = (e) => {
+          $('#updateImageAgencyData').attr('src', e.target.result);
+        };
+
+        reader.readAsDataURL(event.target.files[0]);
+      }
+    }
+    $('#updateImgAgency').val(null);
   }
 }
