@@ -73,18 +73,18 @@ export class AddCustomerComponent implements AfterViewInit{
           return;
         }
         const currentDate = new Date(this.newCustomer.birthDate);
-        this.newCustomer.birthDate = new Date(currentDate.getTime()).toDateString();
-
+        //this.newCustomer.birthDate = new Date(currentDate.getTime()).toDateString();
+        this.newCustomer.isValid=true;
         this.saveCustomer();
     }
 
     private saveCustomer(): void {
         this.loading.show(this.targetModalLoading);
 
-        this.customerService.save(this.newCustomer).subscribe(res => this.saveEmployeeCompleted(res));
+        this.customerService.save(this.newCustomer).subscribe(res => this.saveCustomerCompleted(res));
     }
 
-    private saveEmployeeCompleted(res: ResponseModel<CustomerModel>): void {
+    private saveCustomerCompleted(res: ResponseModel<CustomerModel>): void {
         this.loading.hide(this.targetModalLoading);
         if (res.status !== HTTP_CODE_CONSTANT.OK) {
             this.alert.errorMessages(res.message);
