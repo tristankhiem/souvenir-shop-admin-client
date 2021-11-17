@@ -74,22 +74,9 @@
           </ng-template>
         </div>
       </div>
-<!--      <div class="row">-->
-<!--        <div class="col-sm-12 form-group">-->
-<!--          <label for="imageInput">Đường dẫn hình ảnh</label>-->
-<!--          <input type="text" class="form-control" name="imageInput" id="imageInput" #imageInput="ngModel"-->
-<!--                 [(ngModel)]="product.imageUrl" placeholder="Đường dẫn hình ảnh"-->
-<!--                 [class]="{'is-invalid': imageInput.touched && imageInput.errors}" required/>-->
-<!--          <ng-template [ngIf]="imageInput.touched && imageInput.invalid">-->
-<!--            <div *ngIf="imageInput.errors?.required" class="invalid-feedback d-block">-->
-<!--              Vui lòng nhập đường dẫn-->
-<!--            </div>-->
-<!--          </ng-template>-->
-<!--        </div>-->
-<!--      </div>-->
       <div class="form-group row">
         <div class="col-12">
-          <label for="updateImgAgency" class="btn btn-success ml-1" type="button" style="height: 28px">Chọn ảnh</label>
+          <label for="updateImgAgency" class="btn btn-success" type="button" style="height: 34px">Chọn ảnh</label>
           <input (change)="logUpdateImageMainEvent($event)" type="file"  id="updateImgAgency"  style="display: none">
         </div>
       </div>

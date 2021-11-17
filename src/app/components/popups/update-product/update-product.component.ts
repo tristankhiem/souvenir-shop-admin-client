@@ -37,6 +37,7 @@ export class UpdateProductComponent implements AfterViewInit {
   private targetModalLoading: ElementRef;
   private typeFileImage = ['jpg', 'jpeg', 'png'];
   public files: FormData = new FormData();
+  public sourcePath: string;
 
   ngAfterViewInit(): void {
     this.targetModalLoading = $(`#${this.addSubCategoryModalWrapper.id} .modal-dialog`);
@@ -44,6 +45,7 @@ export class UpdateProductComponent implements AfterViewInit {
 
   public show(product: SubCategoryModel, event: Event): void {
     event.preventDefault();
+    this.deleteImageOnShow();
     this.getProduct(product.id);
     this.addSubCategoryModalWrapper.show();
 
@@ -111,14 +113,42 @@ export class UpdateProductComponent implements AfterViewInit {
 
   public saveAgencyImage(): void {
     this.loading.show();
+    if (this.sourcePath != null && this.product.imageUrl == null) {
+      if (this.files != null) {
+        this.productService.deleteImage(this.product.id)
+          .subscribe(res => this.deleteAgencyImageCompleted(res, true));
+      } else {
+        this.productService.deleteImage(this.product.id)
+          .subscribe(res => this.deleteAgencyImageCompleted(res, false));
+      }
+      return;
+    }
     if (this.files != null) {
       this.productService.saveImage(this.product.id, this.files)
         .subscribe(res => this.saveAgencyImageCompleted(res));
       return;
     }
-    this.alert.success('Cập nhật sản phẩm thành công!');
+    this.alert.success('Cập nhật hàng hóa thành công!');
     this.hide();
     this.saveCompleted.emit();
+  }
+
+  private deleteAgencyImageCompleted(res: ResponseModel<string[]>, haveNewImage: boolean): void {
+    this.loading.hide();
+    if (res.status !== HTTP_CODE_CONSTANT.OK) {
+      res.message.forEach(value => {
+        this.alert.error(value);
+      });
+      return;
+    }
+    if (haveNewImage === false) {
+      this.alert.success('Cập nhật đại lý thành công!');
+      this.hide();
+      this.saveCompleted.emit(res.result);
+    } else {
+      this.productService.saveImage(this.product.id, this.files)
+        .subscribe(res2 => this.saveAgencyImageCompleted(res2));
+    }
   }
 
   private saveAgencyImageCompleted(res: ResponseModel<string[]>): void {
@@ -129,7 +159,7 @@ export class UpdateProductComponent implements AfterViewInit {
       });
       return;
     }
-    this.alert.success('Cập nhật hàng hóa thành công!');
+    this.alert.success('Cập nhật đại lý thành công!');
     this.hide();
     this.saveCompleted.emit(res.result);
   }
@@ -148,6 +178,9 @@ export class UpdateProductComponent implements AfterViewInit {
 
     this.product = res.result;
     this.subCategory = this.product.subCategory;
+    this.product.imageUrl = 'data:image/jpeg;base64,' + this.product.imageByte;
+    this.sourcePath = this.product.imageUrl;
+    this.files = null;
   }
 
   public deleteImageOnShow(): void {

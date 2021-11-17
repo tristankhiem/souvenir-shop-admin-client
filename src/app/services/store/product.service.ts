@@ -35,4 +35,8 @@ export class ProductService extends StoreBaseService {
   public saveImage(productId: string, formData: FormData): Observable<any> {
     return this.post('/api/v1/product/upload-image/' + productId, formData);
   }
+
+  public deleteImage(productId: string): Observable<any> {
+    return this.post('/api/v1/product/delete-image/' + productId, null);
+  }
 }

@@ -6,6 +6,7 @@ export class ProductModel {
   public quantity: number;
   public description: string;
   public imageUrl: string;
+  public imageByte: string;
   public sellingPrice: number;
   public subCategory: SubCategoryModel;
 
