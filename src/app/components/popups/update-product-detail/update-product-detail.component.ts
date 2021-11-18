@@ -45,6 +45,9 @@ export class UpdateProductDetailComponent implements AfterViewInit {
   public size: SizeModel = new SizeModel();
   public sizeResult: SizeModel[] = [];
   private targetModalLoading: ElementRef;
+  private typeFileImage = ['jpg', 'jpeg', 'png'];
+  public files: FormData = new FormData();
+  public sourcePath: string;
 
   ngAfterViewInit(): void {
     this.targetModalLoading = $(`#${this.updateProductDetailModalWrapper.id} .modal-dialog`);
@@ -52,6 +55,7 @@ export class UpdateProductDetailComponent implements AfterViewInit {
 
   public show(productDetail: ProductDetailModel, event: Event): void {
     event.preventDefault();
+    this.deleteImageOnShow();
     this.getProductDetail(productDetail.id);
     this.updateProductDetailModalWrapper.show();
 
@@ -153,12 +157,11 @@ export class UpdateProductDetailComponent implements AfterViewInit {
       return;
     }
 
-    this.alert.successMessages(res.message);
-    this.saveCompleted.emit();
-    this.hide();
+    this.productDetail = res.result;
+    this.saveAgencyImage();
   }
 
-  private getProductDetail(id: number): void{
+  private getProductDetail(id: string): void{
     this.loading.show();
     this.productDetailService.getById(id).subscribe(res => this.getProductDetailCompleted(res));
   }
@@ -174,5 +177,118 @@ export class UpdateProductDetailComponent implements AfterViewInit {
     this.size = this.productDetail.size;
     this.color = this.productDetail.color;
     this.product = this.productDetail.product;
+    this.productDetail.imageUrl = 'data:image/jpeg;base64,' + this.productDetail.imageByte;
+    this.sourcePath = this.productDetail.imageUrl;
+    this.files = null;
+  }
+
+  public saveAgencyImage(): void {
+    this.loading.show();
+    if (this.sourcePath != null && this.productDetail.imageUrl == null) {
+      if (this.files != null) {
+        this.productDetailService.deleteImage(this.productDetail.id)
+          .subscribe(res => this.deleteAgencyImageCompleted(res, true));
+      } else {
+        this.productDetailService.deleteImage(this.productDetail.id)
+          .subscribe(res => this.deleteAgencyImageCompleted(res, false));
+      }
+      return;
+    }
+    if (this.files != null) {
+      this.productDetailService.saveImage(this.productDetail.id, this.files)
+        .subscribe(res => this.saveAgencyImageCompleted(res));
+      return;
+    }
+    this.alert.success('Cập nhật hàng hóa thành công!');
+    this.hide();
+    this.saveCompleted.emit();
+  }
+
+  private deleteAgencyImageCompleted(res: ResponseModel<string[]>, haveNewImage: boolean): void {
+    this.loading.hide();
+    if (res.status !== HTTP_CODE_CONSTANT.OK) {
+      res.message.forEach(value => {
+        this.alert.error(value);
+      });
+      return;
+    }
+    if (haveNewImage === false) {
+      this.alert.success('Cập nhật hàng hóa thành công!');
+      this.hide();
+      this.saveCompleted.emit(res.result);
+    } else {
+      this.productDetailService.saveImage(this.productDetail.id, this.files)
+        .subscribe(res2 => this.saveAgencyImageCompleted(res2));
+    }
+  }
+
+  private saveAgencyImageCompleted(res: ResponseModel<string[]>): void {
+    this.loading.hide();
+    if (res.status !== HTTP_CODE_CONSTANT.OK) {
+      res.message.forEach(value => {
+        this.alert.error(value);
+      });
+      return;
+    }
+    this.alert.success('Cập nhật hàng hóa thành công!');
+    this.hide();
+    this.saveCompleted.emit(res.result);
+  }
+
+  public deleteImageOnShow(): void {
+    this.files = null;
+    if (this.productDetail.imageUrl == null && $('#updateImageAgencyData').attr('src') !== '../../../../assets/img/image-not-found.jpg') {
+      $('#updateImageAgencyData').attr('src', '../../../../assets/img/image-not-found.jpg');
+    }
+  }
+
+  public deleteImage(): void {
+    this.productDetail.imageUrl = null;
+    this.files = null;
+    if ($('#updateImageAgencyData').attr('src') !== '../../../../assets/img/image-not-found.jpg') {
+      $('#updateImageAgencyData').attr('src', '../../../../assets/img/image-not-found.jpg');
+    }
+  }
+
+  private validateFiles(files: File[]): boolean {
+    for (const item of files){
+      const typeOfFile = item.name.split('.').pop();
+      let flag = false;
+      for (const temp of this.typeFileImage){
+        if (temp === typeOfFile){
+          flag = true;
+          break;
+        }
+      }
+      if (flag === false){
+        this.alert.error('Chỉ chọn file ảnh có định dạng jpg, jpeg, png');
+        return false;
+      }
+    }
+    return true;
+  }
+
+  public logUpdateImageMainEvent(event): void {
+    if (this.productDetail.imageUrl != null) {
+      this.alert.error('Vui lòng xóa ảnh trước khi chọn ảnh mới');
+      return;
+    }
+    const formData = new FormData();
+    if (this.validateFiles(event.target.files)) {
+      for (const item of event.target.files) {
+        formData.append('files', item, item.name);
+      }
+      this.files = formData;
+      if (event.target.files && event.target.files[0]) {
+        const reader = new FileReader();
+
+        reader.onload = (e) => {
+          $('#updateImageAgencyData').attr('src', e.target.result);
+        };
+
+        reader.readAsDataURL(event.target.files[0]);
+      }
+    }
+    $('#updateImgAgency').val(null);
   }
 }

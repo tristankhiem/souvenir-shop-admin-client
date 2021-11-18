@@ -17,7 +17,7 @@ export class ProductService extends StoreBaseService {
   }
 
   public getLikeName(name: string): Observable<any> {
-    return this.get('/api/v1/product/get-like-name/' + name);
+    return this.get('/api/v1/product/get-like-name', {name});
   }
 
   public save(product: ProductModel): Observable<any> {

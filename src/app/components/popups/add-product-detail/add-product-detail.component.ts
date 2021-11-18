@@ -45,12 +45,16 @@ export class AddProductDetailComponent implements AfterViewInit {
   public size: SizeModel = new SizeModel();
   public sizeResult: SizeModel[] = [];
   private targetModalLoading: ElementRef;
+  private typeFileImage = ['jpg', 'jpeg', 'png'];
+  public files: FormData = new FormData();
 
   ngAfterViewInit(): void {
     this.targetModalLoading = $(`#${this.addProductDetailModalWrapper.id} .modal-dialog`);
   }
   public show(): void {
     this.addProductDetailModalWrapper.show();
+    $('#imageAgencyData').attr('src', '../../../../assets/img/image-not-found.jpg');
+    this.files = null;
   }
 
   public hide(): void {
@@ -150,8 +154,69 @@ export class AddProductDetailComponent implements AfterViewInit {
       return;
     }
 
-    this.alert.successMessages(res.message);
-    this.saveCompleted.emit();
+    this.productDetail = res.result;
+    this.saveProductImage();
+  }
+
+  public logImageMainEvent(event): void {
+    const formData = new FormData();
+    if (this.validateFiles(event.target.files)) {
+      for (const item of event.target.files) {
+        formData.append('files', item, item.name);
+      }
+      this.files = formData;
+      if (event.target.files && event.target.files[0]) {
+        const reader = new FileReader();
+
+        reader.onload = (e) => {
+          $('#imageAgencyData').attr('src', e.target.result);
+        };
+
+        reader.readAsDataURL(event.target.files[0]);
+      }
+    }
+    $('#imgAgency').val(null);
+  }
+
+  public deleteImage(): void {
+    this.productDetail.imageUrl = null;
+    this.files = null;
+    $('#imageAgencyData').attr('src', '../../../../assets/img/image-not-found.jpg');
+  }
+
+  private validateFiles(files: File[]): boolean {
+    for (const item of files){
+      const typeOfFile = item.name.split('.').pop();
+      let flag = false;
+      for (const temp of this.typeFileImage){
+        if (temp === typeOfFile){
+          flag = true;
+          break;
+        }
+      }
+      if (flag === false){
+        this.alert.error('Chỉ chọn file ảnh có định dạng jpg, jpeg, png');
+        return false;
+      }
+    }
+    return true;
+  }
+
+  public saveProductImage(): void {
+    this.loading.show();
+    this.productDetailService.saveImage(this.productDetail.id, this.files).subscribe(res => this.saveProductImageCompleted(res));
+  }
+
+  private saveProductImageCompleted(res: ResponseModel<string[]>): void {
+    this.loading.hide();
+    if (res.status !== HTTP_CODE_CONSTANT.OK) {
+      res.message.forEach(value => {
+        this.alert.error(value);
+      });
+      return;
+    }
+    this.alert.success('Thêm hàng hóa thành công!');
     this.hide();
+    this.saveCompleted.emit(res.result);
   }
 }

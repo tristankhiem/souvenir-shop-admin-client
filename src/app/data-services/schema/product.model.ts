@@ -20,6 +20,7 @@ export class ProductModel {
     this.quantity = product.quantity;
     this.description = product.description;
     this.imageUrl = product.imageUrl;
+    this.imageByte = product.imageByte;
     this.sellingPrice = product.sellingPrice;
     this.subCategory = new SubCategoryModel(product.subCategory);
   }

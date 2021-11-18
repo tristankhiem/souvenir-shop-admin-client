@@ -8,8 +8,6 @@ import {ResponseModel} from '../../../data-services/response.model';
 import {HTTP_CODE_CONSTANT} from '../../../constants/http-code.constant';
 import {SubCategoryService} from '../../../services/store/sub-category.service';
 import {SubCategoryModel} from '../../../data-services/schema/sub-category.model';
-import {CategoryModel} from '../../../data-services/schema/category.model';
-import {CategoryService} from '../../../services/store/category.service';
 import {ProductService} from '../../../services/store/product.service';
 import {ProductModel} from '../../../data-services/schema/product.model';
 

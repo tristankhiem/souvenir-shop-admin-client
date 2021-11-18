@@ -142,7 +142,7 @@ export class UpdateProductComponent implements AfterViewInit {
       return;
     }
     if (haveNewImage === false) {
-      this.alert.success('Cập nhật đại lý thành công!');
+      this.alert.success('Cập nhật hàng hóa thành công!');
       this.hide();
       this.saveCompleted.emit(res.result);
     } else {
@@ -159,7 +159,7 @@ export class UpdateProductComponent implements AfterViewInit {
       });
       return;
     }
-    this.alert.success('Cập nhật đại lý thành công!');
+    this.alert.success('Cập nhật hàng hóa thành công!');
     this.hide();
     this.saveCompleted.emit(res.result);
   }
