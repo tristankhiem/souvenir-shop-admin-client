@@ -12,6 +12,10 @@ export class ProductDetailService extends StoreBaseService {
     return this.post('/api/v1/product-detail/findAll', search);
   }
 
+  public getLikeName(name: string): Observable<any> {
+    return this.get('/api/v1/product-detail/get-like-name/' + name);
+  }
+
   public getById(id: string): Observable<any> {
     return this.get('/api/v1/product-detail/' + id);
   }
