@@ -35,7 +35,7 @@ export class UpdateProductComponent implements AfterViewInit {
   public subCategory: SubCategoryModel = new SubCategoryModel();
   public subCategoryResult: SubCategoryModel[] = [];
   private targetModalLoading: ElementRef;
-  private typeFileImage = ['jpg', 'jpeg', 'png'];
+  private typeFileImage = ['jpg', 'jpeg', 'png', 'JPG'];
   public files: FormData = new FormData();
   public sourcePath: string;
 
@@ -108,10 +108,10 @@ export class UpdateProductComponent implements AfterViewInit {
       return;
     }
     this.product = res.result;
-    this.saveAgencyImage();
+    this.saveProductImage();
   }
 
-  public saveAgencyImage(): void {
+  public saveProductImage(): void {
     this.loading.show();
     if (this.sourcePath != null && this.product.imageUrl == null) {
       if (this.files != null) {

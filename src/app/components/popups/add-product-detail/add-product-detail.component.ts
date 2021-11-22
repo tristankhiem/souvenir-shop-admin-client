@@ -45,7 +45,7 @@ export class AddProductDetailComponent implements AfterViewInit {
   public size: SizeModel = new SizeModel();
   public sizeResult: SizeModel[] = [];
   private targetModalLoading: ElementRef;
-  private typeFileImage = ['jpg', 'jpeg', 'png'];
+  private typeFileImage = ['jpg', 'jpeg', 'png', 'JPG'];
   public files: FormData = new FormData();
 
   ngAfterViewInit(): void {

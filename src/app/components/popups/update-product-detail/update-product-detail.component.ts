@@ -200,6 +200,7 @@ export class UpdateProductDetailComponent implements AfterViewInit {
       return;
     }
     this.alert.success('Cập nhật hàng hóa thành công!');
+    this.loading.hide();
     this.hide();
     this.saveCompleted.emit();
   }

@@ -35,7 +35,7 @@ export class AddProductComponent implements AfterViewInit {
   public subCategory: SubCategoryModel = new SubCategoryModel();
   public subCategoryResult: SubCategoryModel[] = [];
   private targetModalLoading: ElementRef;
-  private typeFileImage = ['jpg', 'jpeg', 'png'];
+  private typeFileImage = ['jpg', 'jpeg', 'png', 'JPG'];
   public files: FormData = new FormData();
 
 
