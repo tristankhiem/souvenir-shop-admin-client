@@ -1,0 +1,163 @@
+<app-modal-wrapper [size]="'modal-lg'" #updateImportingOrderModalWrapper title="Cập nhật phiếu nhập hàng" (hideEvent)="onHideEvent()">
+  <form #updateImportingOrderForm="ngForm" novalidate (submit)="onSave()" >
+    <div class="modal-body">
+      <div class="row">
+        <div class="col-sm-6 form-group">
+          <label>Nhà cung cấp</label>
+          <p-autoComplete inputStyleClass="form-control" name="supplierInput" id="supplierInput" #supplierInput="ngModel"
+                          [(ngModel)]="supplier" [suggestions]="supplierResult"
+                          (completeMethod)="searchSuppliers($event)" field="name" size="100%"
+                          placeholder="Nhập nhà cung cấp" [minLength]="1" [autoHighlight]="true"
+                          (onSelect)="selectSupplier()" required
+                          emptyMessage="Không tìm thấy"
+                          [class]="{'is-invalid': supplierInput.touched && supplierInput.errors}">
+            <ng-template let-item pTemplate="item">
+              <div>{{item.name}}</div>
+            </ng-template>
+          </p-autoComplete>
+          <ng-template [ngIf]="supplierInput.touched && supplierInput.invalid">
+            <div *ngIf="supplierInput.errors?.required" class="invalid-feedback d-block">
+              Vui lòng nhập nhà cung cấp
+            </div>
+          </ng-template>
+        </div>
+        <div class="col-sm-6 form-group">
+          <label for="statusInput">Trạng thái</label>
+          <select name="statusInput" id="statusInput" class="custom-select"
+                  #statusInput="ngModel"
+                  [(ngModel)]="importingOrder.status" required
+                  [class]="{'is-invalid': statusInput.touched && statusInput.value === 0}">
+            <option value="0" disabled>Chọn trạng thái</option>
+            <option [value]="'Chờ xác nhận'">Chờ xác nhận</option>
+            <option [value]="'Đã xác nhận'">Đã xác nhận</option>
+            <option [value]="'Đang giao'">Đang giao</option>
+            <option [value]="'Đã hoàn thành'">Đã hoàn thành</option>
+            <option [value]="'Đã huỷ'">Đã huỷ</option>
+          </select>
+          <ng-template [ngIf]="statusInput.touched">
+            <div *ngIf="statusInput.value === 0" class="invalid-feedback d-block">
+              Vui lòng chọn trạng thái
+            </div>
+          </ng-template>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-6 form-group">
+          <label>Ngày xuất hoá đơn</label>
+          <app-date-picker [(startDate)]="importingOrder.invoiceDate"
+                           parentEl="{{updateImportingOrderModalWrapper.id}}"></app-date-picker>
+        </div>
+        <div class="col-sm-6 form-group">
+          <label>Ngày giao</label>
+          <app-date-picker [(startDate)]="importingOrder.deliveryDate"
+                           parentEl="{{updateImportingOrderModalWrapper.id}}"></app-date-picker>
+        </div>
+      </div>
+      <hr>
+      <div class="row">
+        <div class="col-sm-6 form-group">
+          <label>Sản phẩm</label>
+          <p-autoComplete inputStyleClass="form-control" name="productDetailInput" id="productDetailInput" #productDetailInput="ngModel"
+                          [(ngModel)]="productDetail" [suggestions]="productDetailResult"
+                          (completeMethod)="searchProductDetails($event)" field="name" size="100%"
+                          placeholder="Nhập tên hàng hóa" [minLength]="1" [autoHighlight]="true"
+                          (onSelect)="selectProduct()"
+                          emptyMessage="Không tìm thấy"
+                          [class]="{'is-invalid': productDetailInput.touched && productDetailInput.errors}">
+            <ng-template let-item pTemplate="item">
+              <div>{{item.name}}</div>
+            </ng-template>
+          </p-autoComplete>
+        </div>
+        <div class="col-sm-3 form-group">
+          <label for="quantityInput">Số lượng</label>
+          <input type="number" class="form-control" name="quantityInput" id="quantityInput" #quantityInput="ngModel"
+                 [(ngModel)]="transactionSelected.quantity" placeholder="Số lượng"
+                 [class]="{'is-invalid': quantityInput.touched && quantityInput.errors}" required/>
+          <ng-template [ngIf]="quantityInput.touched && quantityInput.invalid">
+            <div *ngIf="quantityInput.errors?.required" class="invalid-feedback d-block">
+              Vui lòng nhập số lượng
+            </div>
+          </ng-template>
+        </div>
+        <div class="col-sm-3 form-group">
+          <label for="importingPrice">Giá nhập</label>
+          <input type="number" class="form-control" name="importingPrice" id="importingPrice" #importingPrice="ngModel"
+                 [(ngModel)]="transactionSelected.price" placeholder="Giá nhập"
+                 [class]="{'is-invalid': importingPrice.touched && importingPrice.errors}" required/>
+          <ng-template [ngIf]="importingPrice.touched && importingPrice.invalid">
+            <div *ngIf="importingPrice.errors?.required" class="invalid-feedback d-block">
+              Vui lòng nhập giá nhập
+            </div>
+          </ng-template>
+        </div>
+      </div>
+      <div class="row form-group" style="margin: 7px 0">
+        <div *ngIf="!updateMode" class="col-3">
+          <button (click)="saveTransaction()" type="button" class=" form-control btn btn-success">Thêm</button>
+        </div>
+        <div *ngIf="updateMode" class="col-3">
+          <button (click)="saveTransaction()" type="button" size="100%" class=" form-control btn btn-info">Sửa
+          </button>
+        </div>
+        <div *ngIf="updateMode" class="col-3">
+          <button (click)="cancelTransaction()" type="button" class=" form-control btn btn-danger">Hủy</button>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12">
+          <div class="card">
+            <div class="card-body table-responsive p-0" style="height: 250px;">
+              <table class="table table-head-fixed text-nowrap">
+                <thead>
+                <tr>
+                  <th>Tên sản phẩm</th>
+                  <th>Số lượng</th>
+                  <th>Đơn giá</th>
+                  <th>Thành tiền</th>
+                  <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr *ngFor="let item of importingOrder.importingTransactions, let key = index">
+                  <td>{{item.productDetail.name}}</td>
+                  <td>{{item.quantity}}</td>
+                  <td>{{item.price | number}}</td>
+                  <td>{{item.quantity*item.price | number}}</td>
+                  <td>
+                    <app-dropdown-menu>
+                      <a class="dropdown-item text-cyan" (click)="selectTransaction(key)">
+                        <i class="far fa-edit"></i>
+                        Sửa
+                      </a>
+                      <a class="dropdown-item text-red" (click)="deleteTransaction(key)">
+                        <i class="far fa-trash-alt mr-1"></i>
+                        Xóa
+                      </a>
+                    </app-dropdown-menu>
+                  </td>
+                </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-12">
+          <label class="float-right">Tổng tiền: {{this.getTotal() | number}} đồng</label>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer justify-content-between">
+      <button (click)="hide()" type="button" class="btn btn-default">
+        <i class="fas fa-times mr-1"></i>
+        Đóng
+      </button>
+      <button type="submit" class="btn btn-primary" [disabled]="!isValid()">
+        <i class="far fa-save mr-1"></i>
+        Lưu
+      </button>
+    </div>
+  </form>
+</app-modal-wrapper>

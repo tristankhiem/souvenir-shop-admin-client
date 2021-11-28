@@ -14,7 +14,7 @@ export class SupplierService extends StoreBaseService {
   }
 
   public getLikeName(name: string): Observable<any> {
-    return this.get('/api/v1/supplier/get-like-name/' + name);
+    return this.get('/api/v1/supplier/get-like-name/', {name});
   }
 
   public getById(id: number): Observable<any> {

@@ -10,22 +10,22 @@ import {ImportingOrderFullModel} from '../../data-services/schema/importing-orde
 })
 export class ImportingOrderService extends StoreBaseService {
   public search(search: BaseSearchModel<ImportingOrderModel[]>): Observable<any> {
-    return this.post('/api/v1/importing-controller/search', search);
+    return this.post('/api/v1/importing-order/search', search);
   }
 
-  public getById(id: string): Observable<any> {
-    return this.get('/api/v1/importing-controller/' + id);
+  public getById(id: number): Observable<any> {
+    return this.get('/api/v1/importing-order/get-by-id/' + id);
   }
 
   public save(importingOrder: ImportingOrderFullModel): Observable<any> {
-    return this.post('/api/v1/importing-controller/insert', importingOrder);
+    return this.post('/api/v1/importing-order/insert', importingOrder);
   }
 
   public update(importingOrder: ImportingOrderFullModel): Observable<any> {
-    return this.put('/api/v1/importing-controller/update', importingOrder);
+    return this.put('/api/v1/importing-order/update', importingOrder);
   }
 
   public deleteImportingOrder(id: number): Observable<any> {
-    return this.delete('/api/v1/importing-controller/delete/' + id);
+    return this.delete('/api/v1/importing-order/delete/' + id);
   }
 }
