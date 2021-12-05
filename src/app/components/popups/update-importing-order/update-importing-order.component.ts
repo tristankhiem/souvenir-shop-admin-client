@@ -56,7 +56,6 @@ export class UpdateImportingOrderComponent implements AfterViewInit {
     event.preventDefault();
     this.getImportingOrder(importingOrder.id);
     this.updateImportingOrderModalWrapper.show();
- 
   }
 
   public hide(): void {
@@ -131,13 +130,14 @@ export class UpdateImportingOrderComponent implements AfterViewInit {
     } else {
       this.importingOrder.importingTransactions.push(this.transactionSelected);
     }
-    this.updateMode = false;
+    this.cancelTransaction();
   }
 
   public selectTransaction(index: number): void {
     this.updateMode = true;
     this.indexSelected = index;
-    this.transactionSelected = this.importingOrder.importingTransactions[index];
+    this.transactionSelected = new ImportingTransactionModel(this.importingOrder.importingTransactions[index]);
+    this.productDetail = new ProductDetailModel(this.transactionSelected.productDetail);
   }
 
   public cancelTransaction(): void {
@@ -153,7 +153,7 @@ export class UpdateImportingOrderComponent implements AfterViewInit {
 
   private saveImport(): void {
     this.loading.show(this.targetModalLoading);
-    this.importingOrderService.save(this.importingOrder).subscribe(res => this.saveImportCompleted(res));
+    this.importingOrderService.update(this.importingOrder).subscribe(res => this.saveImportCompleted(res));
   }
 
   private saveImportCompleted(res: ResponseModel<ImportingOrderFullModel>): void {
@@ -176,20 +176,18 @@ export class UpdateImportingOrderComponent implements AfterViewInit {
     return total;
   }
 
-  private getImportingOrder(id: number): void 
-  {
+  private getImportingOrder(id: number): void {
     this.loading.show();
     this.importingOrderService.getById(id).subscribe(res => this.getImportingOrderCompleted(res));
   }
-  private getImportingOrderCompleted (res: ResponseModel<ImportingOrderFullModel>): void
-  {
+
+  private getImportingOrderCompleted(res: ResponseModel<ImportingOrderFullModel>): void {
     this.loading.hide();
     if (res.status !== HTTP_CODE_CONSTANT.OK) {
       this.alert.errorMessages(res.message);
       return;
     }
-    this.importingOrder=res.result;
+    this.importingOrder = res.result;
     this.supplier = this.importingOrder.supplier;
-  
   }
-} 
+}

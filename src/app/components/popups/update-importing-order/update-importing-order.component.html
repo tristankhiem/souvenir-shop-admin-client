@@ -72,8 +72,7 @@
         <div class="col-sm-3 form-group">
           <label for="quantityInput">Số lượng</label>
           <input type="number" class="form-control" name="quantityInput" id="quantityInput" #quantityInput="ngModel"
-                 [(ngModel)]="transactionSelected.quantity" placeholder="Số lượng"
-                 [class]="{'is-invalid': quantityInput.touched && quantityInput.errors}" required/>
+                 [(ngModel)]="transactionSelected.quantity" placeholder="Số lượng"/>
           <ng-template [ngIf]="quantityInput.touched && quantityInput.invalid">
             <div *ngIf="quantityInput.errors?.required" class="invalid-feedback d-block">
               Vui lòng nhập số lượng
@@ -83,8 +82,7 @@
         <div class="col-sm-3 form-group">
           <label for="importingPrice">Giá nhập</label>
           <input type="number" class="form-control" name="importingPrice" id="importingPrice" #importingPrice="ngModel"
-                 [(ngModel)]="transactionSelected.price" placeholder="Giá nhập"
-                 [class]="{'is-invalid': importingPrice.touched && importingPrice.errors}" required/>
+                 [(ngModel)]="transactionSelected.price" placeholder="Giá nhập"/>
           <ng-template [ngIf]="importingPrice.touched && importingPrice.invalid">
             <div *ngIf="importingPrice.errors?.required" class="invalid-feedback d-block">
               Vui lòng nhập giá nhập

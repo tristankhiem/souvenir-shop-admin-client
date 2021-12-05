@@ -50,6 +50,8 @@ export class AddImportingOrderComponent implements AfterViewInit {
 
   ngAfterViewInit(): void {
     this.targetModalLoading = $(`#${this.addImportingOrderModalWrapper.id} .modal-dialog`);
+    this.importingOrder.invoiceDate = new Date().toDateString();
+    this.importingOrder.deliveryDate = new Date().toDateString();
   }
 
   public show(): void {
@@ -130,13 +132,14 @@ export class AddImportingOrderComponent implements AfterViewInit {
     } else {
       this.importingOrder.importingTransactions.push(this.transactionSelected);
     }
-    this.updateMode = false;
+    this.cancelTransaction();
   }
 
   public selectTransaction(index: number): void {
     this.updateMode = true;
     this.indexSelected = index;
-    this.transactionSelected = this.importingOrder.importingTransactions[index];
+    this.transactionSelected = new ImportingTransactionModel(this.importingOrder.importingTransactions[index]);
+    this.productDetail = new ProductDetailModel(this.transactionSelected.productDetail);
   }
 
   public cancelTransaction(): void {
