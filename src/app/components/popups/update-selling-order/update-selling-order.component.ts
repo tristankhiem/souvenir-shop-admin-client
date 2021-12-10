@@ -90,10 +90,6 @@ export class UpdateSellingOrderComponent implements AfterViewInit {
     if (!this.isValid()){
       return;
     }
-    let currentDate = new Date(this.sellingOrder.invoiceDate);
-    this.sellingOrder.invoiceDate = new Date(currentDate.getTime()).toDateString();
-    currentDate = new Date(this.sellingOrder.deliveryDate);
-    this.sellingOrder.deliveryDate = new Date(currentDate.getTime()).toDateString();
     this.saveSellingOrder();
   }
 

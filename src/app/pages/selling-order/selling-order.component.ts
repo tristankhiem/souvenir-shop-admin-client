@@ -54,7 +54,7 @@ export class SellingOrderComponent implements OnInit {
 
   public openDeleteModal(sellingOrder: SellingOrderModel, event: Event): void {
     event.preventDefault();
-    this.modal.confirm(`Bạn có chắc chắn muốn xóa phiếu nhập?`, 'Xóa phiếu nhập', true)
+    this.modal.confirm(`Bạn có chắc chắn muốn xóa hóa đơn?`, 'Xóa hóa đơn', true)
       .subscribe(res => this.confirmDeleteSellingOrder(res, sellingOrder));
   }
 

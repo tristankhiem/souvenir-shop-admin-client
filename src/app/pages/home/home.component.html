@@ -2,13 +2,25 @@
 <section class="content-header">
   <div class="container-fluid">
     <div class="row mb-2">
-      <div class="col-sm-12">
+      <div class="col-12">
         <div class="card">
-          <div class="card-body">
+          <div class="card-header">
             <div class="row form-group">
               <label class="col-lg-2 mt-1">Doanh thu</label>
+              <div class="col-lg-3">
+                <select [(ngModel)]="revenueType" (change)="getRevenueAndOrderWithOption()" class="form-select">
+                  <option [value]="0">Tháng này</option>
+                  <option [value]="1">Quý này</option>
+                  <option [value]="2">Năm này</option>
+                  <option [value]="4">Tháng trước</option>
+                  <option [value]="5">Quý trước</option>
+                  <option [value]="6">Năm trước</option>
+                </select>
+              </div>
             </div>
-            <p-chart type="line" [options]="costOption" [data]="costData" width="100%" height="55vh"></p-chart>
+          </div>
+          <div class="card-body">
+            <p-chart type="line" [options]="revenueOption" [data]="revenueAndOrderData" width="100%" height="55vh"></p-chart>
           </div>
         </div>
       </div>
