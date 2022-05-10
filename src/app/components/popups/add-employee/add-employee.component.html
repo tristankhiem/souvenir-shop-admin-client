@@ -45,15 +45,11 @@
         <div class="col-sm-6 form-group">
           <label for="passwordInputAdd">Password</label>
           <input type="text" class="form-control" name="passwordInputAdd" id="passwordInputAdd" #passwordInputAdd="ngModel"
-                 minlength="10" [pattern]="passwordPattern" [(ngModel)]="newEmployee.password" placeholder="Password"
+                 [(ngModel)]="newEmployee.password" placeholder="Password"
                  [class]="{'is-invalid': passwordInputAdd.touched && passwordInputAdd.errors}" required/>
           <ng-template [ngIf]="passwordInputAdd.touched && passwordInputAdd.invalid">
             <div *ngIf="passwordInputAdd.errors?.required" class="invalid-feedback d-block">
               Vui lòng nhập password
-            </div>
-            <div *ngIf="passwordInputAdd.errors?.minlength || passwordInputAdd.errors?.pattern"
-                 class="invalid-feedback d-block">
-                Mật khẩu có ít nhất 10 ký tự và 1 ký tự đặc biệt (!@#$%^&*...)
             </div>
           </ng-template>
         </div>
